@@ -1,11 +1,121 @@
 var GoogleSpreadsheet = require('google-spreadsheet');
 var async = require('async');
 var schedule = require('node-schedule');
+var dateFormat = require('dateformat');
 
-//autosheet model
-var autosheet = require('../model/autoSheet');
 
-//function auto
+//model
+var autosheet_model = require('../model/autoSheet');
+var auth_model = require('../model/auth');
+
+// lấy danh sách telesale
+function get_telesale(student) {
+    auth_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
+        if (err) {
+            console.log('get_telesale ' + err);
+        } else {
+            if (data.length > 0) {
+                insertStudent(student, data[0]);
+            }
+        }
+
+    }).sort({ 'Student_in_month.Total': 1 });
+}
+
+// reset student trong tháng mỗi đầu tháng
+function reset_student(_m) {
+    auth_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
+        if (err) {
+            console.log('reset_student ' + err);
+        } else {
+            if (data.length > 0) {
+                if (_m > data[0].Student_in_month[0].Month) {
+                    new_student_in_month = {
+                        Total: 0,
+                        Waiting: 0,
+                        Out: 0,
+                        In: 0,
+                        Month: _m
+                    }
+                    data.forEach(element => {
+                        element.Student_in_month = new_student_in_month;
+                        element.save(function (err) {
+                            if (err) {
+                                console.log('save reset ' + err)
+                            }
+                        })
+                    });
+                }
+            }
+        }
+    })
+}
+
+// cập nhật thông tin cho telesale
+function update_total_for_tele(Username) {
+    auth_model.findOne({ Username: Username }, function (err, data) {
+        _total = parseInt(data.Student_in_month[0].Total) + 1;
+        _wai = data.Student_in_month[0].Waiting;
+        _in = data.Student_in_month[0].In;
+        _out = data.Student_in_month[0].Out;
+        _month = data.Student_in_month[0].Month;
+        _in_month = {
+            Total: _total,
+            Waiting: _wai,
+            Out: _in,
+            In: _out,
+            Month : _month
+        }
+        data.Student_in_month = _in_month;
+        data.save(function (err) {
+            if (err) {
+                console.log('update for telesale ' + err);
+            }
+        })
+    })
+
+}
+
+// thêm học viên và chia cho telesale
+function insertStudent(stude, tele) {
+    autosheet_model.find({}, function (err, data) {
+        let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
+        let timereg = dateFormat(new Date(), "HH:MM:ss")
+        let manager = {
+            id: tele.Username,
+            name: tele.Fullname
+        }
+        let status_student = {
+            id: 0,
+            name: 'Chưa đăng ký'
+        }
+        let student = new autosheet_model({
+            Id_sheet: stude.id,
+            Fullname: stude.họtên,
+            Email: stude.email,
+            Phone: stude.sốđiệnthoại,
+            Sex: null,
+            Address: null,
+            Regday: dayreg,
+            Regtime: timereg,
+            Note: null,
+            Center: null,
+            Appointment_day: null,
+            Appointment_time: null,
+            Status_student: status_student,
+            Manager: manager
+        });
+        student.save(function (err) {
+            if (err) {
+                console.log('save student ' + err)
+            } else {
+                update_total_for_tele(tele.Username);
+            }
+        })
+    });
+}
+
+//function auto check google sheet
 function getSheet() {
     var doc = new GoogleSpreadsheet('1wP1ef6NS_eUixv4Vyz6VxLFISKNUP7GoRojsqu6dLiU');
     var sheet;
@@ -17,51 +127,38 @@ function getSheet() {
         },
         function getInfoAndWorksheets(step) {
             doc.getInfo(function (err, info) {
-                sheet = info.worksheets[0];
+                if (info !== undefined) {
+                    sheet = info.worksheets[0];
+                }
                 step();
             });
         },
         function workingWithRows(step) {
             // google provides some query options
-            sheet.getRows({
-                offset: 1
-                // orderby: 'col2'
-            }, function (err, rows) {
-                if (rows.length > 0) {
-                    for (let i = 0; i < rows.length; i++) {
-                        if (rows[i].move === "" && rows[i]) {
-                            autosheet.find({ Id_sheet: rows[i].id }, function (err, data) {
-                                if (data.length === 0) {
-                                    let student = new autosheet({
-                                        Id_sheet: rows[i].id,
-                                        Fullname: rows[i].họtên,
-                                        Email: rows[i].email,
-                                        Phone: rows[i].sốđiệnthoại,
-                                        Sex: null,
-                                        Address: null,
-                                        Regday: null,
-                                        Note: null,
-                                        Center: null,
-                                        Appointment_day: null,
-                                        Appointment_time: null,
-                                        Status_student: null
-                                    });
-
-                                    student.save(function (err) {
-                                        if (err) {
-                                            console.log(err)
-                                        } else {
-                                            rows[i].move = "moved";
-                                            rows[i].save();
-                                        }
-                                    })
+            if (sheet !== undefined) {
+                sheet.getRows({
+                    offset: 1
+                    // orderby: 'col2'
+                }, function (err, rows) {
+                    if (rows !== undefined && rows !== null) {
+                        if (rows.length > 0) {
+                            var j = 0;
+                            //lấy danh sách học viên mới
+                            for (let i = 0; i < rows.length; i++) {
+                                if (rows[i].move === "") {
+                                    if (j < 1) {
+                                        rows[i].move = "moved";
+                                        rows[i].save();
+                                        get_telesale(rows[i]);
+                                        j++;
+                                    }
                                 }
-                            });
+                            }
                         }
                     }
-                }
-                step();
-            });
+                    step();
+                });
+            }
         }
     ], function (err) {
         if (err) {
@@ -74,7 +171,12 @@ function getSheet() {
 schedule function
 1. function check student automatic every minute
 */
-schedule.scheduleJob('*/1 * * * *', function () {
+schedule.scheduleJob('0 0 0 * * *', function () {
+    let _the_month = dateFormat(new Date(), 'mm');
+    reset_student(parseInt(_the_month));
+})
+
+schedule.scheduleJob('*/2 * * * * *', function () {
     getSheet();
 })
 

@@ -3,6 +3,7 @@ var sas = express();
 var bodyParser = require('body-parser');
 port = process.env.port || 191;
 var http = http.Server(sas);
+var io = require('socket.io')(http);
 
 sas.use(bodyParser.urlencoded({
     extended: true
@@ -31,15 +32,35 @@ sas.use(function (req, res, next) {
     next();
 })
 
+//-- Socket IO --/
+io.on('connection', function(socket){
+
+});
+
 //-- Controller --//
+var AutoCtrl = require('./controller/autoSheetCtrl');
 var AuthCtrl = require('./controller/authCtrl');
+var StudentCtrl = require('./controller/studentCtrl');
 
 //-- Api --//
 
 //Auth
-sas.post('create', function(req, res){
+sas.post('/signup', function (req, res) {
     AuthCtrl.Signup(req, res);
 });
+
+sas.post('/signin', function (req, res) {
+    AuthCtrl.Signin(req, res);
+})
+
+sas.post('/update', function (req, res) {
+    AuthCtrl.Update(req, res);
+})
+
+//Student
+sas.post('/getall', function (req, res) {
+    StudentCtrl.Getall(req, res);
+})
 
 //-- Run server --//
 http.listen(port);

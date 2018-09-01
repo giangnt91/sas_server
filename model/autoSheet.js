@@ -12,11 +12,13 @@ var student = new mongoose.Schema({
     Sex: Array,
     Address: String,
     Regday: String,
+    Regtime: String,
     Note: String,
     Center: String,
     Appointment_day: String,
     Appointment_time: String,
-    Status_student: Array
+    Status_student: Array,
+    Manager: Array
 }, { versionKey: false });
 
 //create model based a schema
