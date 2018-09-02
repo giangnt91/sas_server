@@ -11,12 +11,12 @@ sas.use(bodyParser.urlencoded({
 sas.use(bodyParser.json());
 sas.use(function (req, res, next) {
     //allow connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    // var allowedOrigins = ['http://35.240.165.98:8080', 'http://localhost:8080', 'http://localhost:8081', 'http://192.168.1.111:8100', 'http://coupon10k.com', 'http://shop.coupon10k.com'];
-    // var origin = req.headers.origin;
-    // if (allowedOrigins.indexOf(origin) > -1) {
-    //     res.setHeader('Access-Control-Allow-Origin', origin);
-    // }
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    var allowedOrigins = ['http://35.240.165.98:199', 'http://localhost:8080', 'http://localhost:8081', 'http://192.168.1.111:8100', 'http://coupon10k.com', 'http://shop.coupon10k.com'];
+    var origin = req.headers.origin;
+    if (allowedOrigins.indexOf(origin) > -1) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
