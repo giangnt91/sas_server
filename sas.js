@@ -33,7 +33,7 @@ sas.use(function (req, res, next) {
 })
 
 //-- Socket IO --/
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
 
 });
 
@@ -58,8 +58,16 @@ sas.post('/update', function (req, res) {
 })
 
 //Student
+sas.post('/cstudent', function (req, res) {
+    StudentCtrl.CreateStudent(req, res)
+})
+
 sas.post('/getall', function (req, res) {
     StudentCtrl.Getall(req, res);
+})
+
+sas.post('/upstudent', function (req, res) {
+    StudentCtrl.UpdateById(req, res);
 })
 
 //-- Run server --//

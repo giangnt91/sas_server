@@ -2,6 +2,7 @@ var GoogleSpreadsheet = require('google-spreadsheet');
 var async = require('async');
 var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
+var mongoose = require('mongoose');
 
 
 //model
@@ -64,7 +65,7 @@ function update_total_for_tele(Username) {
             Waiting: _wai,
             Out: _in,
             In: _out,
-            Month : _month
+            Month: _month
         }
         data.Student_in_month = _in_month;
         data.save(function (err) {
@@ -78,40 +79,53 @@ function update_total_for_tele(Username) {
 
 // thêm học viên và chia cho telesale
 function insertStudent(stude, tele) {
-    autosheet_model.find({}, function (err, data) {
-        let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
-        let timereg = dateFormat(new Date(), "HH:MM:ss")
-        let manager = {
-            id: tele.Username,
-            name: tele.Fullname
-        }
-        let status_student = {
-            id: 0,
-            name: 'Chưa đăng ký'
-        }
-        let student = new autosheet_model({
-            Id_sheet: stude.id,
-            Fullname: stude.họtên,
-            Email: stude.email,
-            Phone: stude.sốđiệnthoại,
-            Sex: null,
-            Address: null,
-            Regday: dayreg,
-            Regtime: timereg,
-            Note: null,
-            Center: null,
-            Appointment_day: null,
-            Appointment_time: null,
-            Status_student: status_student,
-            Manager: manager
-        });
-        student.save(function (err) {
-            if (err) {
-                console.log('save student ' + err)
-            } else {
-                update_total_for_tele(tele.Username);
+    autosheet_model.find({ Id_sheet: stude.id }, function (err, data) {
+        if (err) {
+            console.log('insertStudent ' + err);
+        } else {
+            if (data.length === 0) {
+                let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
+                let timereg = dateFormat(new Date(), "HH:MM:ss")
+                let manager = {
+                    id: tele.Username,
+                    name: tele.Fullname
+                }
+                let status_student = {
+                    id: 0,
+                    name: 'Chưa đăng ký'
+                }
+                let student = new autosheet_model({
+                    IdforFrend: mongoose.Types.ObjectId(),
+                    Id_sheet: stude.id,
+                    Fullname: stude.họtên,
+                    Email: stude.email,
+                    Phone: stude.sốđiệnthoại,
+                    Sex: null,
+                    Address: null,
+                    Regday: dayreg,
+                    Regday2: null,
+                    Regtime: timereg,
+                    Note: null,
+                    Center: null,
+                    Time_recall: null,
+                    Appointment_day: null,
+                    Appointment_time: null,
+                    Appointment_1st: false,
+                    Appointment_not_1st: false,
+                    unregistered: false,
+                    Status_student: status_student,
+                    ListFriend: null,
+                    Manager: manager
+                });
+                student.save(function (err) {
+                    if (err) {
+                        console.log('save student ' + err)
+                    } else {
+                        update_total_for_tele(tele.Username);
+                    }
+                })
             }
-        })
+        }
     });
 }
 
