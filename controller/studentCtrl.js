@@ -32,6 +32,31 @@ module.exports = {
             }
         }).sort({ _id: -1 })
     },
+    Getfornof: function (req, res) {
+        student_model.find({'Appointment_time.name': req.body.Time, 'Appointment_day':  req.body.Day}, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    let _role = req.body.Role;
+                    let _user = req.body.Username;
+                    var _list_student = [];
+                    if (_role[0].id === 0) {
+                        response = { 'error_code': 0, 'student': data };
+                    } else {
+                        data.forEach(student => {
+                            if (_user === student.Manager[0].id) {
+                                _list_student.push(student);
+                            }
+                        });
+                        response = { 'error_code': 0, 'student': _list_student };
+                    }
+                    res.status(200).json(response);
+                }
+            }
+        }).sort({ _id: -1 })
+    },
     UpdateById: function (req, res) {
         student_model.findById({ _id: req.body.detail._id }, function (err, data) {
             if (err) {
@@ -48,13 +73,13 @@ module.exports = {
                     data.Note = req.body.detail.Note;
                     data.Appointment_day = req.body.detail.Appointment_day;
                     data.Appointment_time = req.body.detail.Appointment_time;
-                    data.Appointment_1st = req.body.detail.Appointment_1st;
-                    data.Appointment_not_1st = req.body.detail.Appointment_not_1st;
-                    data.unregistered = req.body.detail.unregistered;
                     data.Status_student = req.body.detail.Status_student;
                     data.Center = req.body.detail.Center;
                     data.Time_recall = req.body.detail.Time_recall;
+                    data.Recall = req.body.detail.Recall;
                     data.ListFriend = req.body.detail.ListFriend;
+                    data.Isupdate = true;
+                    data.Manager = req.body.detail.Manager;
                     data.save(function (err) {
                         if (err) {
                             console.log('UpdateById ' + err)
@@ -89,14 +114,13 @@ module.exports = {
                     Note: req.body.Note,
                     Center: req.body.Center,
                     Time_recall: null,
+                    Recall: false,
                     Appointment_day: req.body.Appointment_day,
                     Appointment_time: req.body.Appointment_time,
-                    Appointment_1st: false,
-                    Appointment_not_1st: false,
-                    unregistered: false,
                     Status_student: req.body.Status_student,
                     ListFriend: null,
-                    Manager: req.body.Manager
+                    Manager: req.body.Manager,
+                    Isupdate: false
                 });
 
                 new_student.save(function (err) {

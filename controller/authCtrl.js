@@ -2,6 +2,86 @@ var dateFormat = require('dateformat');
 
 //user model
 var users_model = require('../model/auth');
+var stutdent_model = require('../model/autoSheet');
+var _list_auth = [];
+
+// lấy telesale thấp nhất
+function get_telesale(student, username) {
+    users_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
+        if (err) {
+            console.log('get_telesale ' + err);
+        } else {
+            if (data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].Username === username) {
+                        data.splice(i, 1);
+                    }
+                }
+                if (data.length === 1) {
+                    response = { 'error_code': 2, 'message': 'only 1 user online' };
+                    response.status(200).json(response);
+                } else {
+                    updateStudent(student, data[0]);
+                }
+            }
+        }
+
+    }).sort({ 'Student_in_month.Total': 1 });
+}
+
+// cập nhật thông tin cho telesale
+function update_total_for_tele(data, total) {
+    users_model.findById({ _id: data._id }, function (err, data) {
+        _total = data.Student_in_month[0].Total;
+        _wai = data.Student_in_month[0].Waiting;
+        _in = data.Student_in_month[0].In;
+        _out = data.Student_in_month[0].Out;
+        _month = data.Student_in_month[0].Month;
+        _in_month = {
+            Total: _total,
+            Waiting: _wai,
+            Out: _in,
+            In: _out,
+            Month: _month
+        }
+        data.Student_in_month = _in_month;
+        data.save({
+            lean: true
+        },function (err) {
+            if (err) {
+                console.log('update for telesale ' + err);
+            } {
+                console.log(' da save ');
+            }
+        })
+    })
+
+}
+
+// thêm học viên và chia cho telesale
+function updateStudent(stude, tele) {
+    stutdent_model.findById({ _id: stude._id }, function (err, data) {
+        if (err) {
+            console.log('insertStudent ' + err);
+        } else {
+            if (data) {
+                let manager = {
+                    id: tele.Username,
+                    name: tele.Fullname
+                }
+                data.Manager = manager;
+                data.save(function (err) {
+                    if (err) {
+                        console.log('save student ' + err)
+                    }else{
+                        tmp = tele.Student_in_month[0].Total + 1;
+                        update_total_for_tele(tele, tmp);
+                    }
+                })
+            }
+        }
+    });
+}
 
 // Api
 module.exports = {
@@ -62,7 +142,11 @@ module.exports = {
             } else {
                 if (data.length > 0) {
                     if (req.body.Password === data[0].Password) {
-                        response = { 'error_code': 0, 'auth': data[0] }
+                        if (data[0].Status_user[0].id === 0) {
+                            response = { 'error_code': 4, 'message': 'user is offline' }
+                        } else {
+                            response = { 'error_code': 0, 'auth': data[0] }
+                        }
                     } else {
                         response = { 'error_code': 2, 'message': 'username or password incorrect' }
                     }
@@ -90,6 +174,71 @@ module.exports = {
                         }
                         res.status(200).json(response);
                     })
+                }
+            }
+        })
+    },
+    UpdateStatus: function (req, res) {
+        users_model.findById({ _id: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data) {
+                    var _status;
+                    if (req.body.value === false) {
+                        _status = [{
+                            id: 0,
+                            name: 'Không hoạt động'
+                        }]
+                    } else if (req.body.value === true) {
+                        _status = [{
+                            id: 1,
+                            name: 'Hoạt động'
+                        }]
+                    }
+                    data.Status_user = _status;
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 1, 'message': 'error fetching data' }
+                        } else {
+                            response = { 'error_code': 0, 'message': 'Update info success' }
+                        }
+                        res.status(200).json(response);
+                    })
+                }
+            }
+        })
+    },
+    GetbySup: function (req, res) {
+        users_model.find({ 'Role.id': 1 }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'users': data }
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    ShareStudent: function (req, res) {
+        stutdent_model.find({ 'Manager.id': req.body.detail.Username, $and: [{ $or: [{ 'Status_student.id': 0 }, { 'Status_student.id': 1 }, { 'Status_student.id': 2 }] }] }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    var _list_student = data;
+                    _list_student.forEach(element => {
+                        get_telesale(element, req.body.detail.Username);
+                    });
+                    response = { 'error_code': 0, 'message': 'share student complete' };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 3, 'message': 'not student for share' };
+                    res.status(200).json(response);
                 }
             }
         })

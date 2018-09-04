@@ -18,14 +18,13 @@ var student = new mongoose.Schema({
     Note: String,
     Center: Array,
     Time_recall: Array,
+    Recall: Boolean,
     Appointment_day: String,
     Appointment_time: Array,
-    Appointment_1st: Boolean,
-    Appointment_not_1st: Boolean,
-    unregistered: Boolean,
     Status_student: Array,
     ListFriend: Array,
-    Manager: Array
+    Manager: Array,
+    Isupdate: Boolean
 }, { versionKey: false });
 
 //create model based a schema

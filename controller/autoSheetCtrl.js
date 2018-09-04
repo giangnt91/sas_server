@@ -108,14 +108,13 @@ function insertStudent(stude, tele) {
                     Note: null,
                     Center: null,
                     Time_recall: null,
+                    Recall: false,
                     Appointment_day: null,
                     Appointment_time: null,
-                    Appointment_1st: false,
-                    Appointment_not_1st: false,
-                    unregistered: false,
                     Status_student: status_student,
                     ListFriend: null,
-                    Manager: manager
+                    Manager: manager,
+                    Isupdate: false
                 });
                 student.save(function (err) {
                     if (err) {
