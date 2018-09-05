@@ -83,7 +83,7 @@ io.on('connection', function (socket) {
                 }
             }
         })
-    }, 6000);
+    }, 10000);
 });
 
 //-- Controller --//
@@ -133,6 +133,10 @@ sas.post('/getfornof', function(req, res){
 
 sas.post('/upstudent', function (req, res) {
     StudentCtrl.UpdateById(req, res);
+})
+
+sas.post('/search', function(req, res){
+    StudentCtrl.Search(req, res);
 })
 
 //-- Run server --//

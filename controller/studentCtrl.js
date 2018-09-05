@@ -4,6 +4,18 @@ var mongoose = require('mongoose');
 //get model
 var student_model = require('../model/autoSheet');
 
+function formatDate(value) {
+    _the_month = value.getMonth() + 1;
+    _the_day = value.getDate();
+    if (_the_day < 10) {
+        _the_day = '0' + _the_day;
+    }
+    if (_the_month < 10) {
+        _the_month = '0' + _the_month;
+    }
+    return _the_day + "/" + _the_month + "/" + value.getFullYear();
+}
+
 // Api
 module.exports = {
     //get all student
@@ -33,7 +45,7 @@ module.exports = {
         }).sort({ _id: -1 })
     },
     Getfornof: function (req, res) {
-        student_model.find({'Appointment_time.name': req.body.Time, 'Appointment_day':  req.body.Day}, function (err, data) {
+        student_model.find({ 'Appointment_time.name': req.body.Time, 'Appointment_day': req.body.Day }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
@@ -131,6 +143,46 @@ module.exports = {
                     }
                     res.status(200).json(response);
                 })
+            }
+        })
+    },
+    Search: function (req, res) {
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        var firstDay = formatDate(new Date(y, m, 1));
+        var today = dateFormat(new Date(), "dd/mm/yyyy");
+
+        if (req.body.Appointment_day !== '') {
+            firstDay = req.body.Appointment_day;
+        }
+
+        if (req.body.Appointment_time2 !== '') {
+            today = req.body.Appointment_time2;
+        }
+
+        student_model.find({
+
+            Appointment_day: {
+                $gte: dateFormat(new Date(), firstDay),
+                $lt: dateFormat(new Date(), today)
+            },
+
+            'Appointment_time.id': {
+                $gt: parseInt(req.body.Appointment_time),
+                $lt: parseInt(req.body.Appointment_time2)
+            },
+            'Center.id': req.body.Center
+
+        }, function (err, data) {
+            if (err) {
+                console.log('Search ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if(data.length > 0){
+                    response = { 'error_code': 0, 'students': data };
+                }else{
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
             }
         })
     }
