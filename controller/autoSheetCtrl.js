@@ -155,16 +155,15 @@ function getSheet() {
                 }, function (err, rows) {
                     if (rows !== undefined && rows !== null) {
                         if (rows.length > 0) {
-                            var j = 0;
+                            // var j = 0;
                             //lấy danh sách học viên mới
                             for (let i = 0; i < rows.length; i++) {
                                 if (rows[i].move === "") {
-                                    if (j < 1) {
+                                    setTimeout(function () {
                                         rows[i].move = "moved";
                                         rows[i].save();
                                         get_telesale(rows[i]);
-                                        j++;
-                                    }
+                                    }, 1000 * i)
                                 }
                             }
                         }
@@ -189,7 +188,7 @@ schedule.scheduleJob('0 0 0 * * *', function () {
     reset_student(parseInt(_the_month));
 })
 
-schedule.scheduleJob('*/2 * * * * *', function () {
+schedule.scheduleJob('*/30 * * * * *', function () {
     getSheet();
 })
 

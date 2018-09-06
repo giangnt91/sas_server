@@ -1,4 +1,6 @@
 var dateFormat = require('dateformat');
+var mongoose = require('mongoose');
+var async = require('async');
 
 //user model
 var users_model = require('../model/auth');
@@ -21,7 +23,7 @@ function get_telesale(student, username) {
                     response = { 'error_code': 2, 'message': 'only 1 user online' };
                     response.status(200).json(response);
                 } else {
-                    updateStudent(student, data[0]);
+                    updateStudent(student, data[0], username);
                 }
             }
         }
@@ -29,10 +31,10 @@ function get_telesale(student, username) {
     }).sort({ 'Student_in_month.Total': 1 });
 }
 
-// cập nhật thông tin cho telesale
-function update_total_for_tele(data, total) {
-    users_model.findById({ _id: data._id }, function (err, data) {
-        _total = data.Student_in_month[0].Total;
+// cập nhật trừ total của telesale
+function update_sub_total_for_tele(data) {
+    users_model.findOne({ Username: data }, function (err, data) {
+        _total = data.Student_in_month[0].Total - 1;
         _wai = data.Student_in_month[0].Waiting;
         _in = data.Student_in_month[0].In;
         _out = data.Student_in_month[0].Out;
@@ -45,21 +47,40 @@ function update_total_for_tele(data, total) {
             Month: _month
         }
         data.Student_in_month = _in_month;
-        data.save({
-            lean: true
-        },function (err) {
+        data.save(function (err) {
             if (err) {
                 console.log('update for telesale ' + err);
-            } {
-                console.log(' da save ');
             }
         })
     })
+}
 
+// cập nhật thông tin cho telesale
+function update_total_for_tele(data, total) {
+    users_model.findById({ _id: data._id }, function (err, data) {
+        _total = total;
+        _wai = data.Student_in_month[0].Waiting;
+        _in = data.Student_in_month[0].In;
+        _out = data.Student_in_month[0].Out;
+        _month = data.Student_in_month[0].Month;
+        _in_month = {
+            Total: _total,
+            Waiting: _wai,
+            Out: _in,
+            In: _out,
+            Month: _month
+        }
+        data.Student_in_month = _in_month;
+        data.save(function (err) {
+            if (err) {
+                console.log('update for telesale ' + err);
+            }
+        })
+    })
 }
 
 // thêm học viên và chia cho telesale
-function updateStudent(stude, tele) {
+function updateStudent(stude, tele, username) {
     stutdent_model.findById({ _id: stude._id }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
@@ -73,9 +94,10 @@ function updateStudent(stude, tele) {
                 data.save(function (err) {
                     if (err) {
                         console.log('save student ' + err)
-                    }else{
+                    } else {
                         tmp = tele.Student_in_month[0].Total + 1;
                         update_total_for_tele(tele, tmp);
+                        update_sub_total_for_tele(username);
                     }
                 })
             }
@@ -230,12 +252,18 @@ module.exports = {
                 res.status(200).json(response);
             } else {
                 if (data.length > 0) {
-                    var _list_student = data;
-                    _list_student.forEach(element => {
-                        get_telesale(element, req.body.detail.Username);
-                    });
-                    response = { 'error_code': 0, 'message': 'share student complete' };
-                    res.status(200).json(response);
+
+                    for (let i = 0; i < data.length; i++) {
+                        setTimeout(function () {
+                            get_telesale(data[i], req.body.detail.Username);
+                        }, 1000 * i)
+                        if (i === data.length - 1) {
+                            response = { 'error_code': 0, 'message': 'share student complete' };
+                            res.status(200).json(response);
+                        }
+                    }
+
+
                 } else {
                     response = { 'error_code': 3, 'message': 'not student for share' };
                     res.status(200).json(response);
@@ -243,4 +271,5 @@ module.exports = {
             }
         })
     }
+
 }
