@@ -60,8 +60,8 @@ io.on('connection', function (socket) {
     setInterval(function () {
         var _time = dateFormat(new Date(), "HH:MM");
         var _day = dateFormat(new Date(), "dd/mm/yyyy");
-       
-        student_model.find({ 'Appointment_time.name': _time, 'Appointment_day':  _day}, function (err, data) {
+
+        student_model.find({ 'Appointment_time.name': _time, 'Appointment_day': _day }, function (err, data) {
             if (err) {
                 console.log('Appointment_time sas ' + err);
             } else {
@@ -69,7 +69,7 @@ io.on('connection', function (socket) {
                     var _list_user = [];
                     data.forEach(element => {
                         if (_list_user.includes(element.Manager[0].id) === false) {
-                            tmp ={
+                            tmp = {
                                 time: _time,
                                 day: _day,
                                 user: element.Manager[0].id
@@ -77,7 +77,7 @@ io.on('connection', function (socket) {
                             _list_user.push(tmp);
                         }
                     });
-                    if(_list_user.length > 0){
+                    if (_list_user.length > 0) {
                         socket.broadcast.emit('alert', _list_user);
                     }
                 }
@@ -127,7 +127,7 @@ sas.post('/getall', function (req, res) {
     StudentCtrl.Getall(req, res);
 })
 
-sas.post('/getfornof', function(req, res){
+sas.post('/getfornof', function (req, res) {
     StudentCtrl.Getfornof(req, res);
 })
 
@@ -135,8 +135,12 @@ sas.post('/upstudent', function (req, res) {
     StudentCtrl.UpdateById(req, res);
 })
 
-sas.post('/search', function(req, res){
+sas.post('/search', function (req, res) {
     StudentCtrl.Search(req, res);
+})
+
+sas.post('/chartdefault', function (req, res) {
+    StudentCtrl.GetdetailForChart(req, res);
 })
 
 //-- Run server --//

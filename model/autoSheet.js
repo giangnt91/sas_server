@@ -15,6 +15,7 @@ var student = new mongoose.Schema({
     Regday: String,
     Regday2: String,
     Regtime: String,
+    Dayenrollment: String,
     Note: String,
     Center: Array,
     Time_recall: Array,

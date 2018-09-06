@@ -105,6 +105,7 @@ function insertStudent(stude, tele) {
                     Regday: dayreg,
                     Regday2: null,
                     Regtime: timereg,
+                    Dayenrollment: null,
                     Note: null,
                     Center: null,
                     Time_recall: null,

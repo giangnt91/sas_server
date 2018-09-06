@@ -5,7 +5,7 @@ var async = require('async');
 //user model
 var users_model = require('../model/auth');
 var stutdent_model = require('../model/autoSheet');
-var _list_auth = [];
+var one = 0;
 
 // lấy telesale thấp nhất
 function get_telesale(student, username) {
@@ -14,27 +14,30 @@ function get_telesale(student, username) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].Username === username) {
-                        data.splice(i, 1);
-                    }
-                }
                 if (data.length === 1) {
-                    response = { 'error_code': 2, 'message': 'only 1 user online' };
-                    response.status(200).json(response);
+                    one = 1;
                 } else {
+                    one = 0;
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].Username === username) {
+                            data.splice(i, 1);
+                        }
+                    }
                     updateStudent(student, data[0], username);
                 }
             }
         }
-
     }).sort({ 'Student_in_month.Total': 1 });
 }
 
 // cập nhật trừ total của telesale
 function update_sub_total_for_tele(data) {
     users_model.findOne({ Username: data }, function (err, data) {
-        _total = data.Student_in_month[0].Total - 1;
+        if(data.Student_in_month[0].Total === 0){
+            _total = 0;
+        }else{
+            _total = data.Student_in_month[0].Total - 1;
+        }
         _wai = data.Student_in_month[0].Waiting;
         _in = data.Student_in_month[0].In;
         _out = data.Student_in_month[0].Out;
@@ -56,9 +59,9 @@ function update_sub_total_for_tele(data) {
 }
 
 // cập nhật thông tin cho telesale
-function update_total_for_tele(data, total) {
+function update_total_for_tele(data) {
     users_model.findById({ _id: data._id }, function (err, data) {
-        _total = total;
+        _total = data.Student_in_month[0].Total + 1;
         _wai = data.Student_in_month[0].Waiting;
         _in = data.Student_in_month[0].In;
         _out = data.Student_in_month[0].Out;
@@ -95,8 +98,7 @@ function updateStudent(stude, tele, username) {
                     if (err) {
                         console.log('save student ' + err)
                     } else {
-                        tmp = tele.Student_in_month[0].Total + 1;
-                        update_total_for_tele(tele, tmp);
+                        update_total_for_tele(tele);
                         update_sub_total_for_tele(username);
                     }
                 })
@@ -252,17 +254,20 @@ module.exports = {
                 res.status(200).json(response);
             } else {
                 if (data.length > 0) {
-
                     for (let i = 0; i < data.length; i++) {
                         setTimeout(function () {
                             get_telesale(data[i], req.body.detail.Username);
                         }, 1000 * i)
-                        if (i === data.length - 1) {
-                            response = { 'error_code': 0, 'message': 'share student complete' };
-                            res.status(200).json(response);
-                        }
                     }
 
+                    setTimeout(function () {
+                        if (one === 1) {
+                            response = { 'error_code': 2, 'message': 'only 1 user online' };
+                        } else {
+                            response = { 'error_code': 0, 'message': 'share student complete' };
+                        }
+                        res.status(200).json(response);
+                    }, 3000);
 
                 } else {
                     response = { 'error_code': 3, 'message': 'not student for share' };
