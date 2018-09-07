@@ -5,23 +5,17 @@ var moment = require('moment');
 //get model
 var student_model = require('../model/autoSheet');
 
-function formatDate(value) {
-    _the_month = value.getMonth() + 1;
-    _the_day = value.getDate();
-    if (_the_day < 10) {
-        _the_day = '0' + _the_day;
-    }
-    if (_the_month < 10) {
-        _the_month = '0' + _the_month;
-    }
-    return value.getFullYear() + "-" + _the_month + "-" + _the_day;
-    // return _the_day + "/" + _the_month + "/" + value.getFullYear();
-}
 
 // compare day
 function compareday(x) {
     var parts = x.split("/");
     return parts[2] + '' + parts[1] + '' + parts[0];
+}
+
+// compare day
+function compareday2(x) {
+    var parts = x.split("-");
+    return parts[0] + '' + parts[1] + '' + parts[2];;
 }
 
 function getFirstDateOfMonth() {
@@ -244,14 +238,103 @@ module.exports = {
                 'Center.id': req.body.Center
             }
         }
-        console.log(query)
         student_model.find(query, function (err, data) {
             if (err) {
-                console.log('Search ' + err);
+                console.log('SearchH ' + err);
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 if (data.length > 0) {
                     response = { 'error_code': 0, 'students': data };
+                } else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
+            }
+        })
+    },
+    SearchN: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Regday !== null) {
+            firstDay = req.body.Regday;
+        }
+
+        if (req.body.Regday2 !== null) {
+            today = req.body.Regday2;
+        }
+
+        query = {
+            Regdayiso: {
+                $gte: firstDay,
+                $lte: today
+            }
+        }
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('SearchN ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'students': data };
+                } else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
+            }
+        })
+    },
+    SearchR: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Reday !== null) {
+            firstDay = req.body.Reday;
+        }
+
+        if (req.body.Reday2 !== null) {
+            today = req.body.Reday2;
+        }
+
+        if (req.body.Sale !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Time_recall.time.id': {
+                    $gte: req.body.Retime,
+                    $lte: req.body.Retime2
+                },
+                'Manager.id': req.body.Sale
+            }
+        } else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Time_recall.time.id': {
+                    $gte: req.body.Retime,
+                    $lte: req.body.Retime2
+                }
+            }
+        }
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('SearchR ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if (data.length > 0) {
+                    var recal = [];
+                    data.forEach(element => {
+                        if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
+                            recal.push(element);
+                        }
+                    });
+                    response = { 'error_code': 0, 'students': recal };
                 } else {
                     response = { 'error_code': 2, 'message': 'list is empty' };
                 }

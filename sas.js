@@ -139,6 +139,14 @@ sas.post('/searchhome', function (req, res) {
     StudentCtrl.SearchH(req, res);
 })
 
+sas.post('/searchnotcall', function (req, res) {
+    StudentCtrl.SearchN(req, res);
+})
+
+sas.post('/searchrecall', function (req, res) {
+    StudentCtrl.SearchR(req, res);
+})
+
 sas.post('/chartdefault', function (req, res) {
     StudentCtrl.GetdetailForChart(req, res);
 })
