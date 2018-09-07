@@ -135,8 +135,8 @@ sas.post('/upstudent', function (req, res) {
     StudentCtrl.UpdateById(req, res);
 })
 
-sas.post('/search', function (req, res) {
-    StudentCtrl.Search(req, res);
+sas.post('/searchhome', function (req, res) {
+    StudentCtrl.SearchH(req, res);
 })
 
 sas.post('/chartdefault', function (req, res) {

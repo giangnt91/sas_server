@@ -190,48 +190,61 @@ module.exports = {
             }
         })
     },
-    Search: function (req, res) {
-        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-        var firstDay = formatDate(new Date(y, m, 1));
-        var today = dateFormat(new Date(), "dd/mm/yyyy");
+
+    // Tìm kiếm
+    SearchH: function (req, res) {
         var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-        if (req.body.Appointment_day !== '') {
-            firstDay = req.body.Appointment_day;
+        if (req.body.Regday !== null) {
+            firstDay = req.body.Regday;
         }
 
-        if (req.body.Appointment_time2 !== '') {
-            today = req.body.Appointment_time2;
+        if (req.body.Regday2 !== null) {
+            today = req.body.Regday2;
         }
 
-        if (req.body.Center === null) {
+        if (req.body.Center === null && req.body.Status === null) {
             query = {
-                Appointment_day: {
-                    $gte: dateFormat(new Date(), firstDay),
-                    $lte: dateFormat(new Date(), today)
-                },
-
-                'Appointment_time.id': {
-                    $gte: parseInt(req.body.Appointment_time),
-                    $lte: parseInt(req.body.Appointment_time2)
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
                 }
-            };
-        } else {
-            query = {
-                Appointment_day: {
-                    $gte: dateFormat(new Date(), firstDay),
-                    $lte: dateFormat(new Date(), today)
-                },
+            }
+        }
 
-                'Appointment_time.id': {
-                    $gte: parseInt(req.body.Appointment_time),
-                    $lte: parseInt(req.body.Appointment_time2)
+        if (req.body.Center !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
                 },
                 'Center.id': req.body.Center
-            };
+            }
         }
 
+        if (req.body.Status !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Status_student.id': req.body.Status
+            }
+        }
 
+        if (req.body.Center !== null && req.body.Status !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Status_student.id': req.body.Status,
+                'Center.id': req.body.Center
+            }
+        }
+        console.log(query)
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('Search ' + err);
@@ -246,6 +259,8 @@ module.exports = {
             }
         })
     },
+
+    //kết thúc tìm kiếm
     GetdetailForChart: function (req, res) {
         var query;
         var firstDay = getFirstDateOfMonth();
@@ -905,7 +920,7 @@ module.exports = {
                     data.forEach(element => {
                         if (element.Appointment_day !== null && element.Appointment_time !== null) {
                             // if (element.Appointment_time[0].id !== null) {
-                                dh.push(element);
+                            dh.push(element);
                             // }
                         }
                         if (element.Status_student[0].id === 3) {
