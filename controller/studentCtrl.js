@@ -1,5 +1,6 @@
 var dateFormat = require('dateformat');
 var mongoose = require('mongoose');
+var moment = require('moment');
 
 //get model
 var student_model = require('../model/autoSheet');
@@ -13,13 +14,22 @@ function formatDate(value) {
     if (_the_month < 10) {
         _the_month = '0' + _the_month;
     }
-    return _the_day + "/" + _the_month + "/" + value.getFullYear();
+    return value.getFullYear() + "-" + _the_month + "-" + _the_day;
+    // return _the_day + "/" + _the_month + "/" + value.getFullYear();
 }
 
 // compare day
 function compareday(x) {
     var parts = x.split("/");
     return parts[2] + '' + parts[1] + '' + parts[0];
+}
+
+function getFirstDateOfMonth() {
+    var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+    var firstDay = new Date(y, m, 1);
+
+    firstDay = moment(firstDay).format('YYYY-MM-DD');
+    return firstDay
 }
 
 // Api
@@ -82,6 +92,18 @@ module.exports = {
                 res.status(200).json(response);
             } else {
                 if (data) {
+                    date = new Date();
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    dt = date.getDate();
+
+                    if (dt < 10) {
+                        dt = '0' + dt;
+                    }
+                    if (month < 10) {
+                        month = '0' + month;
+                    }
+                    isoday = year + '-' + month + '-' + dt;
                     data.Fullname = req.body.detail.Fullname;
                     data.Email = req.body.detail.Email;
                     data.Phone = req.body.detail.Phone;
@@ -98,7 +120,7 @@ module.exports = {
                     data.ListFriend = req.body.detail.ListFriend;
                     data.Isupdate = true;
                     data.Manager = req.body.detail.Manager;
-                    data.Dayenrollment = req.body.detail.Dayenrollment;
+                    data.Dayenrollment = isoday;
                     data.save(function (err) {
                         if (err) {
                             console.log('UpdateById ' + err)
@@ -118,6 +140,18 @@ module.exports = {
                 res.status(200).json(response);
             } else {
                 let timereg = dateFormat(new Date(), "HH:MM:ss")
+                date = new Date();
+                year = date.getFullYear();
+                month = date.getMonth() + 1;
+                dt = date.getDate();
+
+                if (dt < 10) {
+                    dt = '0' + dt;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                isoday = year + '-' + month + '-' + dt;
                 var IdforFrend = mongoose.Types.ObjectId();
                 var new_student = new student_model({
                     IdforFrend: IdforFrend,
@@ -128,6 +162,7 @@ module.exports = {
                     Sex: req.body.Sex,
                     Address: req.body.Address,
                     Regday: req.body.Regday,
+                    Regdayiso: isoday,
                     Regday2: null,
                     Regtime: timereg,
                     Dayenrollment: null,
@@ -140,7 +175,8 @@ module.exports = {
                     Status_student: req.body.Status_student,
                     ListFriend: null,
                     Manager: req.body.Manager,
-                    Isupdate: false
+                    Isupdate: false,
+                    Duplicate: null
                 });
 
                 new_student.save(function (err) {
@@ -212,16 +248,15 @@ module.exports = {
     },
     GetdetailForChart: function (req, res) {
         var query;
-        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-        var firstDay = formatDate(new Date(y, m, 1));
-        var today = dateFormat(new Date(), "dd/mm/yyyy");
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
 
         if (req.body.Fromday === null && req.body.Today === null) {
             query = {
                 'Manager.id': req.body.Username,
                 $and: [{
                     $or: [{
-                        Regday: {
+                        Regdayiso: {
                             $gte: dateFormat(new Date(), firstDay),
                             $lte: dateFormat(new Date(), today)
                         }
@@ -236,31 +271,58 @@ module.exports = {
         }
         if (req.body.Fromday !== null && req.body.Today === null) {
             query = {
-                Regday: {
-                    $gte: dateFormat(new Date(), req.body.Fromday),
-                    $lte: dateFormat(new Date(), today)
-                },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                $and: [{
+                    $or: [{
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        }
+                    }, {
+                        Dayenrollment: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        }
+                    }]
+                }]
             }
         }
         if (req.body.Fromday === null && req.body.Today !== null) {
             today = req.body.Today;
             query = {
-                Regday: {
-                    $gte: dateFormat(new Date(), firstDay),
-                    $lte: dateFormat(new Date(), today)
-                },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                $and: [{
+                    $or: [{
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        }
+                    }, {
+                        Dayenrollment: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        }
+                    }]
+                }]
             }
         }
         if (req.body.Fromday !== null && req.body.Today !== null) {
             today = req.body.Today;
             query = {
-                Regday: {
-                    $gte: dateFormat(new Date(), req.body.Fromday),
-                    $lte: dateFormat(new Date(), today)
-                },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                $and: [{
+                    $or: [{
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        }
+                    }, {
+                        Dayenrollment: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        }
+                    }]
+                }]
             }
         }
 
@@ -307,6 +369,567 @@ module.exports = {
                         }
                     ];
                     response = { 'error_code': 0, 'student': student };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetdetailNotcall: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                'Manager.id': req.body.Username,
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                Isupdate: false
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                Isupdate: false
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                Isupdate: false
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                Isupdate: false
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetdetailNotcall ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'notcall': data };
+                    res.status(200).json(response);
+                } else {
+                    var notcall = [];
+                    response = { 'error_code': 0, 'notcall': notcall };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetdetailRecall: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                'Manager.id': req.body.Username,
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                Recall: true
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                Recall: true
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                Recall: true
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                Recall: true
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetdetailRecall ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'recall': data };
+                    res.status(200).json(response);
+                } else {
+                    var recall = [];
+                    response = { 'error_code': 0, 'recall': recall };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    Gettl: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('Gettl ' + err);
+            } else {
+                if (data.length > 0) {
+
+                    var on = data;
+                    var app = [];
+                    var notapp = [];
+                    var notreg = [];
+                    data.forEach(element => {
+                        if (element.Appointment_day !== null || element.Appointment_time !== null) {
+                            if (element.Appointment_time[0].id !== null) {
+                                app.push(element);
+                            }
+                        }
+                        if (element.Appointment_day !== null) {
+                            if (compareday(today) - compareday(element.Appointment_day) > 0) {
+                                if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+                                    notapp.push(element);
+                                }
+                            }
+                        }
+
+                        if (element.Status_student[0].id === 2) {
+                            notreg.push(element);
+                        }
+                    });
+                    var tl = [
+                        {
+                            Fullname: data[0].Manager[0].id,
+                            On: on,
+                            App: app,
+                            Notapp: notapp,
+                            Notreg: notreg
+                        }
+                    ]
+                    response = { 'error_code': 0, 'tl': tl };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 2, 'tl': 'not found' };
+                    res.status(200).json(response);
+                }
+            }
+        })
+
+    },
+    GetHcd: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetHcd ' + err);
+            } else {
+                if (data.length > 0) {
+                    var notapp = [];
+                    data.forEach(element => {
+                        if (element.Appointment_day !== null) {
+                            if (compareday(today) - compareday(element.Appointment_day) > 0) {
+                                if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+                                    notapp.push(element);
+                                }
+                            }
+                        }
+                    });
+                    var hcd = notapp;
+                    response = { 'error_code': 0, 'hcd': hcd };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 0, 'hcd': [] };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetDcdk: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 2
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 2
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 2
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 2
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetDcdk ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'dcdk': data };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 0, 'dcdk': [] };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetCdk: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 0
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 0
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 0
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 0
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetCdk ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'cdk': data };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 0, 'cdk': [] };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetKtn: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 1
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 1
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 1
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 1
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetKtn ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'ktn': data };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 0, 'ktn': [] };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetLh: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username,
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetLh ' + err);
+            } else {
+                if (data.length > 0) {
+                    var dh = [];
+                    var ddk = [];
+                    var dcdk = [];
+                    data.forEach(element => {
+                        if (element.Appointment_day !== null && element.Appointment_time !== null) {
+                            // if (element.Appointment_time[0].id !== null) {
+                                dh.push(element);
+                            // }
+                        }
+                        if (element.Status_student[0].id === 3) {
+                            ddk.push(element);
+                        }
+
+                        if (element.Status_student[0].id === 2) {
+                            dcdk.push(element);
+                        }
+                    });
+
+                    var lh = [
+                        {
+                            Fullname: data[0].Manager[0].id,
+                            DH: dh,
+                            Ddk: ddk,
+                            Dcdk: dcdk,
+                        }
+                    ]
+
+                    response = { 'error_code': 0, 'lh': lh };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 2, 'lh': 'not found' };
                     res.status(200).json(response);
                 }
             }

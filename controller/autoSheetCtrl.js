@@ -85,6 +85,18 @@ function insertStudent(stude, tele) {
         } else {
             if (data.length === 0) {
                 let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
+                date = new Date();
+                year = date.getFullYear();
+                month = date.getMonth() + 1;
+                dt = date.getDate();
+
+                if (dt < 10) {
+                    dt = '0' + dt;
+                }
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                isoday = year + '-' + month + '-' + dt;
                 let timereg = dateFormat(new Date(), "HH:MM:ss")
                 let manager = {
                     id: tele.Username,
@@ -103,6 +115,7 @@ function insertStudent(stude, tele) {
                     Sex: null,
                     Address: null,
                     Regday: dayreg,
+                    Regdayiso: isoday,
                     Regday2: null,
                     Regtime: timereg,
                     Dayenrollment: null,
@@ -115,7 +128,8 @@ function insertStudent(stude, tele) {
                     Status_student: status_student,
                     ListFriend: null,
                     Manager: manager,
-                    Isupdate: false
+                    Isupdate: false,
+                    Duplicate: null
                 });
                 student.save(function (err) {
                     if (err) {

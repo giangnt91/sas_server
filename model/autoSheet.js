@@ -13,9 +13,10 @@ var student = new mongoose.Schema({
     Sex: Array,
     Address: Array,
     Regday: String,
+    Regdayiso: Date,
     Regday2: String,
     Regtime: String,
-    Dayenrollment: String,
+    Dayenrollment: Date,
     Note: String,
     Center: Array,
     Time_recall: Array,
@@ -25,7 +26,8 @@ var student = new mongoose.Schema({
     Status_student: Array,
     ListFriend: Array,
     Manager: Array,
-    Isupdate: Boolean
+    Isupdate: Boolean,
+    Duplicate: Array
 }, { versionKey: false });
 
 //create model based a schema

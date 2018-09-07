@@ -143,6 +143,37 @@ sas.post('/chartdefault', function (req, res) {
     StudentCtrl.GetdetailForChart(req, res);
 })
 
+sas.post('/chartnotcall', function (req, res) {
+    StudentCtrl.GetdetailNotcall(req, res);
+})
+
+sas.post('/chartrecall', function (req, res) {
+    StudentCtrl.GetdetailRecall(req, res);
+})
+
+sas.post('/charttl', function (req, res) {
+    StudentCtrl.Gettl(req, res);
+})
+
+sas.post('/charthcd', function (req, res) {
+    StudentCtrl.GetHcd(req, res);
+})
+
+sas.post('/chartdcdk', function (req, res) {
+    StudentCtrl.GetDcdk(req, res);
+})
+
+sas.post('/chartcdk', function (req, res) {
+    StudentCtrl.GetCdk(req, res);
+})
+
+sas.post('/chartktn', function (req, res) {
+    StudentCtrl.GetKtn(req, res);
+})
+
+sas.post('/chartlh', function (req, res) {
+    StudentCtrl.GetLh(req, res);
+})
 //-- Run server --//
 http.listen(port);
 console.log('Server SAS is running on port ' + port);
