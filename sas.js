@@ -147,6 +147,10 @@ sas.post('/searchrecall', function (req, res) {
     StudentCtrl.SearchR(req, res);
 })
 
+sas.post('/searchschedule', function (req, res) {
+    StudentCtrl.SearchSch(req, res);
+})
+
 sas.post('/chartdefault', function (req, res) {
     StudentCtrl.GetdetailForChart(req, res);
 })

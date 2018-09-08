@@ -342,6 +342,60 @@ module.exports = {
             }
         })
     },
+    SearchSch: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Regday !== null) {
+            firstDay = req.body.Regday;
+        }
+
+        if (req.body.Regday2 !== null) {
+            today = req.body.Regday2;
+        }
+
+        if (req.body.Sale !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Sale,
+                Appointment_day: { $ne: null }
+            }
+        } else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                Appointment_day: { $ne: null }
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('SearchSch ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if (data.length > 0) {
+                    var schedule = [];
+                    data.forEach(element => {
+                            if (compareday(element.Appointment_day) < compareday2(today)) {
+                                if (element.Status_student[0].id !== 3) {
+                                    schedule.push(element);
+                                }
+                            }
+                    });
+                    response = { 'error_code': 0, 'students': schedule };
+                } else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
+            }
+        })
+    },
 
     //kết thúc tìm kiếm
     GetdetailForChart: function (req, res) {
