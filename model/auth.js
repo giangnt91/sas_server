@@ -11,8 +11,11 @@ var user = new mongoose.Schema({
     Email: String,
     Phone: String,
     Dayreg: String,
+    Birthday: String,
     Student_in_month: Array,
     Role: Array,
+    Leader: Array, 
+    Zone: Array,
     Status_user: Array
 }, { versionKey: false });
 

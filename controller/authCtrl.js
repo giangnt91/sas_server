@@ -1,6 +1,4 @@
 var dateFormat = require('dateformat');
-var mongoose = require('mongoose');
-var async = require('async');
 
 //user model
 var users_model = require('../model/auth');
@@ -33,9 +31,9 @@ function get_telesale(student, username) {
 // cập nhật trừ total của telesale
 function update_sub_total_for_tele(data) {
     users_model.findOne({ Username: data }, function (err, data) {
-        if(data.Student_in_month[0].Total === 0){
+        if (data.Student_in_month[0].Total === 0) {
             _total = 0;
-        }else{
+        } else {
             _total = data.Student_in_month[0].Total - 1;
         }
         _wai = data.Student_in_month[0].Waiting;
@@ -139,10 +137,13 @@ module.exports = {
                         Password: req.body.Password,
                         Fullname: req.body.Fullname,
                         Email: req.body.Email,
-                        Phone: req.body.Phone,
+                        Phone: '0' + req.body.Phone,
                         Dayreg: dayjoin,
+                        Birthday: req.body.Birthday,
                         Student_in_month: student_in_month,
                         Role: req.body.Role,
+                        Leader: null,
+                        Zone: req.body.Zone,
                         Status_user: new_status
                     });
 
@@ -202,6 +203,70 @@ module.exports = {
             }
         })
     },
+    UpdateInfoUser: function (req, res) {
+        users_model.findById({ _id: req.body._detail._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' }
+                res.status(200).json(response);
+            } else {
+                if (data !== null) {
+                    data.Username = req.body._detail.Username;
+                    data.Fullname = req.body._detail.Fullname;
+                    data.Email = req.body._detail.Email;
+                    data.Phone = req.body._detail.Phone;
+                    data.Birthday = req.body._detail.Birthday;
+                    data.Zone = req.body._detail.Zone;
+                    data.Leader = req.body._detail.Leader;
+                    data.Role = req.body._detail.Role;
+                    data.Student_in_month = req.body._detail.Student_in_month;
+
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'erorr_code': 2, 'message': 'error fetching data' }
+                        } else {
+                            response = { 'error_code': 0, 'mesaage': 'update success' }
+                        }
+                        res.status(200).json(response);
+                    })
+                }
+            }
+        })
+    },
+    DeleteUser: function (req, res) {
+        users_model.findById({ _id: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                users_model.remove({ _id: req.body._id }, function (err) {
+                    if (err) {
+                        response = { 'error_code': 1, 'message': 'error fetching data' };
+                    } else {
+                        response = { 'error_code': 0, 'message': 'delete success' };
+                    }
+                })
+                res.status(200).json(response);
+            }
+        });
+    },
+    ResetUser: function (req, res) {
+        users_model.findById({ _id: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                data.Password = req.body.new_pass;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 1, 'message': 'error fetching data' }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update info success' }
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
+    },
     UpdateStatus: function (req, res) {
         users_model.findById({ _id: req.body._id }, function (err, data) {
             if (err) {
@@ -242,6 +307,41 @@ module.exports = {
             } else {
                 if (data.length > 0) {
                     response = { 'error_code': 0, 'users': data }
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetforGroup: function (req, res) {
+        var query;
+        if (req.body.Role[0].id !== 0) {
+            query = {
+                'Zone.leader': req.body.Username,
+                $and: [{
+                    $or: [{
+                        'Role.id': 1
+                    }, {
+                        'Role.id': 2
+                    }]
+                }]
+            }
+        } else {
+            query = {
+                $or: [{
+                    'Role.id': 1
+                }, {
+                    'Role.id': 2
+                }]
+            }
+        }
+
+        users_model.find(query, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'users': data };
                     res.status(200).json(response);
                 }
             }

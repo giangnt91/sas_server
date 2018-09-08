@@ -87,9 +87,10 @@ io.on('connection', function (socket) {
 });
 
 //-- Controller --//
-var AutoCtrl = require('./controller/autoSheetCtrl');
+var AutoSheetCtrl = require('./controller/autoSheetCtrl');
 var AuthCtrl = require('./controller/authCtrl');
 var StudentCtrl = require('./controller/studentCtrl');
+var GroupCtrl = require('./controller/groupCtrl');
 
 //-- Api --//
 
@@ -110,8 +111,24 @@ sas.post('/upstatus', function (req, res) {
     AuthCtrl.UpdateStatus(req, res);
 })
 
+sas.post('/updateuser', function (req, res) {
+    AuthCtrl.UpdateInfoUser(req, res);
+})
+
+sas.post('/deleteuser', function (req, res) {
+    AuthCtrl.DeleteUser(req, res);
+})
+
+sas.post('/resetuser', function (req, res) {
+    AuthCtrl.ResetUser(req, res);
+})
+
 sas.post('/getuserbysup', function (req, res) {
     AuthCtrl.GetbySup(req, res);
+})
+
+sas.post('/getuserforgroup', function (req, res) {
+    AuthCtrl.GetforGroup(req, res);
 })
 
 sas.post('/sharestudent', function (req, res) {
@@ -198,6 +215,17 @@ sas.post('/chartktn', function (req, res) {
 sas.post('/chartlh', function (req, res) {
     StudentCtrl.GetLh(req, res);
 })
+
+//group
+
+sas.post('/cgroup', function (req, res) {
+    GroupCtrl.Cgroup(req, res);
+})
+
+sas.post('/allgroup', function (req, res) {
+    GroupCtrl.GetAll(req, res);
+})
+
 //-- Run server --//
 http.listen(port);
 console.log('Server SAS is running on port ' + port);
