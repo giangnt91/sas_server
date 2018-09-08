@@ -242,6 +242,7 @@ module.exports = {
             if (err) {
                 console.log('SearchH ' + err);
                 response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
             } else {
                 if (data.length > 0) {
                     response = { 'error_code': 0, 'students': data };
@@ -286,6 +287,7 @@ module.exports = {
             if (err) {
                 console.log('SearchN ' + err);
                 response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
             } else {
                 if (data.length > 0) {
                     response = { 'error_code': 0, 'students': data };
@@ -337,6 +339,7 @@ module.exports = {
             if (err) {
                 console.log('SearchR ' + err);
                 response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
             } else {
                 if (data.length > 0) {
                     var recal = [];
@@ -389,6 +392,7 @@ module.exports = {
             if (err) {
                 console.log('SearchSch ' + err);
                 response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
             } else {
                 if (data.length > 0) {
                     var schedule = [];
@@ -436,11 +440,12 @@ module.exports = {
                 }
             }
         }
-        
+
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchUn ' + err);
                 response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
             } else {
                 if (data.length > 0) {
                     var unreg = [];
@@ -451,6 +456,58 @@ module.exports = {
                     });
 
                     response = { 'error_code': 0, 'students': unreg };
+                } else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
+            }
+        })
+    },
+    SearchS: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Regday !== null) {
+            firstDay = req.body.Regday;
+        }
+
+        if (req.body.Regday2 !== null) {
+            today = req.body.Regday2;
+        }
+
+        if (req.body.Sale !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Sale,
+                Center: { $ne: null }
+            }
+        } else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                Center: { $ne: null }
+            }
+        }
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('SearchS ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
+            } else {
+                if (data.length > 0) {
+                    var send = [];
+                    data.forEach(element => {
+                        if(element.Center[0].id !== null){
+                            send.push(element);
+                        }
+                    });
+                    response = { 'error_code': 0, 'students': send };
                 } else {
                     response = { 'error_code': 2, 'message': 'list is empty' };
                 }

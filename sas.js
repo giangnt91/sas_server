@@ -155,6 +155,10 @@ sas.post('/searchunreg', function (req, res) {
     StudentCtrl.SearchUn(req, res);
 })
 
+sas.post('/searchsend', function (req, res) {
+    StudentCtrl.SearchS(req, res);
+})
+
 sas.post('/chartdefault', function (req, res) {
     StudentCtrl.GetdetailForChart(req, res);
 })
