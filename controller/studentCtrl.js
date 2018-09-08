@@ -106,6 +106,7 @@ module.exports = {
                     data.Regday2 = req.body.detail.Regday2;
                     data.Note = req.body.detail.Note;
                     data.Appointment_day = req.body.detail.Appointment_day;
+                    data.Appointment_dayiso = req.body.detail.Appointment_dayiso;
                     data.Appointment_time = req.body.detail.Appointment_time;
                     data.Status_student = req.body.detail.Status_student;
                     data.Center = req.body.detail.Center;
@@ -165,6 +166,7 @@ module.exports = {
                     Time_recall: null,
                     Recall: false,
                     Appointment_day: req.body.Appointment_day,
+                    Appointment_dayiso: req.body.Appointment_dayiso,
                     Appointment_time: req.body.Appointment_time,
                     Status_student: req.body.Status_student,
                     ListFriend: null,
@@ -503,7 +505,7 @@ module.exports = {
                 if (data.length > 0) {
                     var send = [];
                     data.forEach(element => {
-                        if(element.Center[0].id !== null){
+                        if (element.Center[0].id !== null) {
                             send.push(element);
                         }
                     });
@@ -514,6 +516,51 @@ module.exports = {
                 res.status(200).json(response)
             }
         })
+    },
+    SearchC: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Cday !== null) {
+            firstDay = req.body.Cday;
+        }
+
+        if (req.body.Cday2 !== null) {
+            today = req.body.Cday2;
+        }
+
+        if (req.body.Sale !== null) {
+            query = {
+                Appointment_dayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Sale
+            }
+        } else {
+            query = {
+                Appointment_dayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                }
+            }
+        }
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('SearchS ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'students': data };
+                } else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
+            }
+        })
+
     },
 
     //kết thúc tìm kiếm

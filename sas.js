@@ -159,6 +159,10 @@ sas.post('/searchsend', function (req, res) {
     StudentCtrl.SearchS(req, res);
 })
 
+sas.post('/searchcalendar', function (req, res) {
+    StudentCtrl.SearchC(req, res);
+})
+
 sas.post('/chartdefault', function (req, res) {
     StudentCtrl.GetdetailForChart(req, res);
 })

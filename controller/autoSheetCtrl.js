@@ -124,6 +124,7 @@ function insertStudent(stude, tele) {
                     Time_recall: null,
                     Recall: false,
                     Appointment_day: null,
+                    Appointment_dayiso: null,
                     Appointment_time: null,
                     Status_student: status_student,
                     ListFriend: null,

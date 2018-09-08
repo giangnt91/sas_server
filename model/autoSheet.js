@@ -22,6 +22,7 @@ var student = new mongoose.Schema({
     Time_recall: Array,
     Recall: Boolean,
     Appointment_day: String,
+    Appointment_dayiso: Date,
     Appointment_time: Array,
     Status_student: Array,
     ListFriend: Array,
