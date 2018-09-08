@@ -265,12 +265,23 @@ module.exports = {
             today = req.body.Regday2;
         }
 
-        query = {
-            Regdayiso: {
-                $gte: firstDay,
-                $lte: today
+        if (req.body.Username !== 'supadmin') {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username
+            }
+        } else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                }
             }
         }
+
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchN ' + err);
@@ -382,13 +393,64 @@ module.exports = {
                 if (data.length > 0) {
                     var schedule = [];
                     data.forEach(element => {
-                            if (compareday(element.Appointment_day) < compareday2(today)) {
-                                if (element.Status_student[0].id !== 3) {
-                                    schedule.push(element);
-                                }
+                        if (compareday(element.Appointment_day) < compareday2(today)) {
+                            if (element.Status_student[0].id !== 3) {
+                                schedule.push(element);
                             }
+                        }
                     });
                     response = { 'error_code': 0, 'students': schedule };
+                } else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+                }
+                res.status(200).json(response)
+            }
+        })
+    },
+    SearchUn: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Regday !== null) {
+            firstDay = req.body.Regday;
+        }
+
+        if (req.body.Regday2 !== null) {
+            today = req.body.Regday2;
+        }
+
+        if (req.body.Username !== 'supadmin') {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username
+            }
+        } else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                }
+            }
+        }
+        
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('SearchUn ' + err);
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if (data.length > 0) {
+                    var unreg = [];
+                    data.forEach(element => {
+                        if (element.Status_student[0].id === 2) {
+                            unreg.push(element);
+                        }
+                    });
+
+                    response = { 'error_code': 0, 'students': unreg };
                 } else {
                     response = { 'error_code': 2, 'message': 'list is empty' };
                 }
