@@ -8,10 +8,11 @@ var mongoose = require('mongoose');
 //model
 var autosheet_model = require('../model/autoSheet');
 var auth_model = require('../model/auth');
+var group_model = require('../model/groups');
 
 // lấy danh sách telesale
-function get_telesale(student) {
-    auth_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
+function get_telesale(student, _id) {
+    auth_model.find({ 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id }, function (err, data) {
         if (err) {
             console.log('get_telesale ' + err);
         } else {
@@ -145,54 +146,91 @@ function insertStudent(stude, tele) {
 }
 
 //function auto check google sheet
-function getSheet() {
-    var doc = new GoogleSpreadsheet('1wP1ef6NS_eUixv4Vyz6VxLFISKNUP7GoRojsqu6dLiU');
-    var sheet;
-    async.series([
-        function setAuth(step) {
-            // see notes below for authentication instructions!
-            var creds = require('../2i studio-fd2ce7d288b9.json');
-            doc.useServiceAccountAuth(creds, step);
-        },
-        function getInfoAndWorksheets(step) {
-            doc.getInfo(function (err, info) {
-                if (info !== undefined) {
-                    sheet = info.worksheets[0];
-                }
-                step();
-            });
-        },
-        function workingWithRows(step) {
-            // google provides some query options
-            if (sheet !== undefined) {
-                sheet.getRows({
-                    offset: 1
-                    // orderby: 'col2'
-                }, function (err, rows) {
-                    if (rows !== undefined && rows !== null) {
-                        if (rows.length > 0) {
-                            // var j = 0;
-                            //lấy danh sách học viên mới
-                            for (let i = 0; i < rows.length; i++) {
-                                if (rows[i].move === "") {
-                                    setTimeout(function () {
-                                        rows[i].move = "moved";
-                                        rows[i].save();
-                                        get_telesale(rows[i]);
-                                    }, 1000 * i)
-                                }
+function getSheet(list) {
+    
+    if (list.length > 0) {
+
+        for (let i = 0; i < list.length; i++) {
+            setTimeout(function () {
+                console.log(list[i].sheet)
+                var _id = list[i].idgroup;
+                var doc = new GoogleSpreadsheet(list[i].sheet);
+                var sheet;
+                async.series([
+                    function setAuth(step) {
+                        // see notes below for authentication instructions!
+                        var creds = require('../2i studio-fd2ce7d288b9.json');
+                        doc.useServiceAccountAuth(creds, step);
+                    },
+                    function getInfoAndWorksheets(step) {
+                        doc.getInfo(function (err, info) {
+                            if (info !== undefined) {
+                                sheet = info.worksheets[0];
                             }
+                            step();
+                        });
+                    },
+                    function workingWithRows(step) {
+                        // google provides some query options
+                        if (sheet !== undefined) {
+                            sheet.getRows({
+                                offset: 1
+                                // orderby: 'col2'
+                            }, function (err, rows) {
+                                if (rows !== undefined && rows !== null) {
+                                    if (rows.length > 0) {
+                                        // var j = 0;
+                                        //lấy danh sách học viên mới
+                                        for (let i = 0; i < rows.length; i++) {
+                                            console.log(rows[i])
+                                            if (rows[i].move === "") {
+                                                setTimeout(function () {
+                                                    rows[i].move = "moved";
+                                                    rows[i].save();
+                                                    get_telesale(rows[i], _id);
+                                                }, 1000 * i)
+                                            }
+                                        }
+                                    }
+                                }
+                                step();
+                            });
                         }
                     }
-                    step();
+                ], function (err) {
+                    if (err) {
+                        console.log('Error: ' + err);
+                    }
                 });
+
+
+            }, 5000 * list.length)
+        }
+    }
+}
+
+// kiểm tra thông tin các group
+function checkGroup() {
+    group_model.find({ Sheet: { $ne: null } }, function (err, data) {
+        if (err) {
+            console.log('checkGroup ' + err);
+        } else {
+            if (data.length > 0) {
+                let list_sheet = [];
+                data.forEach(element => {
+                    element.Sheet.forEach(el => {
+                        let tmp = {
+                            idgroup: element._id,
+                            sheet: el.id
+                        }
+                        list_sheet.push(tmp);
+                    });
+                });
+
+                getSheet(list_sheet);
             }
         }
-    ], function (err) {
-        if (err) {
-            console.log('Error: ' + err);
-        }
-    });
+    })
 }
 
 /*
@@ -204,7 +242,8 @@ schedule.scheduleJob('0 0 0 * * *', function () {
     reset_student(parseInt(_the_month));
 })
 
-schedule.scheduleJob('*/30 * * * * *', function () {
-    getSheet();
+schedule.scheduleJob('*/5 * * * * *', function () {
+    // getSheet();
+    checkGroup();
 })
 

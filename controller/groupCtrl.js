@@ -12,11 +12,11 @@ module.exports = {
             Sheet: null,
             Total: 0
         })
-        group.save(function (err) {
+        group.save(function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                response = { 'error_code': 0, 'message': 'create group success' };
+                response = { 'error_code': 0, 'message': data.id };
             }
             res.status(200).json(response);
         })
