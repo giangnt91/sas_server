@@ -115,12 +115,24 @@ sas.post('/updateuser', function (req, res) {
     AuthCtrl.UpdateInfoUser(req, res);
 })
 
+sas.post('/updatezoneUser', function (req, res) {
+    AuthCtrl.UpdatezoneUser(req, res);
+})
+
+sas.post('/updatermleader', function (req, res) {
+    AuthCtrl.UpdateRemoveLeader(req, res);
+})
+
 sas.post('/deleteuser', function (req, res) {
     AuthCtrl.DeleteUser(req, res);
 })
 
 sas.post('/resetuser', function (req, res) {
     AuthCtrl.ResetUser(req, res);
+})
+
+sas.post('/getallusergroup', function (req, res) {
+    AuthCtrl.GetAllforgroup(req, res);
 })
 
 sas.post('/getuserbysup', function (req, res) {
@@ -224,6 +236,14 @@ sas.post('/cgroup', function (req, res) {
 
 sas.post('/allgroup', function (req, res) {
     GroupCtrl.GetAll(req, res);
+})
+
+sas.post('/delgroup', function (req, res) {
+    GroupCtrl.Del(req, res);
+})
+
+sas.post('/upgroup', function (req, res) {
+    GroupCtrl.Up(req, res);
 })
 
 //-- Run server --//

@@ -142,7 +142,8 @@ module.exports = {
                         Birthday: req.body.Birthday,
                         Student_in_month: student_in_month,
                         Role: req.body.Role,
-                        Leader: null,
+                        Leader: false,
+                        SheetID: null,
                         Zone: req.body.Zone,
                         Status_user: new_status
                     });
@@ -218,6 +219,7 @@ module.exports = {
                     data.Zone = req.body._detail.Zone;
                     data.Leader = req.body._detail.Leader;
                     data.Role = req.body._detail.Role;
+                    data.SheetID = req.body._detail.SheetID;
                     data.Student_in_month = req.body._detail.Student_in_month;
 
                     data.save(function (err) {
@@ -229,6 +231,43 @@ module.exports = {
                         res.status(200).json(response);
                     })
                 }
+            }
+        })
+    },
+    UpdatezoneUser: function (req, res) {
+        users_model.findOne({ Username: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                data.Zone = req.body.Zone;
+                data.Leader = true;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 1, 'message': 'error fetching data' }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update info success' }
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
+    },
+    UpdateRemoveLeader: function (req, res) {
+        users_model.findOne({ Username: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                data.Leader = false;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 1, 'message': 'error fetching data' }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update info success' }
+                    }
+                    res.status(200).json(response);
+                })
             }
         })
     },
@@ -312,18 +351,25 @@ module.exports = {
             }
         })
     },
+    GetAllforgroup: function (req, res) {
+        users_model.find({ $or: [{ 'Role.id': 1 }, { 'Role.id': 2 }] }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'users': data }
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
     GetforGroup: function (req, res) {
         var query;
         if (req.body.Role[0].id !== 0) {
             query = {
-                'Zone.leader': req.body.Username,
-                $and: [{
-                    $or: [{
-                        'Role.id': 1
-                    }, {
-                        'Role.id': 2
-                    }]
-                }]
+                'Zone.id': req.body.id,
+                'Role.id': req.body.Role[0].id
             }
         } else {
             query = {
@@ -334,7 +380,6 @@ module.exports = {
                 }]
             }
         }
-
         users_model.find(query, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };

@@ -14,7 +14,8 @@ var user = new mongoose.Schema({
     Birthday: String,
     Student_in_month: Array,
     Role: Array,
-    Leader: Array, 
+    Leader: Boolean,
+    SheetID: String,
     Zone: Array,
     Status_user: Array
 }, { versionKey: false });
