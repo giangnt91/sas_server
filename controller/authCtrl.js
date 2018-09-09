@@ -338,6 +338,44 @@ module.exports = {
             }
         })
     },
+    UpdateSheetStatus: function (req, res) {
+        users_model.findById({ _id: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data) {
+                    var SheetID;
+                    if (req.body.value === false) {
+                        SheetID = [{
+                            name: data.SheetID[0].name,
+                            id: data.SheetID[0].id,
+                            urlads: data.SheetID[0].urlads,
+                            note: data.SheetID[0].note,
+                            isready: false
+                        }]
+                    } else if (req.body.value === true) {
+                        SheetID = [{
+                            name: data.SheetID[0].name,
+                            id: data.SheetID[0].id,
+                            urlads: data.SheetID[0].urlads,
+                            note: data.SheetID[0].note,
+                            isready: true
+                        }]
+                    }
+                    data.SheetID = SheetID;
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 1, 'message': 'error fetching data' }
+                        } else {
+                            response = { 'error_code': 0, 'message': 'Update info success' }
+                        }
+                        res.status(200).json(response);
+                    })
+                }
+            }
+        })
+    },
     GetbySup: function (req, res) {
         users_model.find({ 'Role.id': 1 }, function (err, data) {
             if (err) {
@@ -420,6 +458,18 @@ module.exports = {
                 }
             }
         })
+    },
+    GetallMakerting: function (req, res) {
+        users_model.find({ 'Role.id': 2 }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'makert': data }
+                    res.status(200).json(response);
+                }
+            }
+        })
     }
-
 }

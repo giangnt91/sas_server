@@ -1252,5 +1252,21 @@ module.exports = {
                 }
             }
         })
+    },
+    Gettq: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 1
+            }
+        }
     }
 }

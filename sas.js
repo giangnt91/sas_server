@@ -111,6 +111,10 @@ sas.post('/upstatus', function (req, res) {
     AuthCtrl.UpdateStatus(req, res);
 })
 
+sas.post('/upsheetstatus', function (req, res) {
+    AuthCtrl.UpdateSheetStatus(req, res);
+})
+
 sas.post('/updateuser', function (req, res) {
     AuthCtrl.UpdateInfoUser(req, res);
 })
@@ -147,7 +151,15 @@ sas.post('/sharestudent', function (req, res) {
     AuthCtrl.ShareStudent(req, res);
 })
 
+sas.post('/getallmakerting', function (req, res) {
+    AuthCtrl.GetallMakerting(req, res);
+})
+
 //Student
+sas.post('/gettqmakert', function (req, res) {
+    StudentCtrl.Gettq(req, res);
+})
+
 sas.post('/cstudent', function (req, res) {
     StudentCtrl.CreateStudent(req, res)
 })
