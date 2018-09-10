@@ -321,7 +321,6 @@ module.exports = {
 
         }
 
-        console.log(query)
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('GetallQuery ' + err);
