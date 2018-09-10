@@ -11,13 +11,14 @@ var auth_model = require('../model/auth');
 var group_model = require('../model/groups');
 
 // lấy danh sách telesale
-function get_telesale(student, _id) {
-    auth_model.find({ 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id }, function (err, data) {
+function get_telesale(student, _id, sheet_id) {
+    var query = { 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id};
+    auth_model.find(query, function (err, data) {
         if (err) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                insertStudent(student, data[0]);
+                insertStudent(student, data[0], sheet_id);
             }
         }
 
@@ -79,7 +80,7 @@ function update_total_for_tele(Username) {
 }
 
 // thêm học viên và chia cho telesale
-function insertStudent(stude, tele) {
+function insertStudent(stude, tele, sheet_id) {
     autosheet_model.find({ Id_sheet: stude.id }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
@@ -101,7 +102,8 @@ function insertStudent(stude, tele) {
                 let timereg = dateFormat(new Date(), "HH:MM:ss")
                 let manager = {
                     id: tele.Username,
-                    name: tele.Fullname
+                    name: tele.Fullname,
+                    sheetId: sheet_id
                 }
                 let status_student = {
                     id: 0,
@@ -147,66 +149,54 @@ function insertStudent(stude, tele) {
 
 //function auto check google sheet
 function getSheet(list) {
-    
-    if (list.length > 0) {
-
-        for (let i = 0; i < list.length; i++) {
-            setTimeout(function () {
-                console.log(list[i].sheet)
-                var _id = list[i].idgroup;
-                var doc = new GoogleSpreadsheet(list[i].sheet);
-                var sheet;
-                async.series([
-                    function setAuth(step) {
-                        // see notes below for authentication instructions!
-                        var creds = require('../2i studio-fd2ce7d288b9.json');
-                        doc.useServiceAccountAuth(creds, step);
-                    },
-                    function getInfoAndWorksheets(step) {
-                        doc.getInfo(function (err, info) {
-                            if (info !== undefined) {
-                                sheet = info.worksheets[0];
-                            }
-                            step();
-                        });
-                    },
-                    function workingWithRows(step) {
-                        // google provides some query options
-                        if (sheet !== undefined) {
-                            sheet.getRows({
-                                offset: 1
-                                // orderby: 'col2'
-                            }, function (err, rows) {
-                                if (rows !== undefined && rows !== null) {
-                                    if (rows.length > 0) {
-                                        // var j = 0;
-                                        //lấy danh sách học viên mới
-                                        for (let i = 0; i < rows.length; i++) {
-                                            console.log(rows[i])
-                                            if (rows[i].move === "") {
-                                                setTimeout(function () {
-                                                    rows[i].move = "moved";
-                                                    rows[i].save();
-                                                    get_telesale(rows[i], _id);
-                                                }, 1000 * i)
-                                            }
-                                        }
-                                    }
+    var _id = list.idgroup;
+    var doc = new GoogleSpreadsheet(list.sheet);
+    var sheet;
+    async.series([
+        function setAuth(step) {
+            // see notes below for authentication instructions!
+            var creds = require('../2i studio-fd2ce7d288b9.json');
+            doc.useServiceAccountAuth(creds, step);
+        },
+        function getInfoAndWorksheets(step) {
+            doc.getInfo(function (err, info) {
+                if (info !== undefined) {
+                    sheet = info.worksheets[0];
+                }
+                step();
+            });
+        },
+        function workingWithRows(step) {
+            // google provides some query options
+            if (sheet !== undefined) {
+                sheet.getRows({
+                    offset: 1
+                    // orderby: 'col2'
+                }, function (err, rows) {
+                    if (rows !== undefined && rows !== null) {
+                        if (rows.length > 0) {
+                            // var j = 0;
+                            //lấy danh sách học viên mới
+                            for (let i = 0; i < rows.length; i++) {
+                                if (rows[i].move === "") {
+                                    setTimeout(function () {
+                                        rows[i].move = "moved";
+                                        rows[i].save();
+                                        get_telesale(rows[i], _id.toString(), list.sheet);
+                                    }, 1000 * i)
                                 }
-                                step();
-                            });
+                            }
                         }
                     }
-                ], function (err) {
-                    if (err) {
-                        console.log('Error: ' + err);
-                    }
+                    step();
                 });
-
-
-            }, 5000 * list.length)
+            }
         }
-    }
+    ], function (err) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+    });
 }
 
 // kiểm tra thông tin các group
@@ -218,16 +208,16 @@ function checkGroup() {
             if (data.length > 0) {
                 let list_sheet = [];
                 data.forEach(element => {
-                    element.Sheet.forEach(el => {
-                        let tmp = {
-                            idgroup: element._id,
-                            sheet: el.id
-                        }
-                        list_sheet.push(tmp);
-                    });
+                    for (let i = 0; i < element.Sheet.length; i++) {
+                        setTimeout(function () {
+                            let tmp = {
+                                idgroup: element._id,
+                                sheet: element.Sheet[i].id
+                            }
+                            getSheet(tmp);
+                        }, i * 3000)
+                    }
                 });
-
-                getSheet(list_sheet);
             }
         }
     })
