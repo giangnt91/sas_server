@@ -73,6 +73,7 @@ module.exports = {
         }
 
         if (req.body.Role[0].id === 0) {
+
             if (req.body._status === null && req.body.form === null) {
                 query = {
                     Regdayiso: {
@@ -83,13 +84,50 @@ module.exports = {
             }
 
             if (req.body._status !== null && req.body.form === null) {
-                query = {
-                    Regdayiso: {
-                        $gte: dateFormat(new Date(), firstDay),
-                        $lte: dateFormat(new Date(), today)
-                    },
-                    'Status_student.id': req.body._status
+                // online không trùng
+                if (req.body._status === 1) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Duplicate': null
+                    }
                 }
+
+                //đã đăng ký
+                if (req.body._status === 2) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Status_student.id': 3
+                    }
+                }
+
+                // trùng
+                if (req.body._status === 3) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Duplicate': { $ne: null }
+                    }
+                }
+
+                // không tiềm năng
+                if (req.body._status === 4) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Status_student.id': 1
+                    }
+                }
+
             }
 
             if (req.body._status === null && req.body.form !== null) {
@@ -102,6 +140,119 @@ module.exports = {
                 }
             }
 
+            if (req.body._status !== null && req.body.form !== null) {
+
+                // online không trùng
+                if (req.body._status === 1) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Duplicate': null
+                    }
+                }
+
+                //đã đăng ký
+                if (req.body._status === 2) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Status_student.id': 3
+                    }
+                }
+
+                // trùng
+                if (req.body._status === 3) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Duplicate': { $ne: null }
+                    }
+                }
+
+                // không tiềm năng
+                if (req.body._status === 4) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Status_student.id': 1
+                    }
+                }
+            }
+        } else {
+
+            if (req.body._status === null && req.body.form === null) {
+                query = {
+                    Regdayiso: {
+                        $gte: dateFormat(new Date(), firstDay),
+                        $lte: dateFormat(new Date(), today)
+                    },
+                    'Manager.mid': req.body.Username
+                }
+            }
+
+            if (req.body._status !== null && req.body.form === null) {
+                // online không trùng
+                if (req.body._status === 1) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Duplicate': null,
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+                //đã đăng ký
+                if (req.body._status === 2) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Status_student.id': 3,
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+                // trùng
+                if (req.body._status === 3) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Duplicate': { $ne: null },
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+                // không tiềm năng
+                if (req.body._status === 4) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Status_student.id': 1,
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+            }
+
             if (req.body._status === null && req.body.form !== null) {
                 query = {
                     Regdayiso: {
@@ -109,9 +260,65 @@ module.exports = {
                         $lte: dateFormat(new Date(), today)
                     },
                     'Manager.sheetId': req.body.form,
-                    'Status_student.id': req.body._status
+                    'Manager.mid': req.body.Username
                 }
             }
+
+            if (req.body._status !== null && req.body.form !== null) {
+
+                // online không trùng
+                if (req.body._status === 1) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Duplicate': null,
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+                //đã đăng ký
+                if (req.body._status === 2) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Status_student.id': 3,
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+                // trùng
+                if (req.body._status === 3) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Duplicate': { $ne: null },
+                        'Manager.mid': req.body.Username
+                    }
+                }
+
+                // không tiềm năng
+                if (req.body._status === 4) {
+                    query = {
+                        Regdayiso: {
+                            $gte: dateFormat(new Date(), firstDay),
+                            $lte: dateFormat(new Date(), today)
+                        },
+                        'Manager.sheetId': req.body.form,
+                        'Status_student.id': 1,
+                        'Manager.mid': req.body.Username
+                    }
+                }
+            }
+
         }
 
         console.log(query)
@@ -119,10 +326,8 @@ module.exports = {
             if (err) {
                 console.log('GetallQuery ' + err);
             } else {
-                if (data.length > 0) {
-                    response = { 'error_code': 0, 'student': data };
-                    res.status(200).json(response);
-                }
+                response = { 'error_code': 0, 'student': data };
+                res.status(200).json(response);
             }
         })
     },
