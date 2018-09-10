@@ -101,15 +101,19 @@ io.on('connection', function (socket) {
                             pretime: element.Duplicate[0].pretime,
                             prename: element.Duplicate[0].prename,
                             preid: element.Duplicate[0].preid,
+                            premid: element.Duplicate[0].premid,
+                            premname: element.Duplicate[0].premname,
                             sheetid: element.Duplicate[0].msheetid,
                             student: element.Fullname,
-                            stphone: element.Phone
+                            stphone: element.Phone,
+                            mketer: element.Manager[0].mid
                         }
                         list_duplicate.push(tmp);
                     });
+            
                     if (list_duplicate.length > 0) {
                         socket.broadcast.emit('duplicate', list_duplicate);
-                        socket.broadcast.emit('mduplicate', list_duplicate);
+                        socket.broadcast.emit('mkduplicate', list_duplicate);
                         data.forEach(element => {
                             let _dup = [{
                                 alert: true,

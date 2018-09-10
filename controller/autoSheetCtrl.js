@@ -174,7 +174,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname) {
                     let manager = {
                         id: tele.Username,
                         name: tele.Fullname,
-                        sheetId: sheet_id,
+                        sheetId: data[0].Manager[0].sheetId,
                         mid: mid,
                         mname: mname
                     }
