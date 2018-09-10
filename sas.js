@@ -219,6 +219,10 @@ sas.post('/cstudent', function (req, res) {
     StudentCtrl.CreateStudent(req, res)
 })
 
+sas.post('/getallquery', function(req, res){
+    StudentCtrl.GetallQuery(req, res);
+})
+
 sas.post('/getall', function (req, res) {
     StudentCtrl.Getall(req, res);
 })

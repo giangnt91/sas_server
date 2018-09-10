@@ -54,6 +54,78 @@ module.exports = {
             }
         }).sort({ _id: -1 })
     },
+    GetallQuery: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            firstDay = req.body.Fromday;
+            today = req.body.Today;
+        }
+
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            firstDay = req.body.Fromday
+        }
+
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+        }
+
+        if (req.body.Role[0].id === 0) {
+            if (req.body._status === null && req.body.form === null) {
+                query = {
+                    Regdayiso: {
+                        $gte: dateFormat(new Date(), firstDay),
+                        $lte: dateFormat(new Date(), today)
+                    }
+                }
+            }
+
+            if (req.body._status !== null && req.body.form === null) {
+                query = {
+                    Regdayiso: {
+                        $gte: dateFormat(new Date(), firstDay),
+                        $lte: dateFormat(new Date(), today)
+                    },
+                    'Status_student.id': req.body._status
+                }
+            }
+
+            if (req.body._status === null && req.body.form !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: dateFormat(new Date(), firstDay),
+                        $lte: dateFormat(new Date(), today)
+                    },
+                    'Manager.sheetId': req.body.form
+                }
+            }
+
+            if (req.body._status === null && req.body.form !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: dateFormat(new Date(), firstDay),
+                        $lte: dateFormat(new Date(), today)
+                    },
+                    'Manager.sheetId': req.body.form,
+                    'Status_student.id': req.body._status
+                }
+            }
+        }
+
+        console.log(query)
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetallQuery ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'student': data };
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
     Getfornof: function (req, res) {
         student_model.find({ 'Appointment_time.name': req.body.Time, 'Appointment_day': req.body.Day }, function (err, data) {
             if (err) {
@@ -1258,15 +1330,78 @@ module.exports = {
         var firstDay = getFirstDateOfMonth();
         var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-        if (req.body.Fromday === null && req.body.Today === null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Manager.id': req.body.Username,
-                'Status_student.id': 1
-            }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            firstDay = req.body.Fromday;
+            today = req.body.Today;
         }
+
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            firstDay = req.body.Fromday
+        }
+
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+        }
+        query = {
+            Regdayiso: {
+                $gte: firstDay,
+                $lte: today
+            },
+            'Manager.mid': req.body.Username
+        }
+        // }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetLh ' + err);
+            } else {
+                if (data.length > 0) {
+                    let _on = data.length;
+                    let _reg = [];
+                    let _dup = [];
+                    let _ktn = [];
+
+                    data.forEach(element => {
+                        if (element.Status_student[0].id === 3) {
+                            _reg.push(element);
+                        }
+
+                        if (element.Duplicate !== null) {
+                            _dup.push(element);
+                        }
+
+                        if (element.Status_student[0].id === 1) {
+                            _ktn.push(element);
+                        }
+                    });
+
+                    let mkt =
+                    {
+                        Name: data[0].Manager[0].mname,
+                        User: data[0].Manager[0].mid,
+                        On: _on,
+                        Reg: _reg,
+                        Dup: _dup,
+                        Ktn: _ktn
+                    }
+
+                    response = { 'error_code': 0, 'mkt': mkt };
+                    res.status(200).json(response);
+                } else {
+                    let mkt =
+                    {
+                        Name: req.body.Fullname,
+                        User: req.body.Username,
+                        On: 0,
+                        Reg: 0,
+                        Dup: 0,
+                        Ktn: 0
+                    }
+
+                    response = { 'error_code': 0, 'mkt': mkt };
+                    res.status(200).json(response);
+                }
+            }
+        })
     }
 }
