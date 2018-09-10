@@ -51,22 +51,6 @@ module.exports = {
             }
         })
     },
-    Delsheet: function (req, res) {
-        group_model.findOne({ 'Sheet.id': req.body._id }, function (err, data) {
-            if (err) {
-                response = { 'error_code': 1, 'message': 'error fetching data' };
-                res.status(200).json(response);
-            } else {
-                data.Sheet.forEach(function (element, index) {
-                    if (element.id === req.body._id) {
-                        data.Sheet.splice(index, 1);
-                    }
-                    element.save(function (err) { })
-                });
-                res.status(200).json(response);
-            }
-        })
-    },
     Up: function (req, res) {
         group_model.findById({ _id: req.body.group._id }, function (err, data) {
             if (err) {
