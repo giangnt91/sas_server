@@ -110,7 +110,7 @@ io.on('connection', function (socket) {
                         }
                         list_duplicate.push(tmp);
                     });
-            
+
                     if (list_duplicate.length > 0) {
                         socket.broadcast.emit('duplicate', list_duplicate);
                         socket.broadcast.emit('mkduplicate', list_duplicate);
@@ -219,7 +219,7 @@ sas.post('/cstudent', function (req, res) {
     StudentCtrl.CreateStudent(req, res)
 })
 
-sas.post('/getallquery', function(req, res){
+sas.post('/getallquery', function (req, res) {
     StudentCtrl.GetallQuery(req, res);
 })
 
@@ -315,6 +315,10 @@ sas.post('/delgroup', function (req, res) {
 
 sas.post('/upgroup', function (req, res) {
     GroupCtrl.Up(req, res);
+})
+
+sas.post('/rmsheet', function (req, res) {
+    GroupCtrl.Delsheet(req, res);
 })
 
 //-- Run server --//

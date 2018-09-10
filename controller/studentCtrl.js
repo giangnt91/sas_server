@@ -980,7 +980,8 @@ module.exports = {
                     $gte: dateFormat(new Date(), firstDay),
                     $lte: dateFormat(new Date(), today)
                 },
-                Isupdate: false
+                Isupdate: false,
+                'Duplicate': null
             }
         }
         if (req.body.Fromday !== null && req.body.Today === null) {
@@ -990,7 +991,8 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
                 },
                 'Manager.id': req.body.Username,
-                Isupdate: false
+                Isupdate: false,
+                'Duplicate': null
             }
         }
         if (req.body.Fromday === null && req.body.Today !== null) {
@@ -1001,7 +1003,8 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
                 },
                 'Manager.id': req.body.Username,
-                Isupdate: false
+                Isupdate: false,
+                'Duplicate': null
             }
         }
         if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -1012,7 +1015,8 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
                 },
                 'Manager.id': req.body.Username,
-                Isupdate: false
+                Isupdate: false,
+                'Duplicate': null
             }
         }
 
@@ -1105,7 +1109,8 @@ module.exports = {
                     $gte: firstDay,
                     $lte: today
                 },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                'Duplicate': null
             }
         }
         if (req.body.Fromday !== null && req.body.Today === null) {
@@ -1114,7 +1119,8 @@ module.exports = {
                     $gte: dateFormat(new Date(), req.body.Fromday),
                     $lte: dateFormat(new Date(), today)
                 },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                'Duplicate': null
             }
         }
         if (req.body.Fromday === null && req.body.Today !== null) {
@@ -1124,7 +1130,8 @@ module.exports = {
                     $gte: dateFormat(new Date(), firstDay),
                     $lte: dateFormat(new Date(), today)
                 },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                'Duplicate': null
             }
         }
         if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -1135,7 +1142,8 @@ module.exports = {
                     $gte: dateFormat(new Date(), firstDay),
                     $lte: dateFormat(new Date(), today)
                 },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                'Duplicate': null
             }
         }
         student_model.find(query, function (err, data) {
