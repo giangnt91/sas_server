@@ -116,7 +116,9 @@ io.on('connection', function (socket) {
                                 pretime: element.Duplicate[0].pretime,
                                 msheetid: element.Duplicate[0].msheetid,
                                 prename: element.Duplicate[0].prename,
-                                preid: element.Duplicate[0].preid
+                                preid: element.Duplicate[0].preid,
+                                premid: element.Duplicate[0].premid,
+                                premname: element.Duplicate[0].premname
                             }]
                             element.Duplicate = _dup;
                             element.save(function (err) {
