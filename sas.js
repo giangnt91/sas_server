@@ -58,6 +58,8 @@ schedule.scheduleJob('*/1 * * * * *', function () {
 //-- Socket IO --/
 io.on('connection', function (socket) {
     setInterval(function () {
+
+        // kiểm tra các lịch sắp tới hẹn
         var _time = dateFormat(new Date(), "HH:MM");
         var _day = dateFormat(new Date(), "dd/mm/yyyy");
 
@@ -83,7 +85,54 @@ io.on('connection', function (socket) {
                 }
             }
         })
-    }, 10000);
+
+
+        // kiểm tra trùng học viên
+        student_model.find({ 'Duplicate.alert': false }, function (err, data) {
+            if (err) {
+                console.log('Duplicate sas ' + err);
+            } else {
+                if (data.length > 0) {
+                    var list_duplicate = [];
+                    data.forEach(element => {
+                        let tmp = {
+                            teleid: element.Manager[0].id,
+                            telename: element.Manager[0].name,
+                            pretime: element.Duplicate[0].pretime,
+                            prename: element.Duplicate[0].prename,
+                            preid: element.Duplicate[0].preid,
+                            sheetid: element.Duplicate[0].msheetid,
+                            student: element.Fullname,
+                            stphone: element.Phone
+                        }
+                        list_duplicate.push(tmp);
+                    });
+                    if (list_duplicate.length > 0) {
+                        socket.broadcast.emit('duplicate', list_duplicate);
+                        socket.broadcast.emit('mduplicate', list_duplicate);
+                        data.forEach(element => {
+                            let _dup = [{
+                                alert: true,
+                                pretime: element.Duplicate[0].pretime,
+                                msheetid: element.Duplicate[0].msheetid,
+                                prename: element.Duplicate[0].prename,
+                                preid: element.Duplicate[0].preid
+                            }]
+                            element.Duplicate = _dup;
+                            element.save(function (err) {
+                                if (err) {
+                                    console.log('duplicate update ' + err);
+                                }
+                            })
+                        });
+                    }
+                }
+            }
+        })
+
+
+
+    }, 15000);
 });
 
 //-- Controller --//

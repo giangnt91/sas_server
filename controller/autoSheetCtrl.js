@@ -4,6 +4,12 @@ var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
 var mongoose = require('mongoose');
 
+var express = require('express'), http = require('http');
+var sas = express();
+var http = http.Server(sas);
+var io = require('socket.io')(http);
+
+
 
 //model
 var autosheet_model = require('../model/autoSheet');
@@ -11,14 +17,14 @@ var auth_model = require('../model/auth');
 var group_model = require('../model/groups');
 
 // lấy danh sách telesale
-function get_telesale(student, _id, sheet_id) {
-    var query = { 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id};
+function get_telesale(student, _id, sheet_id, mid, mname) {
+    var query = { 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id };
     auth_model.find(query, function (err, data) {
         if (err) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                insertStudent(student, data[0], sheet_id);
+                insertStudent(student, data[0], sheet_id, mid, mname);
             }
         }
 
@@ -79,9 +85,10 @@ function update_total_for_tele(Username) {
 
 }
 
+
 // thêm học viên và chia cho telesale
-function insertStudent(stude, tele, sheet_id) {
-    autosheet_model.find({ Id_sheet: stude.id }, function (err, data) {
+function insertStudent(stude, tele, sheet_id, mid, mname) {
+    autosheet_model.find({ Phone: stude.sốđiệnthoại }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
         } else {
@@ -103,7 +110,9 @@ function insertStudent(stude, tele, sheet_id) {
                 let manager = {
                     id: tele.Username,
                     name: tele.Fullname,
-                    sheetId: sheet_id
+                    sheetId: sheet_id,
+                    mid: mid,
+                    mname: mname
                 }
                 let status_student = {
                     id: 0,
@@ -142,6 +151,80 @@ function insertStudent(stude, tele, sheet_id) {
                         update_total_for_tele(tele.Username);
                     }
                 })
+            }
+
+            else if (data.length === 1) {
+
+                if (stude.id !== data[0].Id_sheet) {
+
+                    let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
+                    date = new Date();
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    dt = date.getDate();
+
+                    if (dt < 10) {
+                        dt = '0' + dt;
+                    }
+                    if (month < 10) {
+                        month = '0' + month;
+                    }
+                    isoday = year + '-' + month + '-' + dt;
+                    let timereg = dateFormat(new Date(), "HH:MM:ss")
+                    let manager = {
+                        id: tele.Username,
+                        name: tele.Fullname,
+                        sheetId: sheet_id,
+                        mid: mid,
+                        mname: mname
+                    }
+                    let status_student = {
+                        id: 0,
+                        name: 'Chưa đăng ký'
+                    }
+                    let duplicate = {
+                        preid: data[0].Manager[0].id,
+                        prename: data[0].Manager[0].name,
+                        premid: data[0].Manager[0].mid,
+                        premname: data[0].Manager[0].mname,
+                        msheetid: data[0].Manager[0].sheetId,
+                        pretime: data[0].Regtime + ' ' + data[0].Regday,
+                        alert: false
+                    }
+                    let student = new autosheet_model({
+                        IdforFrend: mongoose.Types.ObjectId(),
+                        Id_sheet: stude.id,
+                        Fullname: stude.họtên,
+                        Email: stude.email,
+                        Phone: stude.sốđiệnthoại,
+                        Sex: null,
+                        Address: null,
+                        Regday: dayreg,
+                        Regdayiso: isoday,
+                        Regday2: null,
+                        Regtime: timereg,
+                        Dayenrollment: null,
+                        Note: null,
+                        Center: null,
+                        Time_recall: null,
+                        Recall: false,
+                        Appointment_day: null,
+                        Appointment_dayiso: null,
+                        Appointment_time: null,
+                        Status_student: status_student,
+                        ListFriend: null,
+                        Manager: manager,
+                        Isupdate: false,
+                        Duplicate: duplicate
+                    });
+                    student.save(function (err) {
+                        if (err) {
+                            console.log('save student ' + err)
+                        } else {
+                            update_total_for_tele(tele.Username);
+                        }
+                    })
+                }
             }
         }
     });
@@ -182,7 +265,7 @@ function getSheet(list) {
                                     setTimeout(function () {
                                         rows[i].move = "moved";
                                         rows[i].save();
-                                        get_telesale(rows[i], _id.toString(), list.sheet);
+                                        get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
                                     }, 1000 * i)
                                 }
                             }
@@ -212,7 +295,9 @@ function checkGroup() {
                         setTimeout(function () {
                             let tmp = {
                                 idgroup: element._id,
-                                sheet: element.Sheet[i].id
+                                sheet: element.Sheet[i].id,
+                                mid: element.Sheet[i].muser,
+                                mname: element.Sheet[i].name
                             }
                             getSheet(tmp);
                         }, i * 3000)
