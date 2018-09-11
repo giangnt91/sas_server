@@ -802,14 +802,14 @@ module.exports = {
             //         'Manager.id': req.body.Username
             //     }
             // } else {
-                query = {
-                    Regdayiso: {
-                        $gte: firstDay,
-                        $lte: today
-                    },
-                    Appointment_day: { $ne: null },
-                    'Manager.id': req.body.Username
-                }
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                Appointment_day: { $ne: null },
+                'Manager.id': req.body.Username
+            }
             // }
 
         }
@@ -851,7 +851,8 @@ module.exports = {
             today = req.body.Regday2;
         }
 
-        if (req.body.Username !== 'supadmin') {
+        // lọc cho user thường
+        if (req.body.Role[0].id !== 0) {
             query = {
                 Regdayiso: {
                     $gte: firstDay,
