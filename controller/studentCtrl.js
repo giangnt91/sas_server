@@ -969,22 +969,35 @@ module.exports = {
             today = req.body.Cday2;
         }
 
-        if (req.body.Sale !== null) {
+        // kiểm tra cho admin
+        if (req.body.Role[0].id === 0) {
+            if (req.body.Sale !== null) {
+                query = {
+                    Appointment_dayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Manager.id': req.body.Sale
+                }
+            } else {
+                query = {
+                    Appointment_dayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    }
+                }
+            }
+        } else {
+            // cho user khác
             query = {
                 Appointment_dayiso: {
                     $gte: firstDay,
                     $lte: today
                 },
-                'Manager.id': req.body.Sale
-            }
-        } else {
-            query = {
-                Appointment_dayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                }
+                'Manager.id': req.body.Username
             }
         }
+
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchS ' + err);
