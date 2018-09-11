@@ -356,7 +356,6 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
             } else {
-                console.log(data)
                 if (data) {
                     var SheetID;
                     if (req.body.value === false) {
