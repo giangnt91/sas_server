@@ -477,45 +477,102 @@ module.exports = {
             today = req.body.Regday2;
         }
 
-        if (req.body.Center === null && req.body.Status === null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
+        // tìm kiếm cho admin
+        if (req.body.Role[0].id === 0) {
+
+            if (req.body.Center === null && req.body.Status === null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    }
                 }
             }
+
+            if (req.body.Center !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Center.id': req.body.Center
+                }
+            }
+
+            if (req.body.Status !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Status_student.id': req.body.Status
+                }
+            }
+
+            if (req.body.Center !== null && req.body.Status !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Status_student.id': req.body.Status,
+                    'Center.id': req.body.Center
+                }
+            }
+
         }
 
-        if (req.body.Center !== null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Center.id': req.body.Center
+        // tìm kiếm cho user thường
+        if (req.body.Role[0].id !== 0) {
+
+            if (req.body.Center === null && req.body.Status === null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Manager.id': req.body.Username
+                }
             }
+
+            if (req.body.Center !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Center.id': req.body.Center,
+                    'Manager.id': req.body.Username
+                }
+            }
+
+            if (req.body.Status !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Status_student.id': req.body.Status,
+                    'Manager.id': req.body.Username
+                }
+            }
+
+            if (req.body.Center !== null && req.body.Status !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Status_student.id': req.body.Status,
+                    'Center.id': req.body.Center,
+                    'Manager.id': req.body.Username
+                }
+            }
+
         }
 
-        if (req.body.Status !== null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Status_student.id': req.body.Status
-            }
-        }
 
-        if (req.body.Center !== null && req.body.Status !== null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Status_student.id': req.body.Status,
-                'Center.id': req.body.Center
-            }
-        }
+
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchH ' + err);
@@ -544,20 +601,24 @@ module.exports = {
             today = req.body.Regday2;
         }
 
-        if (req.body.Username !== 'supadmin') {
+        // lọc cho admin
+        if (req.body.Role[0].id !== 0) {
             query = {
                 Regdayiso: {
                     $gte: firstDay,
                     $lte: today
                 },
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+                Isupdate: false
             }
         } else {
+            // lọc cho user khác
             query = {
                 Regdayiso: {
                     $gte: firstDay,
                     $lte: today
-                }
+                },
+                Isupdate: false
             }
         }
 
