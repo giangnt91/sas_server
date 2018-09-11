@@ -601,7 +601,7 @@ module.exports = {
             today = req.body.Regday2;
         }
 
-        // lọc cho admin
+        // lọc cho user khác
         if (req.body.Role[0].id !== 0) {
             query = {
                 Regdayiso: {
@@ -612,7 +612,7 @@ module.exports = {
                 Isupdate: false
             }
         } else {
-            // lọc cho user khác
+            // lọc cho admin 
             query = {
                 Regdayiso: {
                     $gte: firstDay,
@@ -650,30 +650,91 @@ module.exports = {
             today = req.body.Reday2;
         }
 
-        if (req.body.Sale !== null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Time_recall.time.id': {
-                    $gte: req.body.Retime,
-                    $lte: req.body.Retime2
-                },
-                'Manager.id': req.body.Sale
-            }
-        } else {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Time_recall.time.id': {
-                    $gte: req.body.Retime,
-                    $lte: req.body.Retime2
+        // lọc cho admin
+        if (req.body.Role[0].id === 0) {
+
+            if (req.body.Sale !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    $and: [{
+                        $or: [{
+                            'Time_recall.time.id': {
+                                $gte: req.body.Retime,
+                                $lte: req.body.Retime2
+                            }
+                        }, {
+                            Recall: true
+                        }]
+                    }],
+                    'Manager.id': req.body.Sale,
+
+                }
+            } else {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    $and: [{
+                        $or: [{
+                            'Time_recall.time.id': {
+                                $gte: req.body.Retime,
+                                $lte: req.body.Retime2
+                            }
+                        }, {
+                            Recall: true
+                        }]
+                    }]
                 }
             }
+
+        } else {
+            // lọc cho user khác
+
+            if (req.body.Sale !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    $and: [{
+                        $or: [{
+                            'Time_recall.time.id': {
+                                $gte: req.body.Retime,
+                                $lte: req.body.Retime2
+                            }
+                        }, {
+                            Recall: true
+                        }]
+                    }],
+                    'Manager.id': req.body.Sale,
+                    'Manager.id': req.body.Username,
+                }
+            } else {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    $and: [{
+                        $or: [{
+                            'Time_recall.time.id': {
+                                $gte: req.body.Retime,
+                                $lte: req.body.Retime2
+                            }
+                        }, {
+                            Recall: true
+                        }]
+                    }],
+                    'Manager.id': req.body.Username,
+                }
+            }
+
         }
+
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchR ' + err);
