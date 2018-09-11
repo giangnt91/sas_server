@@ -710,7 +710,7 @@ module.exports = {
                             Recall: true
                         }]
                     }],
-                    'Manager.id': req.body.Sale,
+                    // 'Manager.id': req.body.Sale,
                     'Manager.id': req.body.Username,
                 }
             } else {
@@ -769,24 +769,51 @@ module.exports = {
             today = req.body.Regday2;
         }
 
-        if (req.body.Sale !== null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                'Manager.id': req.body.Sale,
-                Appointment_day: { $ne: null }
+        // tìm cho admin
+        if (req.body.Role[0].id === 0) {
+            if (req.body.Sale !== null) {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    'Manager.id': req.body.Sale,
+                    Appointment_day: { $ne: null }
+                }
+            } else {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    Appointment_day: { $ne: null }
+                }
             }
         } else {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-                },
-                Appointment_day: { $ne: null }
-            }
+            // tìm cho user khác
+            // if (req.body.Sale !== null) {
+            //     query = {
+            //         Regdayiso: {
+            //             $gte: firstDay,
+            //             $lte: today
+            //         },
+            //         'Manager.id': req.body.Sale,
+            //         Appointment_day: { $ne: null },
+            //         'Manager.id': req.body.Username
+            //     }
+            // } else {
+                query = {
+                    Regdayiso: {
+                        $gte: firstDay,
+                        $lte: today
+                    },
+                    Appointment_day: { $ne: null },
+                    'Manager.id': req.body.Username
+                }
+            // }
+
         }
+
 
         student_model.find(query, function (err, data) {
             if (err) {
