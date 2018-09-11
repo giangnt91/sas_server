@@ -435,10 +435,10 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
             } else {
-                if (data.length > 0) {
+                // if (data.length > 0) {
                     response = { 'error_code': 0, 'users': data };
                     res.status(200).json(response);
-                }
+                // }
             }
         })
     },
