@@ -318,7 +318,7 @@ schedule.scheduleJob('0 0 0 * * *', function () {
     reset_student(parseInt(_the_month));
 })
 
-schedule.scheduleJob('*/5 * * * * *', function () {
+schedule.scheduleJob('*/10 * * * * *', function () {
     // getSheet();
     checkGroup();
 })

@@ -389,7 +389,7 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
             } else {
-                if (data) {
+                if (data !== null) {
                     date = new Date();
                     year = date.getFullYear();
                     month = date.getMonth() + 1;
@@ -434,61 +434,65 @@ module.exports = {
         })
     },
     CreateStudent: function (req, res) {
-        student_model.find({}, function (err, data) {
+        student_model.find({ Phone: req.body.Phone }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
             } else {
-                let timereg = dateFormat(new Date(), "HH:MM:ss")
-                date = new Date();
-                year = date.getFullYear();
-                month = date.getMonth() + 1;
-                dt = date.getDate();
+                if (data.length > 0) {
+                    response = { 'error_code': 2, 'message': 'Phone is exit' }
+                } else {
+                    let timereg = dateFormat(new Date(), "HH:MM:ss")
+                    date = new Date();
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    dt = date.getDate();
 
-                if (dt < 10) {
-                    dt = '0' + dt;
-                }
-                if (month < 10) {
-                    month = '0' + month;
-                }
-                isoday = year + '-' + month + '-' + dt;
-                var IdforFrend = mongoose.Types.ObjectId();
-                var new_student = new student_model({
-                    IdforFrend: IdforFrend,
-                    Id_sheet: null,
-                    Fullname: req.body.Fullname,
-                    Email: req.body.Email,
-                    Phone: req.body.Phone,
-                    Sex: req.body.Sex,
-                    Address: req.body.Address,
-                    Regday: req.body.Regday,
-                    Regdayiso: isoday,
-                    Regday2: null,
-                    Regtime: timereg,
-                    Dayenrollment: null,
-                    Note: req.body.Note,
-                    SMS: null,
-                    Center: req.body.Center,
-                    Time_recall: null,
-                    Recall: false,
-                    Appointment_day: req.body.Appointment_day,
-                    Appointment_dayiso: req.body.Appointment_dayiso,
-                    Appointment_time: req.body.Appointment_time,
-                    Status_student: req.body.Status_student,
-                    ListFriend: null,
-                    Manager: req.body.Manager,
-                    Isupdate: false,
-                    Duplicate: null
-                });
-
-                new_student.save(function (err) {
-                    if (err) {
-                        response = { 'error_code': 1, 'message': 'error fetching data' }
-                    } else {
-                        response = { 'error_code': 0, '_id': IdforFrend }
+                    if (dt < 10) {
+                        dt = '0' + dt;
                     }
-                    res.status(200).json(response);
-                })
+                    if (month < 10) {
+                        month = '0' + month;
+                    }
+                    isoday = year + '-' + month + '-' + dt;
+                    var IdforFrend = mongoose.Types.ObjectId();
+                    var new_student = new student_model({
+                        IdforFrend: IdforFrend,
+                        Id_sheet: null,
+                        Fullname: req.body.Fullname,
+                        Email: req.body.Email,
+                        Phone: req.body.Phone,
+                        Sex: req.body.Sex,
+                        Address: req.body.Address,
+                        Regday: req.body.Regday,
+                        Regdayiso: isoday,
+                        Regday2: null,
+                        Regtime: timereg,
+                        Dayenrollment: null,
+                        Note: req.body.Note,
+                        SMS: null,
+                        Center: req.body.Center,
+                        Time_recall: null,
+                        Recall: false,
+                        Appointment_day: req.body.Appointment_day,
+                        Appointment_dayiso: req.body.Appointment_dayiso,
+                        Appointment_time: req.body.Appointment_time,
+                        Status_student: req.body.Status_student,
+                        ListFriend: null,
+                        Manager: req.body.Manager,
+                        Isupdate: false,
+                        Duplicate: null
+                    });
+
+                    new_student.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 1, 'message': 'error fetching data' }
+                        } else {
+                            response = { 'error_code': 0, '_id': IdforFrend }
+                        }
+                        res.status(200).json(response);
+                    })
+                }
             }
         })
     },
