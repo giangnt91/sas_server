@@ -4,6 +4,7 @@ var moment = require('moment');
 
 //get model
 var student_model = require('../model/autoSheet');
+var sms_model = require('../model/sms')
 
 
 // compare day
@@ -28,6 +29,33 @@ function getFirstDateOfMonth() {
 
 // Api
 module.exports = {
+    Csms: function (req, res) {
+        var _sms = new sms_model({
+            Title: req.body.Title,
+            SMS: req.body.SMS
+        });
+        _sms.save(function (err) {
+            if (err) {
+                console.log('CSMS ' + err)
+                response = { 'error_code': 1, 'message': 'error fetching data' }
+            } else {
+                response = { 'error_code': 0, 'message': 'create sms success' }
+            }
+            res.status(200).json(response);
+        })
+    },
+    Gsms: function (req, res) {
+        sms_model.find({}, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' }
+                res.status(200).json(response);
+            } else {
+                response = { 'error_code': 0, 'sms': data }
+                res.status(200).json(response);
+            }
+        }).sort({ _id: -1 });
+    },
+
     //get all student
     Getall: function (req, res) {
         student_model.find({}, function (err, data) {
@@ -392,6 +420,7 @@ module.exports = {
                     data.Isupdate = true;
                     data.Manager = req.body.detail.Manager;
                     data.Dayenrollment = isoday;
+                    data.SMS = req.body.detail.SMS;
                     data.save(function (err) {
                         if (err) {
                             console.log('UpdateById ' + err)
@@ -438,6 +467,7 @@ module.exports = {
                     Regtime: timereg,
                     Dayenrollment: null,
                     Note: req.body.Note,
+                    SMS: null,
                     Center: req.body.Center,
                     Time_recall: null,
                     Recall: false,

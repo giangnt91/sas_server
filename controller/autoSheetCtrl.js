@@ -132,6 +132,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname) {
                     Regtime: timereg,
                     Dayenrollment: null,
                     Note: null,
+                    SMS: null,
                     Center: null,
                     Time_recall: null,
                     Recall: false,

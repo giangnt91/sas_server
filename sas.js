@@ -321,6 +321,16 @@ sas.post('/rmsheet', function (req, res) {
     GroupCtrl.Delsheet(req, res);
 })
 
+// sms
+
+sas.post('/csms', function (req, res) {
+    StudentCtrl.Csms(req, res);
+})
+
+sas.post('/getsms', function (req, res) {
+    StudentCtrl.Gsms(req, res);
+})
+
 //-- Run server --//
 http.listen(port);
 console.log('Server SAS is running on port ' + port);
