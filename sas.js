@@ -210,6 +210,10 @@ sas.post('/getallmakerting', function (req, res) {
     AuthCtrl.GetallMakerting(req, res);
 })
 
+sas.post('/rmgroupofuser', function (req, res) {
+    AuthCtrl.RmGroup(req, res);
+})
+
 //Student
 sas.post('/gettqmakert', function (req, res) {
     StudentCtrl.Gettq(req, res);

@@ -436,8 +436,8 @@ module.exports = {
                 res.status(200).json(response);
             } else {
                 // if (data.length > 0) {
-                    response = { 'error_code': 0, 'users': data };
-                    res.status(200).json(response);
+                response = { 'error_code': 0, 'users': data };
+                res.status(200).json(response);
                 // }
             }
         })
@@ -479,6 +479,26 @@ module.exports = {
             } else {
                 if (data.length > 0) {
                     response = { 'error_code': 0, 'makert': data }
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    RmGroup: function (req, res) {
+        users_model.find({ 'Zone.id': req.body._id }, function (err, data) {
+            if (err) {
+                console.log('RmGroup :' + err);
+            } else {
+                if (data.length > 0) {
+                    data.forEach(element => {
+                        element.Zone = null;
+                        element.save(function (err) {
+                            if (err) {
+                                console.log(err)
+                            }
+                        })
+                    });
+                    response = { 'error_code': 0, 'message': 'delete group success' };
                     res.status(200).json(response);
                 }
             }
