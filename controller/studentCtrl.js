@@ -401,6 +401,30 @@ module.exports = {
                     if (month < 10) {
                         month = '0' + month;
                     }
+
+                    var _isupdate;
+                    if (req.body.detail.Note !== data.Note &&
+                        data.Fullname === req.body.detail.Fullname &&
+                        data.Email === req.body.detail.Email &&
+                        data.Sex === req.body.detail.Sex &&
+                        data.Address === req.body.detail.Address &&
+                        data.Reday2 === req.body.detail.Regday2 &&
+                        data.Appointment_day === req.body.detail.Appointment_day &&
+                        data.Appointment_dayiso === req.body.detail.Appointment_dayiso &&
+                        data.Appointment_time === req.body.detail.Appointment_time &&
+                        data.Status_student === req.body.detail.Status_student &&
+                        data.Center === req.body.detail.Center &&
+                        data.Time_recall === req.body.detail.Time_recall &&
+                        data.Recall === req.body.detail.Recall &&
+                        data.ListFriend === req.body.detail.ListFriend &&
+                        data.Manager === req.body.detail.Manager &&
+                        data.Dayenrollment === isoday &&
+                        data.SMS === req.body.detail.SMS) {
+                        _isupdate = false;
+                    } else {
+                        _isupdate === true;
+                    }
+
                     isoday = year + '-' + month + '-' + dt;
                     data.Fullname = req.body.detail.Fullname;
                     data.Email = req.body.detail.Email;
@@ -417,7 +441,7 @@ module.exports = {
                     data.Time_recall = req.body.detail.Time_recall;
                     data.Recall = req.body.detail.Recall;
                     data.ListFriend = req.body.detail.ListFriend;
-                    data.Isupdate = true;
+                    data.Isupdate = _isupdate;
                     data.Manager = req.body.detail.Manager;
                     data.Dayenrollment = isoday;
                     data.SMS = req.body.detail.SMS;
