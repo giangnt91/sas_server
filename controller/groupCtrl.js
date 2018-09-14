@@ -10,6 +10,7 @@ module.exports = {
             Gtype: req.body.Gtype,
             Leader: req.body.Leader,
             Sheet: null,
+            Tele: null,
             Total: 0
         })
         group.save(function (err, data) {
@@ -61,6 +62,7 @@ module.exports = {
                 data.Gtype = req.body.group.Gtype;
                 data.Sheet = req.body.group.Sheet;
                 data.Leader = req.body.group.Leader;
+                data.Tele = req.body.group.Tele;
                 data.save(function (err) {
                     if (err) {
                         response = { 'error_code': 1, 'message': 'error fetching data' };

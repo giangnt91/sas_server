@@ -1844,9 +1844,9 @@ module.exports = {
                         Name: req.body.Fullname,
                         User: req.body.Username,
                         On: 0,
-                        Reg: 0,
-                        Dup: 0,
-                        Ktn: 0
+                        Reg: [],
+                        Dup: [],
+                        Ktn: []
                     }
 
                     response = { 'error_code': 0, 'mkt': mkt };

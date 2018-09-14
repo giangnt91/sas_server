@@ -9,6 +9,7 @@ var group = new mongoose.Schema({
     Leader: Array,
     Sheet: Array,
     Gtype: Array,
+    Tele: Array,
     Total: Number
 }, { versionKey: false });
 
