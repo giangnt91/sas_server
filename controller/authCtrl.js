@@ -270,15 +270,15 @@ module.exports = {
                         res.status(200).json(response);
                     })
 
-                    data.Leader = false;
-                    data.save(function (err) {
-                        if (err) {
-                            response = { 'error_code': 1, 'message': 'error fetching data' }
-                        } else {
-                            response = { 'error_code': 0, 'message': 'Update info success' }
-                        }
-                        res.status(200).json(response);
-                    })
+                    // data.Leader = false;
+                    // data.save(function (err) {
+                    //     if (err) {
+                    //         response = { 'error_code': 1, 'message': 'error fetching data' }
+                    //     } else {
+                    //         response = { 'error_code': 0, 'message': 'Update info success' }
+                    //     }
+                    //     res.status(200).json(response);
+                    // })
                 }
             }
         })
