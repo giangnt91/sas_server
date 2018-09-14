@@ -335,6 +335,16 @@ sas.post('/getsms', function (req, res) {
     StudentCtrl.Gsms(req, res);
 })
 
+sas.post('/checksms', function (req, res) {
+    var request = require('request');
+    request('http://cloudsms.vietguys.biz:8088/api/?u=SAS-Center&pwd=wcs8z&from=SAS.edu.vn&phone=' + req.body.Phone + '&sms=' + req.body.SMS, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.status(200).json(body);
+        }
+    })
+})
+
+
 //-- Run server --//
 http.listen(port);
 console.log('Server SAS is running on port ' + port);
