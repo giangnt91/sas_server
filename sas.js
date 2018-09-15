@@ -150,6 +150,9 @@ var GroupCtrl = require('./controller/groupCtrl');
 //-- Api --//
 
 //Auth
+sas.post('/withoutlogin', function (req, res) {
+    AuthCtrl.Without(req, res);
+})
 sas.post('/signup', function (req, res) {
     AuthCtrl.Signup(req, res);
 });

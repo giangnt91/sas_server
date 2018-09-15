@@ -107,6 +107,17 @@ function updateStudent(stude, tele, username) {
 
 // Api
 module.exports = {
+    Without: function (req, res) {
+        users_model.findById({_id: req.body._id}, function(err, data){
+            if(err){
+                response = { 'error_code': 1, 'message': 'error fetching data !' };
+                res.status(200).json(response);
+            }else{
+                response = { 'error_code': 2, 'user': data }
+                res.status(200).json(response);
+            }
+        })
+    },
     // sign up
     Signup: function (req, res) {
         var response;
@@ -144,6 +155,7 @@ module.exports = {
                         Role: req.body.Role,
                         Leader: false,
                         SheetID: null,
+                        GroupSheet: null,
                         Zone: req.body.Zone,
                         Status_user: new_status
                     });
@@ -220,6 +232,7 @@ module.exports = {
                     data.Leader = req.body._detail.Leader;
                     data.Role = req.body._detail.Role;
                     data.SheetID = req.body._detail.SheetID;
+                    data.GroupSheet = req.body._detail.GroupSheet;
                     data.Student_in_month = req.body._detail.Student_in_month;
 
                     data.save(function (err) {

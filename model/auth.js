@@ -17,6 +17,7 @@ var user = new mongoose.Schema({
     Role: Array,
     Leader: Boolean,
     SheetID: Array,
+    GroupSheet: Array,
     Zone: Array,
     Status_user: Array
 }, { versionKey: false });
