@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 //Connect db
-mongoose.createConnection('mongodb://localhost:27017/sas');
+// mongoose.createConnection('mongodb://localhost:19899/sas');
+mongoose.createConnection('mongodb://sas_sa:91411902@localhost:19899/sas');
 
 //Sms
 var sms = new mongoose.Schema({

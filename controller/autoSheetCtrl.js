@@ -16,7 +16,7 @@ var autosheet_model = require('../model/autoSheet');
 var auth_model = require('../model/auth');
 var group_model = require('../model/groups');
 
-// lấy danh sách telesale
+// lấy user thấp nhất trong danh sách telesale
 function get_telesale(student, _id, sheet_id, mid, mname) {
     var query = { 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id };
     auth_model.find(query, function (err, data) {
@@ -309,6 +309,38 @@ function checkGroup() {
     })
 }
 
+// kiểm tra số lượng học viên đăng ký của user theo từng ngày
+function CheckStudentInByDay() {
+    var query = { 'Role.id': 1, 'Status_user.id': 1 };
+    
+    auth_model.find({ query }, function (err, data) {
+        if (err) {
+            console.log('CheckStudentInByDay: ' + err)
+        } else {console.log(data)
+            if (data.length > 0) {
+                
+                data.forEach(element => {
+                    autosheet_model.find({ 'Manager.id': element._id, 'Status_student.id': 3 }, function (err, _data) {
+                        if (err) {
+                            console.log('Find Student: ' + err)
+                        } else {
+                            let tmp = {
+                                Total: element.Student_in_month[0].Total,
+                                Waiting: element.Student_in_month[0].Waiting,
+                                Out: element.Student_in_month[0].Out,
+                                In: _data.length,
+                                Month: element.Student_in_month[0].Month
+                            }
+                            element.element.Student_in_month = [tmp]
+                        }
+                    })
+                    element.save(function (err) { })
+                });
+            }
+        }
+    })
+}
+
 /*
 schedule function
 1. function check student automatic every minute
@@ -321,5 +353,6 @@ schedule.scheduleJob('0 0 0 * * *', function () {
 schedule.scheduleJob('*/10 * * * * *', function () {
     // getSheet();
     checkGroup();
+    CheckStudentInByDay();
 })
 

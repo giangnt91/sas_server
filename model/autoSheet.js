@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 //Connect db
-mongoose.connect('mongodb://localhost:27017/sas');
+// mongoose.connect('mongodb://localhost:19899/sas');
+mongoose.connect('mongodb://sas_sa:91411902@localhost:19899/sas');
 
 //Student
 var student = new mongoose.Schema({
