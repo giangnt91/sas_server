@@ -353,6 +353,6 @@ schedule.scheduleJob('0 0 0 * * *', function () {
 schedule.scheduleJob('*/10 * * * * *', function () {
     // getSheet();
     checkGroup();
-    CheckStudentInByDay();
+    // CheckStudentInByDay();
 })
 
