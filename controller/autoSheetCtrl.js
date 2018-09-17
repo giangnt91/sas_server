@@ -44,6 +44,7 @@ function reset_student(_m) {
                         Waiting: 0,
                         Out: 0,
                         In: 0,
+                        InByday: 0,
                         Month: _m
                     }
                     data.forEach(element => {
@@ -66,6 +67,7 @@ function update_total_for_tele(Username) {
         _total = parseInt(data.Student_in_month[0].Total) + 1;
         _wai = data.Student_in_month[0].Waiting;
         _in = data.Student_in_month[0].In;
+        _inbyday = data.Student_in_month[0].InByday;
         _out = data.Student_in_month[0].Out;
         _month = data.Student_in_month[0].Month;
         _in_month = {
@@ -73,6 +75,7 @@ function update_total_for_tele(Username) {
             Waiting: _wai,
             Out: _in,
             In: _out,
+            InByday: _inbyday,
             Month: _month
         }
         data.Student_in_month = _in_month;
@@ -309,37 +312,221 @@ function checkGroup() {
     })
 }
 
-// kiểm tra số lượng học viên đăng ký của user theo từng ngày
-function CheckStudentInByDay() {
+// kiểm tra số lượng học viên đăng ký của user theo tháng
+function CheckStudentIn() {
     var query = { 'Role.id': 1, 'Status_user.id': 1 };
-    
-    auth_model.find({ query }, function (err, data) {
+    auth_model.find(query, function (err, data) {
         if (err) {
-            console.log('CheckStudentInByDay: ' + err)
-        } else {console.log(data)
+            console.log('CheckStudentIn: ' + err)
+        } else {
             if (data.length > 0) {
-                
-                data.forEach(element => {
-                    autosheet_model.find({ 'Manager.id': element._id, 'Status_student.id': 3 }, function (err, _data) {
-                        if (err) {
-                            console.log('Find Student: ' + err)
-                        } else {
-                            let tmp = {
-                                Total: element.Student_in_month[0].Total,
-                                Waiting: element.Student_in_month[0].Waiting,
-                                Out: element.Student_in_month[0].Out,
-                                In: _data.length,
-                                Month: element.Student_in_month[0].Month
+                for (let i = 0; i < data.length; i++) {
+                    setTimeout(function () {
+                        autosheet_model.find({ 'Manager.id': data[i].Username, 'Status_student.id': 3 }, function (err, _data) {
+                            if (err) {
+                                console.log('Find Student: ' + err)
+                            } else {
+
+                                let _tmp = {
+                                    Total: data[i].Student_in_month[0].Total,
+                                    Waiting: data[i].Student_in_month[0].Waiting,
+                                    Out: data[i].Student_in_month[0].Out,
+                                    In: _data.length,
+                                    InByday: data[i].Student_in_month[0].InByday,
+                                    Month: data[i].Student_in_month[0].Month
+                                }
+
+                                data[i].Student_in_month = [_tmp]
+                                data[i].save(function (err) { })
                             }
-                            element.element.Student_in_month = [tmp]
+                        })
+
+                    }, i * 2000)
+                }
+            }
+        }
+    })
+}
+
+
+// kiểm tra số lượng học viên đăng ký của user theo từng ngày
+function CheckStudentInByday(last_day) {
+    var query = {
+        'Role.id': 1,
+        'Status_user.id': 1
+    };
+
+
+    auth_model.find(query, function (err, data) {
+        if (err) {
+            console.log('CheckStudentIn: ' + err)
+        } else {
+            if (data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    setTimeout(function () {
+                        var query_2 = {
+                            'Manager.id': data[i].Username,
+                            'Status_student.id': 3,
+                            'Dayenrollment': dateFormat(new Date(), last_day)
                         }
-                    })
-                    element.save(function (err) { })
+                        autosheet_model.find(query_2, function (err, _data) {
+                            if (err) {
+                                console.log('Find Student: ' + err)
+                            } else {
+                                let _tmp = {
+                                    Total: data[i].Student_in_month[0].Total,
+                                    Waiting: data[i].Student_in_month[0].Waiting,
+                                    Out: data[i].Student_in_month[0].Out,
+                                    In: data[i].Student_in_month[0].In,
+                                    InByday: _data.length,
+                                    Month: data[i].Student_in_month[0].Month
+                                }
+
+                                data[i].Student_in_month = [_tmp]
+                                data[i].save(function (err) { })
+                            }
+                        })
+
+                    }, i * 2000)
+                }
+            }
+        }
+    })
+}
+
+
+// thực hiện chia học viên sau ngày 5 hàng tháng
+
+function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
+    var query = { 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id };
+    auth_model.find(query, function (err, data) {
+        if (err) {
+            console.log('get_telesale ' + err);
+        } else {
+            if (data.length > 0) {
+                // console.log(index)
+                insertStudent(student, data[index], sheet_id, mid, mname);
+            }
+        }
+    }).sort({ 'Student_in_month.In': -1 });
+}
+
+// lấy list user telesale
+function get_list_tele_5() {
+    var query = { 'Role.id': 1, 'Status_user.id': 1 };
+    auth_model.find(query, function (err, data) {
+        if (err) {
+            console.log('get_telesale ' + err);
+        } else {
+            checkGroup5(data);
+        }
+    }).sort({ 'Student_in_month.In': -1 });
+}
+
+
+function checkGroup5(user) {
+    group_model.find({ Sheet: { $ne: null } }, function (err, data) {
+        if (err) {
+            console.log('checkGroup ' + err);
+        } else {
+            if (data.length > 0) {
+                let list_sheet = [];
+                data.forEach(element => {
+                    for (let i = 0; i < element.Sheet.length; i++) {
+                        setTimeout(function () {
+                            let tmp = {
+                                idgroup: element._id,
+                                sheet: element.Sheet[i].id,
+                                mid: element.Sheet[i].muser,
+                                mname: element.Sheet[i].name
+                            }
+                            getSheet5(tmp, user.length);
+                        }, i * 3000)
+                    }
                 });
             }
         }
     })
 }
+
+
+//function auto check google sheet
+function getSheet5(list, user) {
+    var _id = list.idgroup;
+    var doc = new GoogleSpreadsheet(list.sheet);
+    var sheet;
+    async.series([
+        function setAuth(step) {
+            // see notes below for authentication instructions!
+            var creds = require('../2i studio-fd2ce7d288b9.json');
+            doc.useServiceAccountAuth(creds, step);
+        },
+        function getInfoAndWorksheets(step) {
+            doc.getInfo(function (err, info) {
+                if (info !== undefined) {
+                    sheet = info.worksheets[0];
+                }
+                step();
+            });
+        },
+        function workingWithRows(step) {
+            // google provides some query options
+            if (sheet !== undefined) {
+                sheet.getRows({
+                    offset: 1
+                    // orderby: 'col2'
+                }, function (err, rows) {
+                    if (rows !== undefined && rows !== null) {
+                        if (rows.length > 0) {
+                            // var j = 0;
+                            //lấy danh sách học viên mới
+                            u = 0;
+                            for (let i = 0; i < rows.length; i++) {
+                                if (rows[i].move === "") {
+                                    // rows[i].move = "moved";
+                                    // rows[i].save();
+
+                                    if (u <= Math.ceil(user)) {
+                                        setTimeout(function () {
+                                            rows[i].move = "moved";
+                                            rows[i].save();
+                                            get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
+                                        }, 1000 * i)
+                                        ++u
+                                    }
+
+                                    else if ((user * 2) > u && u < user) {
+                                        index = Math.random() * (user - 0) + 0;
+                                        setTimeout(function () {
+                                            rows[i].move = "moved";
+                                            rows[i].save();
+                                            get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
+                                        }, 1000 * i)
+                                        ++u;
+                                    }
+
+                                    else {
+                                        setTimeout(function () {
+                                            rows[i].move = "moved";
+                                            rows[i].save();
+                                            get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
+                                        }, 1000 * i)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    step();
+                });
+            }
+        }
+    ], function (err) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+    });
+}
+
 
 /*
 schedule function
@@ -348,11 +535,31 @@ schedule function
 schedule.scheduleJob('0 0 0 * * *', function () {
     let _the_month = dateFormat(new Date(), 'mm');
     reset_student(parseInt(_the_month));
+
+    // cập nhật học viên đăng ký hàng tháng
+    CheckStudentIn();
+
+    // cập nhật học viên đăng ký hàng ngày
+    var yesterday = getYesterdaysDate();
+    CheckStudentInByday(yesterday);
 })
 
-schedule.scheduleJob('*/10 * * * * *', function () {
+function getYesterdaysDate() {
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+}
+
+schedule.scheduleJob('*/2 * * * * *', function () {
     // getSheet();
-    checkGroup();
-    // CheckStudentInByDay();
+
+    var d = new Date();
+    myday = d.getDate();
+
+    if (myday > 5) {
+        get_list_tele_5();
+    } else {
+        checkGroup();
+    }
 })
 

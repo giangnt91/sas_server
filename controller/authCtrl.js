@@ -38,6 +38,7 @@ function update_sub_total_for_tele(data) {
         }
         _wai = data.Student_in_month[0].Waiting;
         _in = data.Student_in_month[0].In;
+        _inbyday = data.Student_in_month[0].InByday;
         _out = data.Student_in_month[0].Out;
         _month = data.Student_in_month[0].Month;
         _in_month = {
@@ -45,6 +46,7 @@ function update_sub_total_for_tele(data) {
             Waiting: _wai,
             Out: _in,
             In: _out,
+            InByday: _inbyday,
             Month: _month
         }
         data.Student_in_month = _in_month;
@@ -62,6 +64,7 @@ function update_total_for_tele(data) {
         _total = data.Student_in_month[0].Total + 1;
         _wai = data.Student_in_month[0].Waiting;
         _in = data.Student_in_month[0].In;
+        _inbyday = data.Student_in_month[0].InByday;
         _out = data.Student_in_month[0].Out;
         _month = data.Student_in_month[0].Month;
         _in_month = {
@@ -69,6 +72,7 @@ function update_total_for_tele(data) {
             Waiting: _wai,
             Out: _in,
             In: _out,
+            InByday: _inbyday,
             Month: _month
         }
         data.Student_in_month = _in_month;
@@ -141,6 +145,7 @@ module.exports = {
                         Waiting: 0,
                         Out: 0,
                         In: 0,
+                        InByday: 0,
                         Month: _Month
                     }
                     let new_auth = new users_model({
