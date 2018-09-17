@@ -408,7 +408,7 @@ function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
                 insertStudent(student, data[index], sheet_id, mid, mname);
             }
         }
-    }).sort({ 'Student_in_month.In': -1 });
+    }).sort({ 'Student_in_month.InByday': -1 });
 }
 
 // lấy list user telesale
