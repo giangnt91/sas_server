@@ -117,7 +117,7 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data !' };
                 res.status(200).json(response);
             }else{
-                response = { 'error_code': 2, 'user': data }
+                response = { 'error_code': 0, 'user': data }
                 res.status(200).json(response);
             }
         })
