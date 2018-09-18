@@ -425,7 +425,7 @@ module.exports = {
                         } else {
                             _isupdate === true;
                         }
-                    }else{
+                    } else {
                         _isupdate === true;
                     }
 
@@ -1793,14 +1793,25 @@ module.exports = {
         if (req.body.Fromday === null && req.body.Today !== null) {
             today = req.body.Today;
         }
-        query = {
-            Regdayiso: {
-                $gte: firstDay,
-                $lte: today
-            },
-            'Manager.mid': req.body.Username
+
+        if (req.body.TheForm !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.mid': req.body.Username,
+                'Manager.sheetId': req.body.TheForm
+            }
+        } else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.mid': req.body.Username
+            }
         }
-        // }
 
         student_model.find(query, function (err, data) {
             if (err) {
