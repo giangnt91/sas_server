@@ -8,6 +8,7 @@ var express = require('express'), http = require('http');
 var sas = express();
 var http = http.Server(sas);
 var io = require('socket.io')(http);
+var moment = require('moment');
 
 
 
@@ -15,6 +16,12 @@ var io = require('socket.io')(http);
 var autosheet_model = require('../model/autoSheet');
 var auth_model = require('../model/auth');
 var group_model = require('../model/groups');
+
+// compare day
+function compareday(x) {
+    var parts = x.split("/");
+    return parts[1] + '/' + parts[0] + '/' + parts[2];
+}
 
 // lấy user thấp nhất trong danh sách telesale
 function get_telesale(student, _id, sheet_id, mid, mname) {
@@ -24,7 +31,17 @@ function get_telesale(student, _id, sheet_id, mid, mname) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                insertStudent(student, data[0], sheet_id, mid, mname);
+                let _day;
+                if (data[0].TimeForAdmin[0].id === 1) {
+                    _day = 30;
+                }
+                if (data[0].TimeForAdmin[0].id === 2) {
+                    _day = 60;
+                } 
+                if (data[index].TimeForAdmin[0].id === 3) {
+                    _day = 90;
+                }
+                insertStudent(student, data[0], sheet_id, mid, mname, _day);
             }
         }
 
@@ -89,12 +106,14 @@ function update_total_for_tele(Username) {
 }
 
 
+
 // thêm học viên và chia cho telesale
-function insertStudent(stude, tele, sheet_id, mid, mname) {
+function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
     autosheet_model.find({ Phone: stude.sốđiệnthoại }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
         } else {
+
             if (data.length === 0) {
                 let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
                 date = new Date();
@@ -159,8 +178,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname) {
 
             else if (data.length === 1) {
 
-                if (stude.id !== data[0].Id_sheet) {
-
+                // case 1: đã đăng ký học
+                if (data[0].Status_student[0].id === 3) {
                     let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
                     date = new Date();
                     year = date.getFullYear();
@@ -176,11 +195,11 @@ function insertStudent(stude, tele, sheet_id, mid, mname) {
                     isoday = year + '-' + month + '-' + dt;
                     let timereg = dateFormat(new Date(), "HH:MM:ss")
                     let manager = {
-                        id: tele.Username,
-                        name: tele.Fullname,
+                        id: data[0].Manager[0].id,
+                        name: data[0].Manager[0].name,
                         sheetId: data[0].Manager[0].sheetId,
-                        mid: mid,
-                        mname: mname
+                        mid: data[0].Manager[0].mid,
+                        mname: data[0].Manager[0].mname
                     }
                     let status_student = {
                         id: 0,
@@ -189,11 +208,12 @@ function insertStudent(stude, tele, sheet_id, mid, mname) {
                     let duplicate = {
                         preid: data[0].Manager[0].id,
                         prename: data[0].Manager[0].name,
-                        premid: data[0].Manager[0].mid,
-                        premname: data[0].Manager[0].mname,
+                        premid: mid,
+                        premname: mname,
                         msheetid: data[0].Manager[0].sheetId,
                         pretime: data[0].Regtime + ' ' + data[0].Regday,
-                        alert: false
+                        alert: false,
+                        time: null
                     }
                     let student = new autosheet_model({
                         IdforFrend: mongoose.Types.ObjectId(),
@@ -229,7 +249,151 @@ function insertStudent(stude, tele, sheet_id, mid, mname) {
                         }
                     })
                 }
+
+
+                // case 2 và case 3
+                else {
+                    if (stude.id !== data[0].Id_sheet) {
+                        let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
+                        date = new Date();
+                        year = date.getFullYear();
+                        month = date.getMonth() + 1;
+                        dt = date.getDate();
+                        if (dt < 10) {
+                            dt = '0' + dt;
+                        }
+                        if (month < 10) {
+                            month = '0' + month;
+                        }
+                        isoday = year + '-' + month + '-' + dt;
+                        let timereg = dateFormat(new Date(), "HH:MM:ss")
+
+
+                        // đếm số ngày với định dạng mm/dd/yyyy
+                        var date1 = new Date(compareday(dayreg));
+                        var date2 = new Date(compareday(data[0].Regday));
+                        var diffDays = parseInt((date1 - date2) / (1000 * 60 * 60 * 24));
+
+                        // case 2: thời gian trùng chưa quá cho phép
+                        if (diffDays <= parseInt(admin_time)) {
+                            let manager = {
+                                id: data[0].Manager[0].id,
+                                name: data[0].Manager[0].name,
+                                sheetId: data[0].Manager[0].sheetId,
+                                mid: mid,
+                                mname: mname
+                            }
+                            let status_student = {
+                                id: 0,
+                                name: 'Chưa đăng ký'
+                            }
+                            let duplicate = {
+                                preid: data[0].Manager[0].id,
+                                prename: data[0].Manager[0].name,
+                                premid: data[0].Manager[0].mid,
+                                premname: data[0].Manager[0].mname,
+                                msheetid: data[0].Manager[0].sheetId,
+                                pretime: data[0].Regtime + ' ' + data[0].Regday,
+                                alert: false,
+                                time: diffDays
+                            }
+                            let student = new autosheet_model({
+                                IdforFrend: mongoose.Types.ObjectId(),
+                                Id_sheet: stude.id,
+                                Fullname: stude.họtên,
+                                Email: stude.email,
+                                Phone: stude.sốđiệnthoại,
+                                Sex: null,
+                                Address: null,
+                                Regday: dayreg,
+                                Regdayiso: isoday,
+                                Regday2: null,
+                                Regtime: timereg,
+                                Dayenrollment: null,
+                                Note: null,
+                                Center: null,
+                                Time_recall: null,
+                                Recall: false,
+                                Appointment_day: null,
+                                Appointment_dayiso: null,
+                                Appointment_time: null,
+                                Status_student: status_student,
+                                ListFriend: null,
+                                Manager: manager,
+                                Isupdate: false,
+                                Duplicate: duplicate
+                            });
+                            student.save(function (err) {
+                                if (err) {
+                                    console.log('save student ' + err)
+                                } else {
+                                    update_total_for_tele(tele.Username);
+                                }
+                            })
+                        }
+
+                        // case 3: thời gian trùng đã quá phép
+                        else {
+                            let manager = {
+                                id: data[0].Manager[0].id,
+                                name: data[0].Manager[0].name,
+                                sheetId: data[0].Manager[0].sheetId,
+                                mid: mid,
+                                mname: mname
+                            }
+                            let status_student = {
+                                id: 0,
+                                name: 'Chưa đăng ký'
+                            }
+                            // let duplicate = {
+                            //     preid: data[0].Manager[0].id,
+                            //     prename: data[0].Manager[0].name,
+                            //     premid: data[0].Manager[0].mid,
+                            //     premname: data[0].Manager[0].mname,
+                            //     msheetid: data[0].Manager[0].sheetId,
+                            //     pretime: data[0].Regtime + ' ' + data[0].Regday,
+                            //     alert: false,
+                            //     time: diffDays
+                            // }
+                            let student = new autosheet_model({
+                                IdforFrend: mongoose.Types.ObjectId(),
+                                Id_sheet: stude.id,
+                                Fullname: stude.họtên,
+                                Email: stude.email,
+                                Phone: stude.sốđiệnthoại,
+                                Sex: null,
+                                Address: null,
+                                Regday: dayreg,
+                                Regdayiso: isoday,
+                                Regday2: null,
+                                Regtime: timereg,
+                                Dayenrollment: null,
+                                Note: null,
+                                Center: null,
+                                Time_recall: null,
+                                Recall: false,
+                                Appointment_day: null,
+                                Appointment_dayiso: null,
+                                Appointment_time: null,
+                                Status_student: status_student,
+                                ListFriend: null,
+                                Manager: manager,
+                                Isupdate: false,
+                                Duplicate: null
+                            });
+                            student.save(function (err) {
+                                if (err) {
+                                    console.log('save student ' + err)
+                                } else {
+                                    update_total_for_tele(tele.Username);
+                                }
+                            })
+                        }
+
+                    }
+                }
             }
+
         }
     });
 }
@@ -404,8 +568,17 @@ function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                // console.log(index)
-                insertStudent(student, data[index], sheet_id, mid, mname);
+                let _day;
+                if (data[index].TimeForAdmin[0].id === 1) {
+                    _day = 30;
+                }
+                if (data[index].TimeForAdmin[0].id === 2) {
+                    _day = 60;
+                }
+                if (data[index].TimeForAdmin[0].id === 3) {
+                    _day = 90;
+                }
+                insertStudent(student, data[index], sheet_id, mid, mname, _day);
             }
         }
     }).sort({ 'Student_in_month.InByday': -1 });
@@ -550,7 +723,7 @@ function getYesterdaysDate() {
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 }
 
-schedule.scheduleJob('*/2 * * * * *', function () {
+schedule.scheduleJob('*/10 * * * * *', function () {
     // getSheet();
 
     var d = new Date();

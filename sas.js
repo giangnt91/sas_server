@@ -197,6 +197,10 @@ sas.post('/getallusergroup', function (req, res) {
     AuthCtrl.GetAllforgroup(req, res);
 })
 
+sas.post('/alluser', function(req, res){
+    AuthCtrl.GetAll(req, res);
+})
+
 sas.post('/getuserbysup', function (req, res) {
     AuthCtrl.GetbySup(req, res);
 })

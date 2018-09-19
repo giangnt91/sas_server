@@ -162,7 +162,8 @@ module.exports = {
                         SheetID: null,
                         GroupSheet: null,
                         Zone: req.body.Zone,
-                        Status_user: new_status
+                        Status_user: new_status,
+                        TimeForAdmin: null
                     });
 
                     new_auth.save(function (err) {
@@ -239,7 +240,7 @@ module.exports = {
                     data.SheetID = req.body._detail.SheetID;
                     data.GroupSheet = req.body._detail.GroupSheet;
                     data.Student_in_month = req.body._detail.Student_in_month;
-
+                    data.TimeForAdmin = req.body._detail.TimeForAdmin;
                     data.save(function (err) {
                         if (err) {
                             response = { 'erorr_code': 2, 'message': 'error fetching data' }
@@ -421,6 +422,19 @@ module.exports = {
     },
     GetAllforgroup: function (req, res) {
         users_model.find({ $or: [{ 'Role.id': 1 }, { 'Role.id': 2 }] }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'users': data }
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+    GetAll: function (req, res) {
+        users_model.find({}, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
