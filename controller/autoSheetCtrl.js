@@ -31,16 +31,19 @@ function get_telesale(student, _id, sheet_id, mid, mname) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                let _day;
-                if (data[0].TimeForAdmin[0].id === 1) {
-                    _day = 30;
+                let _day = 0;
+                if (data[0].TimeForAdmin !== null) {
+                    if (data[0].TimeForAdmin[0].id === 1) {
+                        _day = 30;
+                    }
+                    if (data[0].TimeForAdmin[0].id === 2) {
+                        _day = 60;
+                    }
+                    if (data[index].TimeForAdmin[0].id === 3) {
+                        _day = 90;
+                    }
                 }
-                if (data[0].TimeForAdmin[0].id === 2) {
-                    _day = 60;
-                } 
-                if (data[index].TimeForAdmin[0].id === 3) {
-                    _day = 90;
-                }
+
                 insertStudent(student, data[0], sheet_id, mid, mname, _day);
             }
         }
@@ -568,16 +571,19 @@ function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
             console.log('get_telesale ' + err);
         } else {
             if (data.length > 0) {
-                let _day;
-                if (data[index].TimeForAdmin[0].id === 1) {
-                    _day = 30;
+                let _day = 0;
+                if (data[index].TimeForAdmin !== null) {
+                    if (data[index].TimeForAdmin[0].id === 1) {
+                        _day = 30;
+                    }
+                    if (data[index].TimeForAdmin[0].id === 2) {
+                        _day = 60;
+                    }
+                    if (data[index].TimeForAdmin[0].id === 3) {
+                        _day = 90;
+                    }
                 }
-                if (data[index].TimeForAdmin[0].id === 2) {
-                    _day = 60;
-                }
-                if (data[index].TimeForAdmin[0].id === 3) {
-                    _day = 90;
-                }
+
                 insertStudent(student, data[index], sheet_id, mid, mname, _day);
             }
         }
