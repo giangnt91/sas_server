@@ -348,16 +348,16 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 id: 0,
                                 name: 'Chưa đăng ký'
                             }
-                            // let duplicate = {
-                            //     preid: data[0].Manager[0].id,
-                            //     prename: data[0].Manager[0].name,
-                            //     premid: data[0].Manager[0].mid,
-                            //     premname: data[0].Manager[0].mname,
-                            //     msheetid: data[0].Manager[0].sheetId,
-                            //     pretime: data[0].Regtime + ' ' + data[0].Regday,
-                            //     alert: false,
-                            //     time: diffDays
-                            // }
+                            let duplicate = {
+                                preid: data[0].Manager[0].id,
+                                prename: data[0].Manager[0].name,
+                                premid: data[0].Manager[0].mid,
+                                premname: data[0].Manager[0].mname,
+                                msheetid: data[0].Manager[0].sheetId,
+                                pretime: data[0].Regtime + ' ' + data[0].Regday,
+                                alert: false,
+                                time: diffDays
+                            }
                             let student = new autosheet_model({
                                 IdforFrend: mongoose.Types.ObjectId(),
                                 Id_sheet: stude.id,
@@ -382,7 +382,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 ListFriend: null,
                                 Manager: manager,
                                 Isupdate: false,
-                                Duplicate: null
+                                Duplicate: duplicate
                             });
                             student.save(function (err) {
                                 if (err) {
