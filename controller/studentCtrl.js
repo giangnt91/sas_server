@@ -1826,9 +1826,12 @@ module.exports = {
 				}
 				var query =  getTeamQuery(req.body.Username);
 				query.exec(function(err,user){
-					if(err)
-					return console.log(err);
-					Teamname = user.Zone[0].name;
+					if(err){
+						return console.log(err);
+						}else{
+						// Teamname = user.Zone[0].name;
+						console.log(user);
+					}
 				});
 				
 				if (data.length > 0) {
