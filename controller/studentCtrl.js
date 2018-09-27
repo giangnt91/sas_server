@@ -1824,7 +1824,7 @@ module.exports = {
 					var query = auth_model.find({Username:name});
 					return query;
 				}
-				var query =  getTeamQuery(data[0].Manager[0].mid);
+				var query =  getTeamQuery(req.body.Username);
 				query.exec(function(err,user){
 					if(err)
 					return console.log(err);
