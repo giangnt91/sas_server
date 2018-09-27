@@ -1859,6 +1859,7 @@ module.exports = {
 						}
 					});
 					
+					console.log(Teamname);
                     let mkt =
                     {
                         Name: data[0].Manager[0].mname,
