@@ -1841,6 +1841,7 @@ module.exports = {
                     {
                         Name: data[0].Manager[0].mname,
                         User: data[0].Manager[0].mid,
+						Team: data[0].Zone[0].name,
                         On: _on,
                         Reg: _reg,
                         Dup: _dup,
@@ -1854,6 +1855,7 @@ module.exports = {
                     {
                         Name: req.body.Fullname,
                         User: req.body.Username,
+						Team: data[0].Zone[0].name,
                         On: 0,
                         Reg: [],
                         Dup: [],
