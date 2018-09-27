@@ -1830,12 +1830,13 @@ module.exports = {
 						return console.log(err);
 						}else{
 						
-						if(user.Zone !== null){
-							Teamname = user.Zone[0].name;
-						}else{
-							Teamname = 'Đang cập nhật';
-							}
-						}
+						console.log(user.Username);
+						// if(user.Zone !== null){
+							// Teamname = user.Zone[0].name;
+						// }else{
+							// Teamname = 'Đang cập nhật';
+							// }
+						// }
 				});
 				
 				if (data.length > 0) {
