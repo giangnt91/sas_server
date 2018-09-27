@@ -1836,7 +1836,7 @@ module.exports = {
 						// }else{
 							// Teamname = 'Đang cập nhật';
 							// }
-						// }
+					}
 				});
 				
 				if (data.length > 0) {
