@@ -1829,9 +1829,13 @@ module.exports = {
 					if(err){
 						return console.log(err);
 						}else{
-						// Teamname = user.Zone[0].name;
-						console.log(user);
-					}
+						
+						if(user.Zone !== null){
+							Teamname = user.Zone[0].name;
+						}else{
+							Teamname = 'Đang cập nhật';
+							}
+						}
 				});
 				
 				if (data.length > 0) {
