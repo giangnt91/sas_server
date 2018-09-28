@@ -1,5 +1,6 @@
 //group model
 group_model = require('../model/groups');
+center_model = require('../model/center');
 
 //Api
 module.exports = {
@@ -73,5 +74,18 @@ module.exports = {
                 })
             }
         })
-    }
+    },
+	GetCenter: function(req, res){
+		center_model.find({}, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                // if (data.length > 0) {
+                    response = { 'error_code': 0, 'center': data };
+                    res.status(200).json(response);
+                // }
+            }
+        })
+	}
 }

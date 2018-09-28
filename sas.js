@@ -340,6 +340,10 @@ sas.post('/rmsheet', function (req, res) {
     GroupCtrl.Delsheet(req, res);
 })
 
+sas.post('/getcenter', function(req, res){
+	GroupCtrl.GetCenter(req, res);
+})
+
 // sms
 
 sas.post('/csms', function (req, res) {

@@ -16,6 +16,7 @@ var moment = require('moment');
 var autosheet_model = require('../model/autoSheet');
 var auth_model = require('../model/auth');
 var group_model = require('../model/groups');
+var center_model = require('../model/center');
 
 // compare day
 function compareday(x) {
@@ -707,10 +708,146 @@ function getSheet5(list, user) {
 }
 
 
+// function cập nhật học viên đã đã đăng ký mỗi 15'
+function getRegStudent(id) {
+    var doc = new GoogleSpreadsheet(id);
+    var sheet;
+    async.series([
+        function setAuth(step) {
+            // see notes below for authentication instructions!
+            var creds = require('../2i studio-fd2ce7d288b9.json');
+            doc.useServiceAccountAuth(creds, step);
+        },
+        function getInfoAndWorksheets(step) {
+            doc.getInfo(function (err, info) {
+                if (info !== undefined) {
+                    sheet = info.worksheets[0];
+                }
+                step();
+            });
+        },
+        function workingWithRows(step) {
+            // google provides some query options
+            if (sheet !== undefined) {
+                sheet.getRows({
+                    offset: 1
+                }, function (err, rows) {
+                    if (rows !== undefined && rows !== null) {
+                        if (rows.length > 0) {
+                            //lấy danh sách học viên mới
+                            for (let i = 0; i < rows.length; i++) {
+                                if (rows[i].move === "") {
+                                    setTimeout(function () {
+                                        rows[i].move = "moved";
+                                        rows[i].save();
+                                        get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
+                                    }, 1000 * i)
+                                }
+                            }
+                        }
+                    }
+                    step();
+                });
+            }
+        }
+    ], function (err) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+    });
+}
+
+
+// function cập nhật trung tâm sas
+function addCenter(id) {
+    var doc = new GoogleSpreadsheet(id);
+    var sheet;
+    async.series([
+        function setAuth(step) {
+            // see notes below for authentication instructions!
+            var creds = require('../2i studio-fd2ce7d288b9.json');
+            doc.useServiceAccountAuth(creds, step);
+        },
+        function getInfoAndWorksheets(step) {
+            doc.getInfo(function (err, info) {
+                if (info !== undefined) {
+                    sheet = info.worksheets[0];
+                }
+                step();
+            });
+        },
+        function workingWithRows(step) {
+            // google provides some query options
+            if (sheet !== undefined) {
+                sheet.getRows({
+                    offset: 1
+                }, function (err, rows) {
+                    if (rows !== undefined && rows !== null) {
+                        if (rows.length > 0) {
+                            //lấy danh sách học viên mới
+                            for (let i = 0; i < rows.length; i++) {
+								setTimeout(function () {
+									insertCenter(rows[i]);
+								}, 1000 * i)
+                            }
+                        }
+                    }
+                    step();
+                });
+            }
+        }
+    ], function (err) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+    });
+}
+
+
+// thêm trung tâm sas vào db
+function insertCenter(center) {
+	center_model.find({SheetId: center.id}, function(err, data){
+		if(err){
+			console.log('insertcenter '+err);
+		}else{
+			if(data.length === 0){
+				let thecenter = new center_model({
+					SheetId: center.id,
+					Name: center.tênđầyđủ,
+					Id: center.viếttắt,
+					Info: center.thôngtinchitiết
+				});
+				thecenter.save(function(err){
+					if(err){
+						console.log(err);
+					}
+				})
+			}else{
+				data[0].SheetId = center.id;
+				data[0].Name= center.tênđầyđủ;
+				data[0].Id= center.viếttắt;
+				data[0].Info= center.thôngtinchitiết;
+				
+				data[0].save(function(err){
+					if(err){
+						console.log(err);
+					}
+				})
+			}
+		}
+	})
+}
+
 /*
-schedule function
-1. function check student automatic every minute
+schedule automatic function
 */
+// chạy kiểm tra mỗi 10 phút
+schedule.scheduleJob('*/10 * * * *', function () {
+	// lấy danh sách học viên đã đăng ký
+	getRegStudent('142Jgjv9WAgJf9x6pJLgElR8p68ly4RmBCHZIzH4gl40');
+})
+
+// function chạy vào 12h đêm hàng ngày
 schedule.scheduleJob('0 0 0 * * *', function () {
     let _the_month = dateFormat(new Date(), 'mm');
     reset_student(parseInt(_the_month));
@@ -721,6 +858,9 @@ schedule.scheduleJob('0 0 0 * * *', function () {
     // cập nhật học viên đăng ký hàng ngày
     var yesterday = getYesterdaysDate();
     CheckStudentInByday(yesterday);
+	
+	// lấy danh sách trung tâm từ sheet và cập nhật vào db
+	addCenter('192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y');
 })
 
 function getYesterdaysDate() {
@@ -729,8 +869,8 @@ function getYesterdaysDate() {
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 }
 
+// chạy cập nhật data học viên mỗi 10 giây
 schedule.scheduleJob('*/10 * * * * *', function () {
-    // getSheet();
 
     var d = new Date();
     myday = d.getDate();
