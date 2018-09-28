@@ -226,6 +226,10 @@ sas.post('/gettqmakert', function (req, res) {
     StudentCtrl.Gettq(req, res);
 })
 
+sas.post('/getrating', function(req, res){
+	StudentCtrl.Getrating(req, res);
+})
+
 sas.post('/cstudent', function (req, res) {
     StudentCtrl.CreateStudent(req, res)
 })

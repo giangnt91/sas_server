@@ -1895,5 +1895,123 @@ module.exports = {
 				}, 200)
 			}
 		})
+	},
+    Getrating: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+		
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            firstDay = req.body.Fromday;
+            today = req.body.Today;
+		}
+		
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            firstDay = req.body.Fromday
+		}
+		
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+		}
+		
+        if (req.body.Username !== null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+				},
+                'Manager.mid': req.body.Username,
+			}
+		} else {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+				},
+                'Manager.mid': req.body.Username
+			}
+		}
+		
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetLh ' + err);
+				} else {
+				var Teamname;
+				function getUsers(user, callback){
+					var data = '';
+					auth_model.findOne({Username:user},function(err, success){
+						if (err){}
+						if (!success){
+							//when data not found
+							data = 'null';
+							}else{
+							//when data found
+							data = 'found'; 
+						}
+						callback && callback(success);
+					});
+				}
+				
+				getUsers(req.body.Username, function(data) {
+					Teamname = data.Zone[0].name;
+				});
+				
+				setTimeout(function () {
+					
+					if (data.length > 0) {
+						
+						let _on = data.length;
+						let _reg = [];
+						let _dup = [];
+						let _ktn = [];
+						
+						data.forEach(element => {
+							if (element.Status_student[0].id === 3) {
+								_reg.push(element);
+							}
+							
+							if (element.Duplicate !== null) {
+								_dup.push(element);
+							}
+							
+							if (element.Status_student[0].id === 1) {
+								_ktn.push(element);
+							}
+						});
+						
+						
+						let mkt =
+						{
+							Name: data[0].Manager[0].mname,
+							User: data[0].Manager[0].mid,
+							Team: Teamname,
+							On: _on,
+							Reg: _reg,
+							Dup: _dup,
+							Ktn: _ktn
+						}
+						
+						response = { 'error_code': 0, 'mkt': mkt };
+						res.status(200).json(response);
+						} else {
+						
+						let mkt =
+						{
+							Name: req.body.Fullname,
+							User: req.body.Username,
+							Team: Teamname,
+							On: 0,
+							Reg: [],
+							Dup: [],
+							Ktn: []
+						}
+						
+						response = { 'error_code': 0, 'mkt': mkt };
+						res.status(200).json(response);
+					}
+					
+				}, 200)
+			}
+		})
 	}
 }
