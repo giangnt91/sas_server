@@ -808,8 +808,12 @@ module.exports = {
                 if (data.length > 0) {
                     var recal = [];
                     data.forEach(element => {
-                        if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
-                            recal.push(element);
+						if(element.Time_recall !== null){
+							if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
+								recal.push(element);
+							}
+						}else{
+							recal.push(element);
 						}
 					});
                     response = { 'error_code': 0, 'students': recal };
