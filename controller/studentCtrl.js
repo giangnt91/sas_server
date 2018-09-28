@@ -2088,7 +2088,7 @@ module.exports = {
 						});
 						
 						
-						let mkt =
+						let user =
 						{
 							Name: data[0].Manager[0].mname,
 							User: data[0].Manager[0].mid,
@@ -2102,7 +2102,7 @@ module.exports = {
 						res.status(200).json(response);
 						} else {
 						
-						let mkt =
+						let user =
 						{
 							Name: req.body.Fullname,
 							User: req.body.Username,
