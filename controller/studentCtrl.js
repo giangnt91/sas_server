@@ -1962,7 +1962,6 @@ module.exports = {
 						
 						let _on = data.length;
 						let _reg = [];
-						let _dup = [];
 						let _ktn = [];
 						
 						data.forEach(element => {
@@ -1970,9 +1969,6 @@ module.exports = {
 								_reg.push(element);
 							}
 							
-							if (element.Duplicate !== null) {
-								_dup.push(element);
-							}
 							
 							if (element.Status_student[0].id === 1) {
 								_ktn.push(element);
@@ -1987,7 +1983,6 @@ module.exports = {
 							Team: Teamname,
 							On: _on,
 							Reg: _reg,
-							Dup: _dup,
 							Ktn: _ktn
 						}
 						
@@ -2002,7 +1997,6 @@ module.exports = {
 							Team: Teamname,
 							On: 0,
 							Reg: [],
-							Dup: [],
 							Ktn: []
 						}
 						
