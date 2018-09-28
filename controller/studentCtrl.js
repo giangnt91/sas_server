@@ -559,7 +559,7 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-                    'Center.id': req.body.Center
+                    'Center._id': req.body.Center
 				}
 			}
 			
@@ -580,7 +580,7 @@ module.exports = {
                         $lte: today
 					},
                     'Status_student.id': req.body.Status,
-                    'Center.id': req.body.Center
+                    'Center._id': req.body.Center
 				}
 			}
 			
@@ -605,7 +605,7 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-                    'Center.id': req.body.Center,
+                    'Center._id': req.body.Center,
                     'Manager.id': req.body.Username
 				}
 			}
@@ -628,7 +628,7 @@ module.exports = {
                         $lte: today
 					},
                     'Status_student.id': req.body.Status,
-                    'Center.id': req.body.Center,
+                    'Center._id': req.body.Center,
                     'Manager.id': req.body.Username
 				}
 			}
