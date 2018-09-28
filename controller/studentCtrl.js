@@ -809,11 +809,23 @@ module.exports = {
                     var recal = [];
                     data.forEach(element => {
 						if(element.Time_recall !== null){
-							if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
-								recal.push(element);
+							if(element.Center === null){
+								if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
+									recal.push(element);
+								}
+							}else{
+								if(element.Center[0].id === null){
+									recal.push(element);
+								}
 							}
 						}else{
-							recal.push(element);
+							if(element.Center === null){
+								recal.push(element);
+							}else{
+								if(element.Center[0].id === null){
+									recal.push(element);
+								}
+							}
 						}
 					});
                     response = { 'error_code': 0, 'students': recal };
