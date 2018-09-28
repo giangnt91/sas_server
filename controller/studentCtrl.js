@@ -2098,7 +2098,7 @@ module.exports = {
 							Ktn: _ktn
 						}
 						
-						response = { 'error_code': 0, 'mkt': mkt };
+						response = { 'error_code': 0, 'user': user };
 						res.status(200).json(response);
 						} else {
 						
@@ -2112,7 +2112,7 @@ module.exports = {
 							Ktn: []
 						}
 						
-						response = { 'error_code': 0, 'mkt': mkt };
+						response = { 'error_code': 0, 'user': user };
 						res.status(200).json(response);
 					}
 					
