@@ -511,7 +511,8 @@ module.exports = {
                         ListFriend: null,
                         Manager: req.body.Manager,
                         Isupdate: false,
-                        Duplicate: null
+                        Duplicate: null,
+						Course: 0
 					});
 					
                     new_student.save(function (err) {
@@ -2091,6 +2092,7 @@ module.exports = {
 						let _on = data.length;
 						let _reg = [];
 						let _ktn = [];
+						let _khoa = 0;
 						
 						data.forEach(element => {
 							if (element.Status_student[0].id === 3) {
@@ -2100,6 +2102,12 @@ module.exports = {
 							
 							if (element.Status_student[0].id === 1) {
 								_ktn.push(element);
+							}
+							
+							if(element.Course !== undefined){
+								if(element.Course !== null){
+									_khoa = _khoa + element.Course;
+								}
 							}
 						});
 						
@@ -2111,7 +2119,8 @@ module.exports = {
 							Team: Teamname,
 							On: _on,
 							Reg: _reg,
-							Ktn: _ktn
+							Ktn: _ktn,
+							Khoa: _khoa
 						}
 						
 						response = { 'error_code': 0, 'user': user };
@@ -2125,7 +2134,8 @@ module.exports = {
 							Team: Teamname,
 							On: 0,
 							Reg: [],
-							Ktn: []
+							Ktn: [],
+							Khoa: 0
 						}
 						
 						response = { 'error_code': 0, 'user': user };

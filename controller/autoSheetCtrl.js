@@ -24,6 +24,76 @@ function compareday(x) {
     return parts[1] + '/' + parts[0] + '/' + parts[2];
 }
 
+function getYesterdaysDate() {
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+}
+// kiểm tra và cập nhật khóa học cho học viên
+function CheckAndUpdateCourse(id){
+	var doc = new GoogleSpreadsheet(id);
+    var sheet;
+    async.series([
+        function setAuth(step) {
+            // see notes below for authentication instructions!
+            var creds = require('../2i studio-fd2ce7d288b9.json');
+            doc.useServiceAccountAuth(creds, step);
+        },
+        function getInfoAndWorksheets(step) {
+            doc.getInfo(function (err, info) {
+                if (info !== undefined) {
+                    sheet = info.worksheets[0];
+                }
+                step();
+            });
+        },
+        function workingWithRows(step) {
+            // google provides some query options
+            if (sheet !== undefined) {
+                sheet.getRows({
+                    offset: 1
+                }, function (err, rows) {
+                    if (rows !== undefined && rows !== null) {
+                        if (rows.length > 0) {
+									autosheet_model.find({'Status_student.id': 3}, function(err, data){
+										if(err){
+											console.log('Get reg student ' + err);
+										}else{
+											if(data.length > 0){											
+												data.forEach(element => {
+												let j = 0;
+													rows.forEach( el => {
+														if(element.Phone === el.phone){
+															j ++;
+															if(j >= 2){
+																element.Course = 2;
+																element.save(function(err){
+																	if(err){
+																		console.log(err);
+																	}
+																})
+															}
+														}
+													})
+												})
+											}
+										}
+									})
+                                // }, 1000 * i)
+                            // }
+                        }
+                    }
+                    step();
+                });
+            }
+        }
+    ], function (err) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+    });
+}
+
 // lấy user thấp nhất trong danh sách telesale
 function get_telesale(student, _id, sheet_id, mid, mname) {
     var query = { 'Role.id': 1, 'Status_user.id': 1, 'Zone.id': _id };
@@ -169,7 +239,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                     ListFriend: null,
                     Manager: manager,
                     Isupdate: false,
-                    Duplicate: null
+                    Duplicate: null,
+					Course: 0
                 });
                 student.save(function (err) {
                     if (err) {
@@ -243,7 +314,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                         ListFriend: null,
                         Manager: manager,
                         Isupdate: false,
-                        Duplicate: duplicate
+                        Duplicate: duplicate,
+						Course: 0
                     });
                     student.save(function (err) {
                         if (err) {
@@ -325,7 +397,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 ListFriend: null,
                                 Manager: manager,
                                 Isupdate: false,
-                                Duplicate: duplicate
+                                Duplicate: duplicate,
+								Course: 0
                             });
                             student.save(function (err) {
                                 if (err) {
@@ -383,7 +456,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 ListFriend: null,
                                 Manager: manager,
                                 Isupdate: false,
-                                Duplicate: duplicate
+                                Duplicate: duplicate,
+								Course: 0
                             });
                             student.save(function (err) {
                                 if (err) {
@@ -708,6 +782,13 @@ function getSheet5(list, user) {
 }
 
 
+// compare day
+function compareday2(x) {
+    var parts = x.split("-");
+    return parts[0] + '' + parts[1] + '' + parts[2];;
+}
+
+
 // function cập nhật học viên đã đã đăng ký mỗi 15'
 function getRegStudent(id) {
     var doc = new GoogleSpreadsheet(id);
@@ -736,13 +817,31 @@ function getRegStudent(id) {
                         if (rows.length > 0) {
                             //lấy danh sách học viên mới
                             for (let i = 0; i < rows.length; i++) {
-                                if (rows[i].move === "") {
-                                    setTimeout(function () {
-                                        rows[i].move = "moved";
-                                        rows[i].save();
-                                        get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
-                                    }, 1000 * i)
-                                }
+                                setTimeout(function () {
+									var today = dateFormat(new Date(), "yyyy-mm-dd");
+									autosheet_model.findOne({Phone: rows[i].phone}, function(err, data){
+										if(err){
+											console.log('Get reg student ' + err);
+										}else{
+											if(data !== null){
+												let _status = {
+													name : "Đã đăng ký", 
+													id: 3
+												}
+												if(data.Status_student[0].id !== 3){
+													data.Status_student = [_status];
+													data.Dayenrollment = today;
+													data.Course = 1;
+													data.save(function(err){
+														if(err){
+															console.log(err);
+														}
+													})
+												}
+											}
+										}
+									})
+                                }, 1000 * i)
                             }
                         }
                     }
@@ -861,13 +960,11 @@ schedule.scheduleJob('0 0 0 * * *', function () {
 	
 	// lấy danh sách trung tâm từ sheet và cập nhật vào db
 	addCenter('192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y');
+	
+	// kiểm tra và cập nhật số khóa học cho học viên
+	CheckAndUpdateCourse('142Jgjv9WAgJf9x6pJLgElR8p68ly4RmBCHZIzH4gl40')
 })
 
-function getYesterdaysDate() {
-    var date = new Date();
-    date.setDate(date.getDate() - 1);
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-}
 
 // chạy cập nhật data học viên mỗi 10 giây
 schedule.scheduleJob('*/10 * * * * *', function () {

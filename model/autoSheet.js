@@ -30,7 +30,8 @@ var student = new mongoose.Schema({
     ListFriend: Array,
     Manager: Array,
     Isupdate: Boolean,
-    Duplicate: Array
+    Duplicate: Array,
+	Course: Number
 }, { versionKey: false });
 
 //create model based a schema
