@@ -814,15 +814,15 @@ module.exports = {
 								if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
 									recal.push(element);
 								}
-							}else{
+								}else{
 								if(element.Center[0].id === null){
 									recal.push(element);
 								}
 							}
-						}else{
+							}else{
 							if(element.Center === null){
 								recal.push(element);
-							}else{
+								}else{
 								if(element.Center[0].id === null){
 									recal.push(element);
 								}
@@ -1931,50 +1931,20 @@ module.exports = {
             today = req.body.Today;
 		}
 		
-        if (req.body.Username !== null) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-				},
-                'Manager.mid': req.body.Username,
-			}
-		} else {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-				},
-                'Manager.mid': req.body.Username
-			}
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Center._id': req.body.Center._id
 		}
+		
 		
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('GetLh ' + err);
 				} else {
-				var Teamname;
-				function getUsers(user, callback){
-					var data = '';
-					auth_model.findOne({Username:user},function(err, success){
-						if (err){}
-						if (!success){
-							//when data not found
-							data = 'null';
-							}else{
-							//when data found
-							data = 'found'; 
-						}
-						callback && callback(success);
-					});
-				}
-				
-				getUsers(req.body.Username, function(data) {
-					Teamname = data.Zone[0].name;
-				});
-				
-				setTimeout(function () {
-					
+
 					if (data.length > 0) {
 						
 						let _on = data.length;
@@ -1997,7 +1967,7 @@ module.exports = {
 						{
 							Name: data[0].Manager[0].mname,
 							User: data[0].Manager[0].mid,
-							Team: Teamname,
+							Team: req.body.Center.Name,
 							On: _on,
 							Reg: _reg,
 							Ktn: _ktn
@@ -2011,7 +1981,7 @@ module.exports = {
 						{
 							Name: req.body.Fullname,
 							User: req.body.Username,
-							Team: Teamname,
+							Team: req.body.Center.Name,
 							On: 0,
 							Reg: [],
 							Ktn: []
@@ -2020,8 +1990,7 @@ module.exports = {
 						response = { 'error_code': 0, 'mkt': mkt };
 						res.status(200).json(response);
 					}
-					
-				}, 200)
+
 			}
 		})
 	},
@@ -2051,7 +2020,7 @@ module.exports = {
 				},
                 'Manager.id': req.body.Username,
 			}
-		} else {
+			} else {
             query = {
                 Regdayiso: {
                     $gte: firstDay,
@@ -2063,7 +2032,7 @@ module.exports = {
 		
         student_model.find(query, function (err, data) {
             if (err) {
-                console.log('GetLh ' + err);
+                console.log('GetSrating ' + err);
 				} else {
 				var Teamname;
 				function getUsers(user, callback){
@@ -2114,8 +2083,8 @@ module.exports = {
 						
 						let user =
 						{
-							Name: data[0].Manager[0].mname,
-							User: data[0].Manager[0].mid,
+							Name: data[0].Manager[0].name,
+							User: data[0].Manager[0].id,
 							Team: Teamname,
 							On: _on,
 							Reg: _reg,
@@ -2143,6 +2112,118 @@ module.exports = {
 					}
 					
 				}, 200)
+			}
+		})
+	},
+	GetSCenter: function (req, res) {
+        var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+		
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            firstDay = req.body.Fromday;
+            today = req.body.Today;
+		}
+		
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            firstDay = req.body.Fromday
+		}
+		
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+		}
+		
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Center._id': req.body.Center._id
+		}
+		
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetSrating ' + err);
+				} else {
+				// var Teamname;
+				// function getUsers(user, callback){
+				// var data = '';
+				// auth_model.findOne({Username:user},function(err, success){
+				// if (err){}
+				// if (!success){
+				// //when data not found
+				// data = 'null';
+				// }else{
+				// //when data found
+				// data = 'found'; 
+				// }
+				// callback && callback(success);
+				// });
+				// }
+				
+				// getUsers(req.body.Username, function(data) {
+				// Teamname = data.Zone[0].name;
+				// });
+				
+				// setTimeout(function () {
+				
+				if (data.length > 0) {
+					
+					let _on = data.length;
+					let _reg = [];
+					let _ktn = [];
+					let _khoa = 0;
+					
+					data.forEach(element => {
+						if (element.Status_student[0].id === 3) {
+							_reg.push(element);
+						}
+						
+						
+						if (element.Status_student[0].id === 1) {
+							_ktn.push(element);
+						}
+						
+						if(element.Course !== undefined){
+							if(element.Course !== null){
+								_khoa = _khoa + element.Course;
+							}
+						}
+					});
+					
+					
+					let user =
+					{
+						Name: data[0].Manager[0].name,
+						User: data[0].Manager[0].id,
+						Team: req.body.Center.Name,
+						On: _on,
+						Reg: _reg,
+						Ktn: _ktn,
+						Khoa: _khoa
+					}
+					
+					response = { 'error_code': 0, 'user': user };
+					res.status(200).json(response);
+					} else {
+					
+					let user =
+					{
+						Name: req.body.Fullname,
+						User: req.body.Username,
+						Team: req.body.Center.Name,
+						On: 0,
+						Reg: [],
+						Ktn: [],
+						Khoa: 0
+					}
+					
+					response = { 'error_code': 0, 'user': user };
+					res.status(200).json(response);
+				}
+				
+				// }, 200)
+				
 			}
 		})
 	}

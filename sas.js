@@ -222,6 +222,10 @@ sas.post('/rmgroupofuser', function (req, res) {
 })
 
 //Student
+sas.post('/getscenter', function(req, res){
+	StudentCtrl.GetSCenter(req, res);
+})
+
 sas.post('/getsrating', function(req, res){
 	StudentCtrl.GetSrating(req, res);
 })
