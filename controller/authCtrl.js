@@ -28,6 +28,19 @@ function get_telesale(student, username) {
     }).sort({ 'Student_in_month.Total': 1 });
 }
 
+// chia cho 1 tele
+function get_1telesale(student, username) {
+    users_model.findOne({ Username: username, 'Status_user.id': 1 }, function (err, data) {
+        if (err) {
+            console.log('get_1telesale ' + err);
+        } else {	
+            if (data !==  undefined) {
+                updateStudent(student, data, username);
+            }
+        }
+    });
+}
+
 // cập nhật trừ total của telesale
 function update_sub_total_for_tele(data) {
     users_model.findOne({ Username: data }, function (err, data) {
@@ -90,10 +103,13 @@ function updateStudent(stude, tele, username) {
         if (err) {
             console.log('insertStudent ' + err);
         } else {
-            if (data) {
+            if (data !== undefined) {
                 let manager = {
                     id: tele.Username,
-                    name: tele.Fullname
+                    name: tele.Fullname,
+                    sheetId: data.Manager[0].sheetId,
+                    mid: data.Manager[0].mid,
+                    mname: data.Manager[0].mname
                 }
                 data.Manager = manager;
                 data.save(function (err) {
@@ -477,33 +493,67 @@ module.exports = {
         })
     },
     ShareStudent: function (req, res) {
-        stutdent_model.find({ 'Manager.id': req.body.detail.Username, $and: [{ $or: [{ 'Status_student.id': 0 }, { 'Status_student.id': 1 }, { 'Status_student.id': 2 }] }] }, function (err, data) {
-            if (err) {
-                response = { 'error_code': 1, 'message': 'error fetching data' };
-                res.status(200).json(response);
-            } else {
-                if (data.length > 0) {
-                    for (let i = 0; i < data.length; i++) {
-                        setTimeout(function () {
-                            get_telesale(data[i], req.body.detail.Username);
-                        }, 1000 * i)
-                    }
+	
+		if(req.body.TheNum !== 0){
+			
+				stutdent_model.find({ 'Manager.id': req.body.From, $and: [{ $or: [{ 'Status_student.id': 0 }, { 'Status_student.id': 1 }, { 'Status_student.id': 2 }] }] }, function (err, data) {
+					if (err) {
+						response = { 'error_code': 1, 'message': 'error fetching data' };
+						res.status(200).json(response);
+					} else {
+						if (data.length > 0) {
+							for (let i = 0; i < data.length; i++) {
+								setTimeout(function () {
+									get_1telesale(data[i], req.body.Username);
+								}, 1000 * i)
+							}
 
-                    setTimeout(function () {
-                        if (one === 1) {
-                            response = { 'error_code': 2, 'message': 'only 1 user online' };
-                        } else {
-                            response = { 'error_code': 0, 'message': 'share student complete' };
-                        }
-                        res.status(200).json(response);
-                    }, 3000);
+							setTimeout(function () {
+								// if (one === 1) {
+									// response = { 'error_code': 2, 'message': 'only 1 user online' };
+								// } else {
+									response = { 'error_code': 0, 'message': 'share student complete' };
+								// }
+								res.status(200).json(response);
+							}, 3000);
 
-                } else {
-                    response = { 'error_code': 3, 'message': 'not student for share' };
-                    res.status(200).json(response);
-                }
-            }
-        })
+						} else {
+							response = { 'error_code': 3, 'message': 'not student for share' };
+							res.status(200).json(response);
+						}
+					}
+				}).limit(req.body.TheNum);
+
+		}else{
+				stutdent_model.find({ 'Manager.id': req.body.From, $and: [{ $or: [{ 'Status_student.id': 0 }, { 'Status_student.id': 1 }, { 'Status_student.id': 2 }] }] }, function (err, data) {
+					if (err) {
+						response = { 'error_code': 1, 'message': 'error fetching data' };
+						res.status(200).json(response);
+					} else {
+						if (data.length > 0) {
+							for (let i = 0; i < data.length; i++) {
+								setTimeout(function () {
+									get_1telesale(data[i], req.body.Username);
+								}, 1000 * i)
+							}
+
+							setTimeout(function () {
+								// if (one === 1) {
+									// response = { 'error_code': 2, 'message': 'only 1 user online' };
+								// } else {
+									response = { 'error_code': 0, 'message': 'share student complete' };
+								// }
+								res.status(200).json(response);
+							}, 3000);
+
+						} else {
+							response = { 'error_code': 3, 'message': 'not student for share' };
+							res.status(200).json(response);
+						}
+					}
+				});
+
+		}       
     },
     GetallMakerting: function (req, res) {
         users_model.find({ 'Role.id': 2 }, function (err, data) {
