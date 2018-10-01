@@ -1105,7 +1105,7 @@ module.exports = {
         if (req.body.Fromday === null && req.body.Today === null) {
             query = {
                 'Manager.id': req.body.Username,
-                $and: [{
+                 $and: [{
                     $or: [{
                         Regdayiso: {
                             $gte: dateFormat(new Date(), firstDay),
@@ -1121,9 +1121,10 @@ module.exports = {
 			}
 		}
         if (req.body.Fromday !== null && req.body.Today === null) {
+			firstDay = req.body.Fromday;
             query = {
                 'Manager.id': req.body.Username,
-                $and: [{
+                 $and: [{
                     $or: [{
                         Regdayiso: {
                             $gte: dateFormat(new Date(), firstDay),
@@ -1142,7 +1143,7 @@ module.exports = {
             today = req.body.Today;
             query = {
                 'Manager.id': req.body.Username,
-                $and: [{
+               $and: [{
                     $or: [{
                         Regdayiso: {
                             $gte: dateFormat(new Date(), firstDay),
@@ -1158,10 +1159,11 @@ module.exports = {
 			}
 		}
         if (req.body.Fromday !== null && req.body.Today !== null) {
+			firstDay =  req.body.Fromday;
             today = req.body.Today;
             query = {
                 'Manager.id': req.body.Username,
-                $and: [{
+               $and: [{
                     $or: [{
                         Regdayiso: {
                             $gte: dateFormat(new Date(), firstDay),
@@ -1173,7 +1175,7 @@ module.exports = {
                             $lte: dateFormat(new Date(), today)
 						}
 					}]
-				}]
+			   	}]
 			}
 		}
 		
