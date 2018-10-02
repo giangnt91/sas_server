@@ -1311,14 +1311,14 @@ module.exports = {
 						'Time_recall.time': {$ne:null}
 						}, {
 						Recall: true
-					}]
-				}],
-				$and: [{
-					$or: [{
+						},
+						{
 						'Center': null
-						}, {
+						},
+						{
 						'Center.id': null
-					}]
+						}
+					]
 				}]
 			}
 		}
@@ -1334,14 +1334,14 @@ module.exports = {
 						'Time_recall.time': {$ne:null}
 						}, {
 						Recall: true
-					}]
-				}],
-				$and: [{
-					$or: [{
+						},
+						{
 						'Center': null
-						}, {
+						},
+						{
 						'Center.id': null
-					}]
+						}
+					]
 				}]
 			}
 		}
@@ -1358,14 +1358,14 @@ module.exports = {
 						'Time_recall.time': {$ne:null}
 						}, {
 						Recall: true
-					}]
-				}],
-				$and: [{
-					$or: [{
+						},
+						{
 						'Center': null
-						}, {
+						},
+						{
 						'Center.id': null
-					}]
+						}
+					]
 				}]
 			}
 		}
@@ -1382,14 +1382,14 @@ module.exports = {
 						'Time_recall.time': {$ne:null}
 						}, {
 						Recall: true
-					}]
-				}],
-				$and: [{
-					$or: [{
+						},
+						{
 						'Center': null
-						}, {
+						},
+						{
 						'Center.id': null
-					}]
+						}
+					]
 				}]
 			}
 		}
