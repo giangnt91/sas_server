@@ -1306,7 +1306,15 @@ module.exports = {
                     $gte: dateFormat(new Date(), firstDay),
                     $lte: dateFormat(new Date(), today)
 				},
-                Recall: true
+                $and: [{
+                        $or: [{
+                            'Time_recall': {
+                               $ne:null
+							}
+							}, {
+                            Recall: true
+						}]
+					}]
 			}
 		}
         if (req.body.Fromday !== null && req.body.Today === null) {
@@ -1316,7 +1324,15 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
 				},
                 'Manager.id': req.body.Username,
-                Recall: true
+                $and: [{
+                        $or: [{
+                            'Time_recall': {
+                               $ne:null
+							}
+							}, {
+                            Recall: true
+						}]
+					}]
 			}
 		}
         if (req.body.Fromday === null && req.body.Today !== null) {
@@ -1327,7 +1343,15 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
 				},
                 'Manager.id': req.body.Username,
-                Recall: true
+                $and: [{
+                        $or: [{
+                            'Time_recall': {
+                               $ne:null
+							}
+							}, {
+                            Recall: true
+						}]
+					}]
 			}
 		}
         if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -1338,7 +1362,15 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
 				},
                 'Manager.id': req.body.Username,
-                Recall: true
+                $and: [{
+                        $or: [{
+                            'Time_recall': {
+                               $ne:null
+							}
+							}, {
+                            Recall: true
+						}]
+					}]
 			}
 		}
 		
