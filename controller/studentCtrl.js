@@ -1389,7 +1389,7 @@ module.exports = {
 							}
 						}
 					})
-					console.log(recal.length);
+
                     response = { 'error_code': 0, 'recall': recall };
                     res.status(200).json(response);
 					} else {
