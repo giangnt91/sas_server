@@ -1379,7 +1379,17 @@ module.exports = {
                 console.log('GetdetailRecall ' + err);
 				} else {
                 if (data.length > 0) {
-                    response = { 'error_code': 0, 'recall': data };
+					var recall = [];
+					data.forEach( element => {
+						if(element.Center === null){
+							recall.push(element);
+						}else{
+							if(element.Center[0].id === null){
+								recall.push(element);
+							}
+						}
+					})
+                    response = { 'error_code': 0, 'recall': recall };
                     res.status(200).json(response);
 					} else {
                     var recall = [];
