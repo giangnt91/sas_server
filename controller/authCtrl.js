@@ -515,7 +515,7 @@ module.exports = {
 									response = { 'error_code': 0, 'message': 'share student complete' };
 								// }
 								res.status(200).json(response);
-							}, data.length * 500);
+							}, data.length * 600);
 
 						} else {
 							response = { 'error_code': 3, 'message': 'not student for share' };
