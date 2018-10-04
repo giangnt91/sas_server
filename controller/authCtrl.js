@@ -505,7 +505,7 @@ module.exports = {
 							for (let i = 0; i < data.length; i++) {
 								setTimeout(function () {
 									get_1telesale(data[i], req.body.Username);
-								}, 1000 * i)
+								}, 500 * i)
 							}
 
 							setTimeout(function () {
@@ -515,7 +515,7 @@ module.exports = {
 									response = { 'error_code': 0, 'message': 'share student complete' };
 								// }
 								res.status(200).json(response);
-							}, 3000);
+							}, data.length * 500);
 
 						} else {
 							response = { 'error_code': 3, 'message': 'not student for share' };
