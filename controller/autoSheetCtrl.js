@@ -110,7 +110,7 @@ function get_telesale(student, _id, sheet_id, mid, mname) {
                     if (data[0].TimeForAdmin[0].id === 2) {
                         _day = 60;
                     }
-                    if (data[index].TimeForAdmin[0].id === 3) {
+                    if (data[0].TimeForAdmin[0].id === 3) {
                         _day = 90;
                     }
                 }
