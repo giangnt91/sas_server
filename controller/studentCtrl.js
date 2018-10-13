@@ -1897,7 +1897,7 @@ module.exports = {
 				}
 				
 				getUsers(req.body.Username, function(data) {
-					Teamname = data.Zone[0].name;
+					Teamname = data.Zone;
 				});
 				
 				setTimeout(function () {
