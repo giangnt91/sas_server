@@ -180,7 +180,8 @@ module.exports = {
                         Zone: req.body.Zone,
                         Status_user: new_status,
                         TimeForAdmin: null,
-						Access: null
+						Access: null,
+						Inspect: req.body.Inspect
                     });
 
                     new_auth.save(function (err) {
@@ -259,6 +260,7 @@ module.exports = {
                     data.Student_in_month = req.body._detail.Student_in_month;
                     data.TimeForAdmin = req.body._detail.TimeForAdmin;
 					data.Access = req.body._detail.Access;
+					data.Inspect = req.body._detail.Inspect;
                     data.save(function (err) {
                         if (err) {
                             response = { 'erorr_code': 2, 'message': 'error fetching data' }

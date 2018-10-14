@@ -21,7 +21,8 @@ var user = new mongoose.Schema({
     Zone: Array,
     Status_user: Array,
     TimeForAdmin: Array,
-	Access: Array
+	Access: Array,
+	Inspect: Boolean
 }, { versionKey: false });
 
 //create model based a schema
