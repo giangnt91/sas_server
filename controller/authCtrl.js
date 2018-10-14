@@ -179,7 +179,8 @@ module.exports = {
                         GroupSheet: null,
                         Zone: req.body.Zone,
                         Status_user: new_status,
-                        TimeForAdmin: null
+                        TimeForAdmin: null,
+						Access: null
                     });
 
                     new_auth.save(function (err) {
@@ -257,6 +258,7 @@ module.exports = {
                     data.GroupSheet = req.body._detail.GroupSheet;
                     data.Student_in_month = req.body._detail.Student_in_month;
                     data.TimeForAdmin = req.body._detail.TimeForAdmin;
+					data.Access = req.body._detail.Access;
                     data.save(function (err) {
                         if (err) {
                             response = { 'erorr_code': 2, 'message': 'error fetching data' }

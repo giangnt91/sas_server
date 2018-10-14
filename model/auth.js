@@ -20,7 +20,8 @@ var user = new mongoose.Schema({
     GroupSheet: Array,
     Zone: Array,
     Status_user: Array,
-    TimeForAdmin: Array
+    TimeForAdmin: Array,
+	Access: Array
 }, { versionKey: false });
 
 //create model based a schema
