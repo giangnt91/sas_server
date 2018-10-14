@@ -31,7 +31,8 @@ var student = new mongoose.Schema({
     Manager: Array,
     Isupdate: Boolean,
     Duplicate: Array,
-	Course: Number
+	Course: Number,
+	EditHistory: Array
 }, { versionKey: false });
 
 //create model based a schema

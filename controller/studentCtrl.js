@@ -451,6 +451,7 @@ module.exports = {
                     data.Manager = req.body.detail.Manager;
                     data.Dayenrollment = isoday;
                     data.SMS = req.body.detail.SMS;
+					data.EditHistory = req.body.detail.EditHistory;
                     data.save(function (err) {
                         if (err) {
                             console.log('UpdateById ' + err)
@@ -512,7 +513,8 @@ module.exports = {
                         Manager: req.body.Manager,
                         Isupdate: false,
                         Duplicate: null,
-						Course: 0
+						Course: 0,
+						EditHistory: null
 					});
 					
                     new_student.save(function (err) {

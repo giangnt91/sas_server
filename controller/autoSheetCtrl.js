@@ -240,7 +240,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                     Manager: manager,
                     Isupdate: false,
                     Duplicate: null,
-					Course: 0
+					Course: 0,
+					EditHistory: null
                 });
                 student.save(function (err) {
                     if (err) {
@@ -315,7 +316,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                         Manager: manager,
                         Isupdate: false,
                         Duplicate: duplicate,
-						Course: 0
+						Course: 0,
+						EditHistory: null
                     });
                     student.save(function (err) {
                         if (err) {
@@ -398,7 +400,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 Manager: manager,
                                 Isupdate: false,
                                 Duplicate: duplicate,
-								Course: 0
+								Course: 0,
+								EditHistory: null
                             });
                             student.save(function (err) {
                                 if (err) {
@@ -457,7 +460,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 Manager: manager,
                                 Isupdate: false,
                                 Duplicate: duplicate,
-								Course: 0
+								Course: 0,
+								EditHistory: null
                             });
                             student.save(function (err) {
                                 if (err) {
