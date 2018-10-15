@@ -246,6 +246,10 @@ sas.post('/getallquery', function (req, res) {
     StudentCtrl.GetallQuery(req, res);
 })
 
+sas.post('/getbygroup', function()req, res){
+	StudentCtrl.GetByGroup(req, res);
+})
+
 sas.post('/getall', function (req, res) {
     StudentCtrl.Getall(req, res);
 })

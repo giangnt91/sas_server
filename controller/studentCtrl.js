@@ -56,7 +56,17 @@ module.exports = {
 			}
 		}).sort({ _id: -1 });
 	},
-	
+	GetByGroup: function(req, res){
+		student_model.find({'Manager.gtele': req.body._id}, function(err, data){
+			if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' }
+                res.status(200).json(response);
+				} else {
+                response = { 'error_code': 0, 'student': data };
+                res.status(200).json(response);
+			}
+		})
+	},
     //get all student
     Getall: function (req, res) {
         student_model.find({}, function (err, data) {
