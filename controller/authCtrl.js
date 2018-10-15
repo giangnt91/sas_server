@@ -127,6 +127,35 @@ function updateStudent(stude, tele, username) {
 
 // Api
 module.exports = {
+	TheAccess: function(req, res){
+		var query;
+		if(req.body._id === 1){
+			query = {'Role.id': 11}
+		}
+		
+		if(req.body._id === 2){
+			query = {'Role.id': 12}
+		}
+		
+		if(req.body._id === 3){
+			query = {'Leader': True}
+		}
+		
+		if(req.body._id === 4){
+			query = {'Inspect': True}
+		}
+		
+		users_model.find(query, function(err, data){
+			 if(err){
+                response = { 'error_code': 1, 'message': 'error fetching data !' };
+                res.status(200).json(response);
+            }else{
+                response = { 'error_code': 0, 'message': 'update complete' }
+                res.status(200).json(response);
+            }
+		})
+		
+	},
     Without: function (req, res) {
         users_model.findById({_id: req.body._id}, function(err, data){
             if(err){
