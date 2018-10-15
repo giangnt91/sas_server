@@ -531,6 +531,22 @@ module.exports = {
 	},
 	
     // Tìm kiếm
+	SearchByPhone: function(req, res){
+		student_model.find({Phone: req.body.Phone}, function(err, data){
+			if (err) {
+                console.log('SearchByPhone ' + err);
+				response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response)
+			}else{
+				if (data.length > 0) {
+                    response = { 'error_code': 0, 'students': data };
+					} else {
+                    response = { 'error_code': 2, 'message': 'list is empty' };
+				}
+                res.status(200).json(response)
+			}
+		})
+	},
     SearchH: function (req, res) {
         var query;
         var firstDay = getFirstDateOfMonth();
