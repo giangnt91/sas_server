@@ -150,8 +150,21 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data !' };
                 res.status(200).json(response);
             }else{
-                response = { 'error_code': 0, 'message': 'update complete' }
-                res.status(200).json(response);
+				if(data.length > 0){
+					data.forEach(element =>{
+						element.Access = req.body.Access;
+						element.save(function(err){
+							if(err){
+								console.log('Access '+ err);
+							}
+						})
+					})
+					
+					setTimeout(function(){
+						response = { 'error_code': 0, 'message': 'update complete' }
+						res.status(200).json(response);
+					}, data.length * 300);					
+				}
             }
 		})
 		
