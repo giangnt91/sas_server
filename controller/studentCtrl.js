@@ -804,7 +804,7 @@ module.exports = {
 							}, {
                             Recall: true
 						}]
-					}]
+					}],
 					Center: null,
 					'Center.id': null
 				}
