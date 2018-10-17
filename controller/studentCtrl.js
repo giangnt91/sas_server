@@ -712,13 +712,8 @@ module.exports = {
 					'Manager.id': req.body.Username,
 					Recall: false,
 					Time_recall: null,
-					$and: [{
-							$or: [{
-								Center:  null
-								}, {
-								'Center.id': null
-							}]
-					}]
+					Center:  null,
+					'Center.id': null,	
 				}
 			} else {
             // lọc cho admin 
@@ -736,14 +731,9 @@ module.exports = {
                     $lte: today
 				},
                 Recall: false,
-					Time_recall: null,
-					$and: [{
-							$or: [{
-								Center:  null
-								}, {
-								'Center.id': null
-							}]
-					}]
+				Time_recall: null,
+				Center:  null,
+				'Center.id': null,	
 			}
 		}
 		
