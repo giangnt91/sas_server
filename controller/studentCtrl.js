@@ -696,22 +696,54 @@ module.exports = {
 		
         // lọc cho user khác
         if (req.body.Role[0].id !== 0) {
-            query = {
-                Regdayiso: {
-                    $gte: firstDay,
-                    $lte: today
-				},
-                'Manager.id': req.body.Username,
-                Isupdate: false
-			}
+				// query = {
+					// Regdayiso: {
+						// $gte: firstDay,
+						// $lte: today
+					// },
+					// 'Manager.id': req.body.Username,
+					// Isupdate: false
+				// }
+				query = {
+					Regdayiso: {
+						$gte: firstDay,
+						$lte: today
+					},
+					'Manager.id': req.body.Username,
+					Recall: false,
+					Time_recall: null,
+					$and: [{
+							$or: [{
+								Center:  null
+								}, {
+								'Center.id': null
+							}]
+					}]
+				}
 			} else {
             // lọc cho admin 
-            query = {
+            // query = {
+                // Regdayiso: {
+                    // $gte: firstDay,
+                    // $lte: today
+				// },
+                // Isupdate: false
+			// }
+			
+			query = {
                 Regdayiso: {
                     $gte: firstDay,
                     $lte: today
 				},
-                Isupdate: false
+                Recall: false,
+					Time_recall: null,
+					$and: [{
+							$or: [{
+								Center:  null
+								}, {
+								'Center.id': null
+							}]
+					}]
 			}
 		}
 		

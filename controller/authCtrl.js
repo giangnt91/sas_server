@@ -539,10 +539,49 @@ module.exports = {
         })
     },
     ShareStudent: function (req, res) {
+		var query;
+		if(req.body._Status === 0){
+			query = {
+				'Manager.id': req.body.From,
+				Recall: false,
+				Time_recall: null,
+				$and: [{
+                        $or: [{
+							Center:  null
+							}, {
+                            'Center.id': null
+						}]
+				}]
+			}
+		}else if(req.body._Status === 1){
+			query = {
+				'Manager.id': req.body.From,
+				$and: [{
+                        $or: [{
+                            Time_recall: { $ne: null }
+							}, {
+                            Recall: true
+						}]
+				}]
+			}
+		}else if( req.body._Status === 2){
+			query = {
+				'Manager.id': req.body.From,
+				$and: [{
+                        $or: [{
+                            Time_recall: { $ne: null }
+							},{
+                            Recall: true
+							},{
+							Isupdate: false
+						}]
+				}]
+			}
+		}
 	
 		if(req.body.TheNum !== 0){
 			
-				stutdent_model.find({ 'Manager.id': req.body.From, $and: [{ $or: [{ 'Status_student.id': 0 }, { 'Status_student.id': 1 }, { 'Status_student.id': 2 }] }] }, function (err, data) {
+				stutdent_model.find( query, function (err, data) {
 					if (err) {
 						response = { 'error_code': 1, 'message': 'error fetching data' };
 						res.status(200).json(response);
@@ -571,7 +610,7 @@ module.exports = {
 				}).limit(req.body.TheNum);
 
 		}else{
-				stutdent_model.find({ 'Manager.id': req.body.From, $and: [{ $or: [{ 'Status_student.id': 0 }, { 'Status_student.id': 1 }, { 'Status_student.id': 2 }] }] }, function (err, data) {
+				stutdent_model.find( query, function (err, data) {
 					if (err) {
 						response = { 'error_code': 1, 'message': 'error fetching data' };
 						res.status(200).json(response);
