@@ -713,7 +713,7 @@ module.exports = {
 					Recall: false,
 					Time_recall: null,
 					Center:  null,
-					'Center.id': null,	
+					'Center.id': null
 				}
 			} else {
             // lọc cho admin 
@@ -733,7 +733,7 @@ module.exports = {
                 Recall: false,
 				Time_recall: null,
 				Center:  null,
-				'Center.id': null,	
+				'Center.id': null
 			}
 		}
 		
@@ -1289,7 +1289,10 @@ module.exports = {
                     $gte: dateFormat(new Date(), firstDay),
                     $lte: dateFormat(new Date(), today)
 				},
-                Isupdate: false,
+                Recall: false,
+				Time_recall: null,
+				Center:  null,
+				'Center.id': null
                 'Duplicate': null
 			}
 		}
@@ -1300,7 +1303,10 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
 				},
                 'Manager.id': req.body.Username,
-                Isupdate: false,
+                Recall: false,
+				Time_recall: null,
+				Center:  null,
+				'Center.id': null
                 'Duplicate': null
 			}
 		}
@@ -1312,7 +1318,10 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
 				},
                 'Manager.id': req.body.Username,
-                Isupdate: false,
+                Recall: false,
+				Time_recall: null,
+				Center:  null,
+				'Center.id': null,
                 'Duplicate': null
 			}
 		}
@@ -1324,7 +1333,10 @@ module.exports = {
                     $lte: dateFormat(new Date(), today)
 				},
                 'Manager.id': req.body.Username,
-                Isupdate: false,
+                Recall: false,
+				Time_recall: null,
+				Center:  null,
+				'Center.id': null
                 'Duplicate': null
 			}
 		}

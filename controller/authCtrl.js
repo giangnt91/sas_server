@@ -545,13 +545,8 @@ module.exports = {
 				'Manager.id': req.body.From,
 				Recall: false,
 				Time_recall: null,
-				$and: [{
-                        $or: [{
-							Center:  null
-							}, {
-                            'Center.id': null
-						}]
-				}]
+				Center:  null,
+				'Center.id': null
 			}
 		}else if(req.body._Status === 1){
 			query = {
