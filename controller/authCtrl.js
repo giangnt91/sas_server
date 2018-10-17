@@ -557,18 +557,24 @@ module.exports = {
 							}, {
                             Recall: true
 						}]
-				}]
+				}],
+				Center: null,
+				'Center.id': null
 			}
 		}else if( req.body._Status === 2){
 			query = {
 				'Manager.id': req.body.From,
+				Center: null,
+				'Center.id': null,
 				$and: [{
                         $or: [{
                             Time_recall: { $ne: null }
 							},{
                             Recall: true
 							},{
-							Isupdate: false
+							Time_recall: null
+						},{
+							Recall: false
 						}]
 				}]
 			}

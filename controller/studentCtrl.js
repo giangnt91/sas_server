@@ -785,6 +785,8 @@ module.exports = {
 						}]
 					}],
                     'Manager.id': req.body.Sale,
+					Center: null,
+					'Center.id': null
 					
 				}
 				} else {
@@ -803,6 +805,8 @@ module.exports = {
                             Recall: true
 						}]
 					}]
+					Center: null,
+					'Center.id': null
 				}
 			}
 			
@@ -827,6 +831,8 @@ module.exports = {
 					}],
                     // 'Manager.id': req.body.Sale,
                     'Manager.id': req.body.Username,
+					Center: null,
+					'Center.id': null
 				}
 				} else {
                 query = {
@@ -845,6 +851,8 @@ module.exports = {
 						}]
 					}],
                     'Manager.id': req.body.Username,
+					Center: null,
+					'Center.id': null
 				}
 			}
 			
