@@ -1292,7 +1292,7 @@ module.exports = {
                 Recall: false,
 				Time_recall: null,
 				Center:  null,
-				'Center.id': null
+				'Center.id': null,
                 'Duplicate': null
 			}
 		}
@@ -1306,7 +1306,7 @@ module.exports = {
                 Recall: false,
 				Time_recall: null,
 				Center:  null,
-				'Center.id': null
+				'Center.id': null,
                 'Duplicate': null
 			}
 		}
@@ -1336,7 +1336,7 @@ module.exports = {
                 Recall: false,
 				Time_recall: null,
 				Center:  null,
-				'Center.id': null
+				'Center.id': null,
                 'Duplicate': null
 			}
 		}
