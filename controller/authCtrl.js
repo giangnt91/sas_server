@@ -6,36 +6,36 @@ var stutdent_model = require('../model/autoSheet');
 var one = 0;
 
 // lấy telesale thấp nhất
-function get_telesale(student, username) {
-    users_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
-        if (err) {
-            console.log('get_telesale ' + err);
-        } else {
-            if (data.length > 0) {
-                if (data.length === 1) {
-                    one = 1;
-                } else {
-                    one = 0;
-                    for (let i = 0; i < data.length; i++) {
-                        if (data[i].Username === username) {
-                            data.splice(i, 1);
-                        }
-                    }
-                    updateStudent(student, data[0], username);
-                }
-            }
-        }
-    }).sort({ 'Student_in_month.Total': 1 });
-}
+// function get_telesale(student, username) {
+    // users_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
+        // if (err) {
+            // console.log('get_telesale ' + err);
+        // } else {
+            // if (data.length > 0) {
+                // if (data.length === 1) {
+                    // one = 1;
+                // } else {
+                    // one = 0;
+                    // for (let i = 0; i < data.length; i++) {
+                        // if (data[i].Username === username) {
+                            // data.splice(i, 1);
+                        // }
+                    // }
+                    // updateStudent(student, data[0], username);
+                // }
+            // }
+        // }
+    // }).sort({ 'Student_in_month.Total': 1 });
+// }
 
 // chia cho 1 tele
-function get_1telesale(student, username) {
+function get_1telesale(student, username, groupid) {
     users_model.findOne({ Username: username, 'Status_user.id': 1 }, function (err, data) {
         if (err) {
             console.log('get_1telesale ' + err);
         } else {	
             if (data !==  undefined) {
-                updateStudent(student, data, username);
+                updateStudent(student, data, username, groupid);
             }
         }
     });
@@ -98,7 +98,7 @@ function update_total_for_tele(data) {
 }
 
 // thêm học viên và chia cho telesale
-function updateStudent(stude, tele, username) {
+function updateStudent(stude, tele, username, groupid) {
     stutdent_model.findById({ _id: stude._id }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
@@ -108,6 +108,7 @@ function updateStudent(stude, tele, username) {
                     id: tele.Username,
                     name: tele.Fullname,
                     sheetId: data.Manager[0].sheetId,
+					gtele: groupid,
                     mid: data.Manager[0].mid,
                     mname: data.Manager[0].mname
                 }
@@ -590,7 +591,7 @@ module.exports = {
 						if (data.length > 0) {
 							for (let i = 0; i < data.length; i++) {
 								setTimeout(function () {
-									get_1telesale(data[i], req.body.Username);
+									get_1telesale(data[i], req.body.Username, req.body._toGroup);
 								}, 500 * i)
 							}
 
@@ -619,7 +620,7 @@ module.exports = {
 						if (data.length > 0) {
 							for (let i = 0; i < data.length; i++) {
 								setTimeout(function () {
-									get_1telesale(data[i], req.body.Username);
+									get_1telesale(data[i], req.body.Username, req.body._toGroup);
 								}, 1000 * i)
 							}
 
