@@ -624,7 +624,7 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-                    'Manager.id': req.body.Username
+                    'Manager.gtele': req.body.Username
 				}
 			}
 			
@@ -635,7 +635,7 @@ module.exports = {
                         $lte: today
 					},
                     'Center._id': req.body.Center,
-                    'Manager.id': req.body.Username
+                    'Manager.gtele': req.body.Username
 				}
 			}
 			
@@ -646,7 +646,7 @@ module.exports = {
                         $lte: today
 					},
                     'Status_student.id': req.body.Status,
-                    'Manager.id': req.body.Username
+                    'Manager.gtele': req.body.Username
 				}
 			}
 			
@@ -658,7 +658,7 @@ module.exports = {
 					},
                     'Status_student.id': req.body.Status,
                     'Center._id': req.body.Center,
-                    'Manager.id': req.body.Username
+                    'Manager.gtele': req.body.Username
 				}
 			}
 			
