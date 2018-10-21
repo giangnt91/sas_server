@@ -1077,18 +1077,6 @@ module.exports = {
                 res.status(200).json(response)
             } else {
                 if (data.length > 0) {
-
-                    // function tìm tồn tại trong mảng
-                    Array.prototype.contains = function (obj) {
-                        var i = this.length;
-                        while (i--) {
-                            if (this[i]._id === obj) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
-
                     var send = [];
                     data.forEach(element => {
 
