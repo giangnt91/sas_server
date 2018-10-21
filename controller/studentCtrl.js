@@ -1061,16 +1061,14 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-                    'Manager.id': req.body.Sale,
-                    Appointment_day: { $ne: null }
+                    'Manager.id': req.body.Sale
 				}
 				} else {
                 query = {
                     Regdayiso: {
                         $gte: firstDay,
                         $lte: today
-					},
-                    Appointment_day: { $ne: null }
+					}
 				}
 			}
 		} else {
@@ -1079,8 +1077,7 @@ module.exports = {
                     $gte: firstDay,
                     $lte: today
 				},
-                'Manager.id': req.body.Username,
-                Appointment_day: { $ne: null }
+                'Manager.id': req.body.Username
 			}
 		}
 		
@@ -1095,10 +1092,12 @@ module.exports = {
                     data.forEach(element => {
 						
 						// hẹn chưa đến
-                        if (compareday(element.Appointment_day) < compareday2(today)) {
-                            if (element.Status_student[0].id !== 3) {
-                                if(send.contains(element._id.toString()) === false) {
-									send.push(element);
+						if (element.Appointment_day !== null) {
+							if (compareday(element.Appointment_day) < compareday2(today)) {
+								if (element.Status_student[0].id !== 3) {
+									if(send.contains(element._id.toString()) === false) {
+										send.push(element);
+									}
 								}
 							}
 						}
