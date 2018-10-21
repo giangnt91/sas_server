@@ -1109,6 +1109,7 @@ module.exports = {
 			}
 		}
 		
+		console.log(JSON.stringify(query));
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchS ' + err);
@@ -1123,9 +1124,9 @@ module.exports = {
 						if (element.Appointment_day !== null) {
 							if (compareday(element.Appointment_day) < compareday2(today)) {
 								if (element.Status_student[0].id !== 3) {
-									if(send.contains(element._id.toString()) === false) {
+									// if(send.contains(element._id.toString()) === false) {
 										send.push(element);
-									}
+									// }
 								}
 							}
 						}
