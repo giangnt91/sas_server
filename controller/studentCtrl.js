@@ -28,6 +28,17 @@ function getFirstDateOfMonth() {
     return firstDay
 }
 
+// function tìm tồn tại trong mảng
+	Array.prototype.contains = function(obj) {
+			var i = this.length;
+			while (i--) {
+				if (this[i]._id === obj) {
+					return true;
+				}
+			}
+			return false;
+	}
+
 // Api
 module.exports = {
     Csms: function (req, res) {
@@ -1086,33 +1097,45 @@ module.exports = {
 						// hẹn chưa đến
                         if (compareday(element.Appointment_day) < compareday2(today)) {
                             if (element.Status_student[0].id !== 3) {
-                                send.push(element);
+                                if(send.contains(element._id.toString()) === false) {
+									send.push(element);
+								}
 							}
 						}
 						
 						// trạng thái đến chưa đăng ký
 						if(element.Status_student[0].id === 2){
-							send.push(element);
+							if(send.contains(element._id.toString()) === false) {
+									send.push(element);
+								}
 						}
 						
 						// trạng thái hủy
 						if(element.Status_student[0].id === 4){
-							send.push(element);
+							if(send.contains(element._id.toString()) === false) {
+									send.push(element);
+								}
 						}
 						
 						// trạng thái không tìm năng
 						if(element.Status_student[0].id === 1){
-							send.push(element);
+							if(send.contains(element._id.toString()) === false) {
+									send.push(element);
+								}
 						}
 						
 						// trạng thái đã đăng ký
 						if(element.Status_student[0].id === 3){
-							send.push(element);
+							if(send.contains(element._id.toString()) === false) {
+									send.push(element);
+								}
 						}
 						
 						// trạng thái chưa đăng ký
 						if(element.Status_student[0].id === 0){
-							send.push(element);
+							if(send.contains(element._id.toString()) === false) {
+									send.push(element);
+								}
 						}
 						
 					});
