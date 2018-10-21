@@ -1100,12 +1100,13 @@ module.exports = {
 									}
 								}
 							}
+						}
 						
 						// trạng thái đến chưa đăng ký
 						if(element.Status_student[0].id === 2){
 							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
+								send.push(element);
+							}
 						}
 						
 						// trạng thái hủy
@@ -1118,15 +1119,15 @@ module.exports = {
 						// trạng thái không tìm năng
 						if(element.Status_student[0].id === 1){
 							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
+								send.push(element);
+							}
 						}
 						
 						// trạng thái đã đăng ký
 						if(element.Status_student[0].id === 3){
 							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
+								send.push(element);
+							}
 						}
 						
 						// trạng thái chưa đăng ký
