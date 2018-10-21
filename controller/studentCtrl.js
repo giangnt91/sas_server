@@ -1121,7 +1121,6 @@ module.exports = {
 			}
 		}
 		
-		console.log(JSON.stringify(query));
         student_model.find(query, function (err, data) {
             if (err) {
                 console.log('SearchS ' + err);
@@ -1141,6 +1140,8 @@ module.exports = {
 									// }
 								}
 							}
+						}else{
+							send.push(element);
 						}
 						
 						// trạng thái đến chưa đăng ký
