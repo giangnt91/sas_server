@@ -1064,7 +1064,15 @@ module.exports = {
                     'Manager.id': req.body.Sale,
 					$and: [{
                         $or: [{
-						'Status_student.id': 0
+							$and:[{
+								'Status_student.id': 0,
+								$or: [{
+									Isupdate: true
+								},{
+									Center: {$ne: null}
+								}],
+								'Center.id': {$ne: null}
+							}]
 						},{
 						'Status_student.id': 1
 						},{
@@ -1085,7 +1093,15 @@ module.exports = {
 					},
 					$and: [{
                         $or: [{
-						'Status_student.id': 0
+							$and:[{
+								'Status_student.id': 0,
+								$or: [{
+									Isupdate: true
+								},{
+									Center: {$ne: null}
+								}],
+								'Center.id': {$ne: null}
+							}]
 						},{
 						'Status_student.id': 1
 						},{
@@ -1107,7 +1123,17 @@ module.exports = {
                 'Manager.id': req.body.Username,
 				$and: [{
                         $or: [{
-						'Status_student.id': 0
+						
+							$and:[{
+								'Status_student.id': 0,
+								$or: [{
+									Isupdate: true
+								},{
+									Center: {$ne: null}
+								}],
+								'Center.id': {$ne: null}
+							}]
+						
 						},{
 						'Status_student.id': 1
 						},{
