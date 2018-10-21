@@ -1064,10 +1064,14 @@ module.exports = {
                     'Manager.id': req.body.Sale,
 					$and: [{
                         $or: [{
-                            'Status_student.id': 0,
-							'Status_student.id': 1,
-							'Status_student.id': 2,
-							'Status_student.id': 3,
+						'Status_student.id': 0
+						},{
+						'Status_student.id': 1
+						},{
+						'Status_student.id': 2
+						},{
+						'Status_student.id': 3
+						},{
 							'Status_student.id': 4
 						}]
 					}]
@@ -1081,10 +1085,14 @@ module.exports = {
 					},
 					$and: [{
                         $or: [{
-                            'Status_student.id': 0,
-							'Status_student.id': 1,
-							'Status_student.id': 2,
-							'Status_student.id': 3,
+						'Status_student.id': 0
+						},{
+						'Status_student.id': 1
+						},{
+						'Status_student.id': 2
+						},{
+						'Status_student.id': 3
+						},{
 							'Status_student.id': 4
 						}]
 					}]
@@ -1099,10 +1107,14 @@ module.exports = {
                 'Manager.id': req.body.Username,
 				$and: [{
                         $or: [{
-                            'Status_student.id': 0,
-							'Status_student.id': 1,
-							'Status_student.id': 2,
-							'Status_student.id': 3,
+						'Status_student.id': 0
+						},{
+						'Status_student.id': 1
+						},{
+						'Status_student.id': 2
+						},{
+						'Status_student.id': 3
+						},{
 							'Status_student.id': 4
 						}]
 					}]
