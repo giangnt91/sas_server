@@ -1088,7 +1088,7 @@ module.exports = {
                         }
                         return false;
                     }
-                    
+
                     var send = [];
                     data.forEach(element => {
 
@@ -1096,7 +1096,7 @@ module.exports = {
                         if (element.Appointment_day !== null) {
                             if (compareday(element.Appointment_day) < compareday2(today)) {
                                 if (element.Status_student[0].id !== 3) {
-                                    if (send.contains(element._id.toString()) === false) {
+                                    if (send.contains(''+element._id+'') === false) {
                                         send.push(element);
                                     }
                                 }
