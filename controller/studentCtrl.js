@@ -416,26 +416,26 @@ module.exports = {
                     var _isupdate;
                     if (data.Isupdate === false) {
                         if (req.body.detail.Note !== data.Note &&
-						data.Fullname === req.body.detail.Fullname &&
-						data.Email === req.body.detail.Email &&
-						data.Sex === req.body.detail.Sex &&
-						data.Address === req.body.detail.Address &&
-						data.Reday2 === req.body.detail.Regday2 &&
-						data.Appointment_day === req.body.detail.Appointment_day &&
-						data.Appointment_dayiso === req.body.detail.Appointment_dayiso &&
-						data.Appointment_time === req.body.detail.Appointment_time &&
-						data.Status_student === req.body.detail.Status_student &&
-						data.Center === req.body.detail.Center &&
-						data.Time_recall === req.body.detail.Time_recall &&
-						data.Recall === req.body.detail.Recall &&
-						data.ListFriend === req.body.detail.ListFriend &&
-						data.Manager === req.body.detail.Manager &&
-						data.Dayenrollment === isoday &&
-						data.SMS === req.body.detail.SMS) {
-                            _isupdate = false;
-							} else {
-                            _isupdate === true;
-						}
+							data.Fullname === req.body.detail.Fullname &&
+							data.Email === req.body.detail.Email &&
+							data.Sex === req.body.detail.Sex &&
+							data.Address === req.body.detail.Address &&
+							data.Reday2 === req.body.detail.Regday2 &&
+							data.Appointment_day === req.body.detail.Appointment_day &&
+							data.Appointment_dayiso === req.body.detail.Appointment_dayiso &&
+							data.Appointment_time === req.body.detail.Appointment_time &&
+							data.Status_student === req.body.detail.Status_student &&
+							data.Center === req.body.detail.Center &&
+							data.Time_recall === req.body.detail.Time_recall &&
+							data.Recall === req.body.detail.Recall &&
+							data.ListFriend === req.body.detail.ListFriend &&
+							data.Manager === req.body.detail.Manager &&
+							data.Dayenrollment === isoday &&
+							data.SMS === req.body.detail.SMS) {
+								_isupdate = false;
+								} else {
+								_isupdate === true;
+							}
 						} else {
                         _isupdate === true;
 					}
@@ -713,7 +713,9 @@ module.exports = {
 					Recall: false,
 					Time_recall: null,
 					Center:  null,
-					'Center.id': null
+					'Center.id': null,
+					Isupdate: false,
+					'Status_student.id': 0
 				}
 			} else {
             // lọc cho admin 
@@ -733,7 +735,9 @@ module.exports = {
                 Recall: false,
 				Time_recall: null,
 				Center:  null,
-				'Center.id': null
+				'Center.id': null,
+				Isupdate: false,
+				'Status_student.id': 0
 			}
 		}
 		
@@ -770,45 +774,49 @@ module.exports = {
 			
             if (req.body.Sale !== null) {
                 query = {
-                    Regdayiso: {
-                        $gte: firstDay,
-                        $lte: today
-					},
-                    $and: [{
-                        $or: [{
-                            'Time_recall.time.id': {
-                                $gte: req.body.Retime,
-                                $lte: req.body.Retime2
-							}
-							}, {
-                            Recall: true
-						}]
-					}],
-                    'Manager.id': req.body.Sale,
-					Center: null,
-					'Center.id': null
-					
-				}
+						Regdayiso: {
+							$gte: firstDay,
+							$lte: today
+						},
+						$and: [{
+							$or: [{
+								'Time_recall.time.id': {
+									$gte: req.body.Retime,
+									$lte: req.body.Retime2
+								}
+								}, {
+								Recall: true
+							}]
+						}],
+						'Manager.id': req.body.Sale,
+						Center: null,
+						'Center.id': null,
+						'Status_student.id': 0,
+						Isupdate: false
+						
+					}
 				} else {
-                query = {
-                    Regdayiso: {
-                        $gte: firstDay,
-                        $lte: today
-					},
-                    $and: [{
-                        $or: [{
-                            'Time_recall.time.id': {
-                                $gte: req.body.Retime,
-                                $lte: req.body.Retime2
-							}
-							}, {
-                            Recall: true
-						}]
-					}],
-					Center: null,
-					'Center.id': null
+					query = {
+						Regdayiso: {
+							$gte: firstDay,
+							$lte: today
+						},
+						$and: [{
+							$or: [{
+								'Time_recall.time.id': {
+									$gte: req.body.Retime,
+									$lte: req.body.Retime2
+								}
+								}, {
+								Recall: true
+							}]
+						}],
+						Center: null,
+						'Center.id': null,
+						'Status_student.id': 0,
+						Isupdate: false
+					}
 				}
-			}
 			
 			} else {
             // lọc cho user khác
@@ -832,7 +840,9 @@ module.exports = {
                     // 'Manager.id': req.body.Sale,
                     'Manager.id': req.body.Username,
 					Center: null,
-					'Center.id': null
+					'Center.id': null,
+					'Status_student.id': 0,
+					Isupdate: false
 				}
 				} else {
                 query = {
@@ -852,7 +862,9 @@ module.exports = {
 					}],
                     'Manager.id': req.body.Username,
 					Center: null,
-					'Center.id': null
+					'Center.id': null,
+					'Status_student.id': 0,
+					Isupdate: false
 				}
 			}
 			
@@ -930,17 +942,6 @@ module.exports = {
 			}
 			} else {
             // tìm cho user khác
-            // if (req.body.Sale !== null) {
-            //     query = {
-            //         Regdayiso: {
-            //             $gte: firstDay,
-            //             $lte: today
-            //         },
-            //         'Manager.id': req.body.Sale,
-            //         Appointment_day: { $ne: null },
-            //         'Manager.id': req.body.Username
-            //     }
-            // } else {
             query = {
                 Regdayiso: {
                     $gte: firstDay,
@@ -948,9 +949,7 @@ module.exports = {
 				},
                 Appointment_day: { $ne: null },
                 'Manager.id': req.body.Username
-			}
-            // }
-			
+			}			
 		}
 		
 		
@@ -1052,7 +1051,7 @@ module.exports = {
                         $lte: today
 					},
                     'Manager.id': req.body.Sale,
-                    Center: { $ne: null }
+                    Appointment_day: { $ne: null }
 				}
 				} else {
                 query = {
@@ -1060,17 +1059,17 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-                    Center: { $ne: null }
+                    Appointment_day: { $ne: null }
 				}
 			}
-			} else {
+		} else {
             query = {
                 Regdayiso: {
                     $gte: firstDay,
                     $lte: today
 				},
                 'Manager.id': req.body.Username,
-                Center: { $ne: null }
+                Appointment_day: { $ne: null }
 			}
 		}
 		
@@ -1083,9 +1082,39 @@ module.exports = {
                 if (data.length > 0) {
                     var send = [];
                     data.forEach(element => {
-                        if (element.Center[0].id !== null) {
-                            send.push(element);
+						
+						// hẹn chưa đến
+                        if (compareday(element.Appointment_day) < compareday2(today)) {
+                            if (element.Status_student[0].id !== 3) {
+                                send.push(element);
+							}
 						}
+						
+						// trạng thái đến chưa đăng ký
+						if(element.Status_student[0].id === 2){
+							send.push(element);
+						}
+						
+						// trạng thái hủy
+						if(element.Status_student[0].id === 4){
+							send.push(element);
+						}
+						
+						// trạng thái không tìm năng
+						if(element.Status_student[0].id === 1){
+							send.push(element);
+						}
+						
+						// trạng thái đã đăng ký
+						if(element.Status_student[0].id === 3){
+							send.push(element);
+						}
+						
+						// trạng thái chưa đăng ký
+						if(element.Status_student[0].id === 0){
+							send.push(element);
+						}
+						
 					});
                     response = { 'error_code': 0, 'students': send };
 					} else {
