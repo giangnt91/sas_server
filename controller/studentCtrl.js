@@ -1061,14 +1061,24 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-                    'Manager.id': req.body.Sale
+                    'Manager.id': req.body.Sale,
+					'Status_student.id': 0,
+					'Status_student.id': 1,
+					'Status_student.id': 2,
+					'Status_student.id': 3,
+					'Status_student.id': 4
 				}
 				} else {
                 query = {
                     Regdayiso: {
                         $gte: firstDay,
                         $lte: today
-					}
+					},
+					'Status_student.id': 0,
+					'Status_student.id': 1,
+					'Status_student.id': 2,
+					'Status_student.id': 3,
+					'Status_student.id': 4
 				}
 			}
 		} else {
@@ -1077,7 +1087,12 @@ module.exports = {
                     $gte: firstDay,
                     $lte: today
 				},
-                'Manager.id': req.body.Username
+                'Manager.id': req.body.Username,
+					'Status_student.id': 0,
+					'Status_student.id': 1,
+					'Status_student.id': 2,
+					'Status_student.id': 3,
+					'Status_student.id': 4
 			}
 		}
 		
@@ -1103,39 +1118,40 @@ module.exports = {
 						}
 						
 						// trạng thái đến chưa đăng ký
-						if(element.Status_student[0].id === 2){
-							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
-						}
+						// if(element.Status_student[0].id === 2){
+							// if(send.contains(element._id.toString()) === false) {
+									// send.push(element);
+								// } 
+								
+						// }
 						
-						// trạng thái hủy
-						if(element.Status_student[0].id === 4){
-							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
-						}
+						// // trạng thái hủy
+						// if(element.Status_student[0].id === 4){
+							// if(send.contains(element._id.toString()) === false) {
+									// send.push(element);
+								// }
+						// }
 						
-						// trạng thái không tìm năng
-						if(element.Status_student[0].id === 1){
-							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
-						}
+						// // trạng thái không tìm năng
+						// if(element.Status_student[0].id === 1){
+							// if(send.contains(element._id.toString()) === false) {
+									// send.push(element);
+								// }
+						// }
 						
-						// trạng thái đã đăng ký
-						if(element.Status_student[0].id === 3){
-							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
-						}
+						// // trạng thái đã đăng ký
+						// if(element.Status_student[0].id === 3){
+							// if(send.contains(element._id.toString()) === false) {
+									// send.push(element);
+								// }
+						// }
 						
-						// trạng thái chưa đăng ký
-						if(element.Status_student[0].id === 0){
-							if(send.contains(element._id.toString()) === false) {
-									send.push(element);
-								}
-						}
+						// // trạng thái chưa đăng ký
+						// if(element.Status_student[0].id === 0){
+							// if(send.contains(element._id.toString()) === false) {
+									// send.push(element);
+								// }
+						// }
 						
 					});
                     response = { 'error_code': 0, 'students': send };
