@@ -1062,11 +1062,16 @@ module.exports = {
                         $lte: today
 					},
                     'Manager.id': req.body.Sale,
-					'Status_student.id': 0,
-					'Status_student.id': 1,
-					'Status_student.id': 2,
-					'Status_student.id': 3,
-					'Status_student.id': 4
+					$and: [{
+                        $or: [{
+                            'Status_student.id': 0,
+							'Status_student.id': 1,
+							'Status_student.id': 2,
+							'Status_student.id': 3,
+							'Status_student.id': 4
+						}]
+					}]
+					
 				}
 				} else {
                 query = {
@@ -1074,11 +1079,15 @@ module.exports = {
                         $gte: firstDay,
                         $lte: today
 					},
-					'Status_student.id': 0,
-					'Status_student.id': 1,
-					'Status_student.id': 2,
-					'Status_student.id': 3,
-					'Status_student.id': 4
+					$and: [{
+                        $or: [{
+                            'Status_student.id': 0,
+							'Status_student.id': 1,
+							'Status_student.id': 2,
+							'Status_student.id': 3,
+							'Status_student.id': 4
+						}]
+					}]
 				}
 			}
 		} else {
@@ -1088,11 +1097,15 @@ module.exports = {
                     $lte: today
 				},
                 'Manager.id': req.body.Username,
-					'Status_student.id': 0,
-					'Status_student.id': 1,
-					'Status_student.id': 2,
-					'Status_student.id': 3,
-					'Status_student.id': 4
+				$and: [{
+                        $or: [{
+                            'Status_student.id': 0,
+							'Status_student.id': 1,
+							'Status_student.id': 2,
+							'Status_student.id': 3,
+							'Status_student.id': 4
+						}]
+					}]
 			}
 		}
 		
