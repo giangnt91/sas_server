@@ -1096,50 +1096,49 @@ module.exports = {
                         if (element.Appointment_day !== null) {
                             if (compareday(element.Appointment_day) < compareday2(today)) {
                                 if (element.Status_student[0].id !== 3) {
-                                    if (send.contains(''+element._id+'') === false) {
+                                    if (send.contains(element._id.toString()) === false) {
+                                        send.push(element);
+                                    }
+                                }
+                            }
+                        } else {
+                            // trạng thái đến chưa đăng ký
+                            if (element.Status_student[0].id === 2) {
+                                if (send.contains(element._id.toString()) === false) {
+                                    send.push(element);
+                                }
+                            }
+
+                            // trạng thái hủy
+                            if (element.Status_student[0].id === 4) {
+                                if (send.contains(element._id.toString()) === false) {
+                                    send.push(element);
+                                }
+                            }
+
+                            // trạng thái không tìm năng
+                            if (element.Status_student[0].id === 1) {
+                                if (send.contains(element._id.toString()) === false) {
+                                    send.push(element);
+                                }
+                            }
+
+                            // trạng thái đã đăng ký
+                            if (element.Status_student[0].id === 3) {
+                                if (send.contains(element._id.toString()) === false) {
+                                    send.push(element);
+                                }
+                            }
+
+                            // trạng thái chưa đăng ký
+                            if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
+                                if (element.Center[0].id !== null) {
+                                    if (send.contains(element._id.toString()) === false) {
                                         send.push(element);
                                     }
                                 }
                             }
                         }
-
-                        // trạng thái đến chưa đăng ký
-                        if (element.Status_student[0].id === 2) {
-                            if (send.contains(element._id.toString()) === false) {
-                                send.push(element);
-                            }
-                        }
-
-                        // trạng thái hủy
-                        if (element.Status_student[0].id === 4) {
-                            if (send.contains(element._id.toString()) === false) {
-                                send.push(element);
-                            }
-                        }
-
-                        // trạng thái không tìm năng
-                        if (element.Status_student[0].id === 1) {
-                            if (send.contains(element._id.toString()) === false) {
-                                send.push(element);
-                            }
-                        }
-
-                        // trạng thái đã đăng ký
-                        if (element.Status_student[0].id === 3) {
-                            if (send.contains(element._id.toString()) === false) {
-                                send.push(element);
-                            }
-                        }
-
-                        // trạng thái chưa đăng ký
-                        if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
-                            if (element.Center[0].id !== null) {
-                                if (send.contains(element._id.toString()) === false) {
-                                    send.push(element);
-                                }
-                            }
-                        }
-
                     });
                     response = { 'error_code': 0, 'students': send };
                 } else {
