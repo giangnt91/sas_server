@@ -5,6 +5,18 @@ var users_model = require('../model/auth');
 var stutdent_model = require('../model/autoSheet');
 var one = 0;
 
+// compare day
+function compareday(x) {
+    var parts = x.split("/");
+    return parts[2] + '' + parts[1] + '' + parts[0];
+}
+
+// compare day
+function compareday2(x) {
+    var parts = x.split("-");
+    return parts[0] + '' + parts[1] + '' + parts[2];;
+}
+
 // lấy telesale thấp nhất
 // function get_telesale(student, username) {
     // users_model.find({ 'Role.id': 1, 'Status_user.id': 1 }, function (err, data) {
@@ -547,7 +559,9 @@ module.exports = {
 				Recall: false,
 				Time_recall: null,
 				Center:  null,
-				'Center.id': null
+				'Center.id': null,
+                Isupdate: false,
+                'Status_student.id': 0
 			}
 		}else if(req.body._Status === 1){
 			query = {
@@ -560,24 +574,36 @@ module.exports = {
 						}]
 				}],
 				Center: null,
-				'Center.id': null
+				'Center.id': null,
+                'Status_student.id': 0,
+                Isupdate: false
 			}
 		}else if( req.body._Status === 2){
 			query = {
 				'Manager.id': req.body.From,
-				Center: null,
-				'Center.id': null,
+				Appointment_day: { $ne: null }
+			}
+		}else if( req.body._Status === 3){
+			query = {
+				'Manager.id': req.body.From,
+				'Status_student.id': 2
+			}
+		}else if( req.body._Status === 4){
+			query = {
+				'Manager.id': req.body.From,
+				'Status_student.id': 0
+			}
+		}else if( req.body._Status === 5){
+			query = {
+				'Manager.id': req.body.From,
 				$and: [{
                         $or: [{
-                            Time_recall: { $ne: null }
+                            'Status_student.id': 0
 							},{
-                            Recall: true
-							},{
-							Time_recall: null
-						},{
-							Recall: false
+							'Status_student.id': 2
 						}]
 				}]
+				
 			}
 		}
 	
@@ -589,11 +615,30 @@ module.exports = {
 						res.status(200).json(response);
 					} else {
 						if (data.length > 0) {
-							for (let i = 0; i < data.length; i++) {
-								setTimeout(function () {
-									get_1telesale(data[i], req.body.Username, req.body._toGroup);
-								}, 500 * i)
+							if(req.body._Status === 2){
+								var schedule = [];
+								data.forEach(element => {
+									if (compareday(element.Appointment_day) < compareday2(today)) {
+										if (element.Status_student[0].id !== 3) {
+											schedule.push(element);
+										}
+									}
+								});
+								
+								for (let i = 0; i < schedule.length; i++) {
+									setTimeout(function () {
+										get_1telesale(schedule[i], req.body.Username, req.body._toGroup);
+									}, 500 * i)
+								}
+							}else{
+								for (let i = 0; i < data.length; i++) {
+									setTimeout(function () {
+										get_1telesale(data[i], req.body.Username, req.body._toGroup);
+									}, 500 * i)
+								}
 							}
+							
+							
 
 							setTimeout(function () {
 								// if (one === 1) {
