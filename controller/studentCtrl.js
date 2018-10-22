@@ -1430,14 +1430,14 @@ module.exports = {
                         'Time_recall': {
                             $ne: null
                         }
-                    }, {
-                        Recall: true
                     },{
-						'Status_student.id': 0
-					},{
-						Isupdate: false
-					}]
-                }]
+                        Recall: true
+                    }]
+                }],
+                    Center: null,
+                    'Center.id': null,
+                    'Status_student.id': 0,
+                    Isupdate: false
             }
         }
         if (req.body.Fromday !== null && req.body.Today === null) {
@@ -1454,12 +1454,12 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    },{
-						'Status_student.id': 0
-					},{
-						Isupdate: false
-					}]
-                }]
+                    }]
+                }],
+                    Center: null,
+                    'Center.id': null,
+                    'Status_student.id': 0,
+                    Isupdate: false
             }
         }
         if (req.body.Fromday === null && req.body.Today !== null) {
@@ -1477,12 +1477,12 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    },{
-						'Status_student.id': 0
-					},{
-						Isupdate: false
-					}]
-                }]
+                    }]
+                }],
+                    Center: null,
+                    'Center.id': null,
+                    'Status_student.id': 0,
+                    Isupdate: false
             }
         }
         if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -1500,12 +1500,12 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    },{
-						'Status_student.id': 0
-					},{
-						Isupdate: false
-					}]
-                }]
+                    }]
+                }],
+                    Center: null,
+                    'Center.id': null,
+                    'Status_student.id': 0,
+                    Isupdate: false
             }
         }
 
