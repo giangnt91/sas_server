@@ -1682,7 +1682,7 @@ module.exports = {
                     var notapp = [];
                     data.forEach(element => {
                         if (element.Appointment_day !== null) {
-                            if (compareday(today) - compareday(element.Appointment_day) > 0) {
+                            if (compareday(element.Appointment_day) < compareday2(today)) {
                                 if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
                                     notapp.push(element);
                                 }
