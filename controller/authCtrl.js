@@ -177,6 +177,9 @@ module.exports = {
 						response = { 'error_code': 0, 'message': 'update complete' }
 						res.status(200).json(response);
 					}, data.length * 300);					
+				}else{
+					response = { 'error_code': 0, 'message': 'update complete' }
+					res.status(200).json(response);
 				}
             }
 		})
