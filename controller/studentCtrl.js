@@ -1342,7 +1342,9 @@ module.exports = {
                 Time_recall: null,
                 Center: null,
                 'Center.id': null,
-                'Duplicate': null
+                'Duplicate': null,
+				Isupdate: false,
+                'Status_student.id': 0
             }
         }
         if (req.body.Fromday !== null && req.body.Today === null) {
@@ -1356,7 +1358,9 @@ module.exports = {
                 Time_recall: null,
                 Center: null,
                 'Center.id': null,
-                'Duplicate': null
+                'Duplicate': null,
+				Isupdate: false,
+                'Status_student.id': 0
             }
         }
         if (req.body.Fromday === null && req.body.Today !== null) {
@@ -1371,7 +1375,9 @@ module.exports = {
                 Time_recall: null,
                 Center: null,
                 'Center.id': null,
-                'Duplicate': null
+                'Duplicate': null,
+				Isupdate: false,
+                'Status_student.id': 0
             }
         }
         if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -1386,7 +1392,9 @@ module.exports = {
                 Time_recall: null,
                 Center: null,
                 'Center.id': null,
-                'Duplicate': null
+                'Duplicate': null,
+				Isupdate: false,
+                'Status_student.id': 0
             }
         }
 
@@ -1424,7 +1432,11 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    }]
+                    },{
+						'Status_student.id': 0
+					},{
+						Isupdate: false
+					}]
                 }]
             }
         }
@@ -1442,7 +1454,11 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    }]
+                    },{
+						'Status_student.id': 0
+					},{
+						Isupdate: false
+					}]
                 }]
             }
         }
@@ -1461,7 +1477,11 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    }]
+                    },{
+						'Status_student.id': 0
+					},{
+						Isupdate: false
+					}]
                 }]
             }
         }
@@ -1480,7 +1500,11 @@ module.exports = {
                         }
                     }, {
                         Recall: true
-                    }]
+                    },{
+						'Status_student.id': 0
+					},{
+						Isupdate: false
+					}]
                 }]
             }
         }
