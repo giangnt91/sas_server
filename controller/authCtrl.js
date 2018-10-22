@@ -151,11 +151,11 @@ module.exports = {
 		}
 		
 		if(req.body._id === 3){
-			query = {'Leader': True}
+			query = {Leader: True}
 		}
 		
 		if(req.body._id === 4){
-			query = {'Inspect': True}
+			query = {Inspect: True}
 		}
 		
 		users_model.find(query, function(err, data){
