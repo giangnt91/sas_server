@@ -275,7 +275,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                         id: data[0].Manager[0].id,
                         name: data[0].Manager[0].name,
                         sheetId: data[0].Manager[0].sheetId,
-						gtele: data[0].Zone[0].id,
+						gtele: tele.Zone[0].id,
                         mid: data[0].Manager[0].mid,
                         mname: data[0].Manager[0].mname
                     }
@@ -360,7 +360,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 id: data[0].Manager[0].id,
                                 name: data[0].Manager[0].name,
                                 sheetId: data[0].Manager[0].sheetId,
-								gtele: data[0].Zone[0].id,
+								gtele: tele.Zone[0].id,
                                 mid: mid,
                                 mname: mname
                             }
@@ -421,7 +421,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 id: data[0].Manager[0].id,
                                 name: data[0].Manager[0].name,
                                 sheetId: data[0].Manager[0].sheetId,
-								gtele: data[0].Zone[0].id,
+								gtele: tele.Zone[0].id,
                                 mid: mid,
                                 mname: mname
                             }
