@@ -7,16 +7,6 @@ var student_model = require('../model/autoSheet');
 var sms_model = require('../model/sms');
 var auth_model = require('../model/auth');
 
-Array.prototype.contains = function(obj) {
-			var i = this.length;
-			while (i--) {
-				if (this[i]._id === obj) {
-					return true;
-				}
-			}
-			return false;
-		}
-
 
 // compare day
 function compareday(x) {
@@ -1087,6 +1077,17 @@ module.exports = {
                 res.status(200).json(response)
             } else {
                 if (data.length > 0) {
+				
+					Array.prototype.contains = function(obj) {
+						var i = this.length;
+						while (i--) {
+							if (this[i]._id === obj) {
+								return true;
+							}
+						}
+						return false;
+					}
+					
                     var send = [];
                     data.forEach(element => {
 
