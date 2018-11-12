@@ -2054,6 +2054,7 @@ module.exports = {
                         let _reg = [];
                         let _dup = [];
                         let _ktn = [];
+						let _can = [];
 
                         data.forEach(element => {
                             if (element.Status_student[0].id === 3) {
@@ -2067,6 +2068,10 @@ module.exports = {
                             if (element.Status_student[0].id === 1) {
                                 _ktn.push(element);
                             }
+							
+							if (element.Status_student[0].id === 4) {
+                                _can.push(element);
+                            }
                         });
 
 
@@ -2078,7 +2083,8 @@ module.exports = {
                             On: _on,
                             Reg: _reg,
                             Dup: _dup,
-                            Ktn: _ktn
+                            Ktn: _ktn,
+							Can: _can
                         }
 
                         response = { 'error_code': 0, 'mkt': mkt };
@@ -2093,7 +2099,8 @@ module.exports = {
                             On: 0,
                             Reg: [],
                             Dup: [],
-                            Ktn: []
+                            Ktn: [],
+							Can: []
                         }
 
                         response = { 'error_code': 0, 'mkt': mkt };
