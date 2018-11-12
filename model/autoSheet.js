@@ -8,6 +8,7 @@ mongoose.connect('mongodb://sas_sa:91411902@localhost:19899/sas');
 var student = new mongoose.Schema({
     IdforFrend: String,
     Id_sheet: String,
+	Fistname: String,
     Fullname: String,
     Email: String,
     Phone: String,

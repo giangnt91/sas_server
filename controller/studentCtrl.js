@@ -416,6 +416,7 @@ module.exports = {
                     var _isupdate;
                     if (data.Isupdate === false) {
                         if (req.body.detail.Note !== data.Note &&
+							data.Fistname === req.body.detail.Fistname &&
                             data.Fullname === req.body.detail.Fullname &&
                             data.Email === req.body.detail.Email &&
                             data.Sex === req.body.detail.Sex &&
@@ -442,6 +443,7 @@ module.exports = {
 
 
                     isoday = year + '-' + month + '-' + dt;
+					data.Fistname = req.body.detail.Fistname;
                     data.Fullname = req.body.detail.Fullname;
                     data.Email = req.body.detail.Email;
                     data.Phone = req.body.detail.Phone;
@@ -500,6 +502,7 @@ module.exports = {
                     var new_student = new student_model({
                         IdforFrend: IdforFrend,
                         Id_sheet: null,
+						Fistname: req.body.Fistname,
                         Fullname: req.body.Fullname,
                         Email: req.body.Email,
                         Phone: req.body.Phone,

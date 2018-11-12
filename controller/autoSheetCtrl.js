@@ -24,6 +24,14 @@ function compareday(x) {
     return parts[1] + '/' + parts[0] + '/' + parts[2];
 }
 
+function checkPhoneNumber(phone){
+	if(phone.charAt(0) === '0'){
+    	return phone.substr(1);
+    }else if( phone.substring(0, 2) === '84'){
+    	return phone.substr(2);
+    }
+}
+
 function getYesterdaysDate() {
     var date = new Date();
     date.setDate(date.getDate() - 1);
@@ -218,9 +226,10 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                 let student = new autosheet_model({
                     IdforFrend: mongoose.Types.ObjectId(),
                     Id_sheet: stude.id,
+					Fistname: null,
                     Fullname: stude.họtên,
                     Email: stude.email,
-                    Phone: stude.sốđiệnthoại,
+                    Phone: checkPhoneNumber(stude.sốđiệnthoại),
                     Sex: null,
                     Address: null,
                     Regday: dayreg,
@@ -228,7 +237,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                     Regday2: null,
                     Regtime: timereg,
                     Dayenrollment: null,
-                    Note: null,
+                    Note: stude.sốđiệnthoại,
                     SMS: null,
                     Center: null,
                     Time_recall: null,
@@ -296,9 +305,10 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                     let student = new autosheet_model({
                         IdforFrend: mongoose.Types.ObjectId(),
                         Id_sheet: stude.id,
+						Fistname: null,
                         Fullname: stude.họtên,
                         Email: stude.email,
-                        Phone: stude.sốđiệnthoại,
+                        Phone: checkPhoneNumber(stude.sốđiệnthoại),
                         Sex: null,
                         Address: null,
                         Regday: dayreg,
@@ -306,7 +316,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                         Regday2: null,
                         Regtime: timereg,
                         Dayenrollment: null,
-                        Note: null,
+                        Note: stude.sốđiệnthoại,
                         Center: null,
                         Time_recall: null,
                         Recall: false,
@@ -381,9 +391,10 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                             let student = new autosheet_model({
                                 IdforFrend: mongoose.Types.ObjectId(),
                                 Id_sheet: stude.id,
+								Fistname: null,
                                 Fullname: stude.họtên,
                                 Email: stude.email,
-                                Phone: stude.sốđiệnthoại,
+                                Phone: checkPhoneNumber(stude.sốđiệnthoại),
                                 Sex: null,
                                 Address: null,
                                 Regday: dayreg,
@@ -391,7 +402,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 Regday2: null,
                                 Regtime: timereg,
                                 Dayenrollment: null,
-                                Note: null,
+                                Note: stude.sốđiệnthoại,
                                 Center: null,
                                 Time_recall: null,
                                 Recall: false,
@@ -442,9 +453,10 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                             let student = new autosheet_model({
                                 IdforFrend: mongoose.Types.ObjectId(),
                                 Id_sheet: stude.id,
+								Fistname: null,
                                 Fullname: stude.họtên,
                                 Email: stude.email,
-                                Phone: stude.sốđiệnthoại,
+                                Phone: checkPhoneNumber(stude.sốđiệnthoại),
                                 Sex: null,
                                 Address: null,
                                 Regday: dayreg,
@@ -452,7 +464,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                                 Regday2: null,
                                 Regtime: timereg,
                                 Dayenrollment: null,
-                                Note: null,
+                                Note: stude.sốđiệnthoại,
                                 Center: null,
                                 Time_recall: null,
                                 Recall: false,
