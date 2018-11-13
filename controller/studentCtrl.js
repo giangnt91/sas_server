@@ -406,7 +406,7 @@ module.exports = {
                     month = date.getMonth() + 1;
                     dt = date.getDate();
 
-                    if (dt < 10) {
+if (dt < 10) {
                         dt = '0' + dt;
                     }
                     if (month < 10) {
@@ -775,7 +775,53 @@ module.exports = {
         // lọc cho admin
         if (req.body.Role[0].id === 0) {
 
-            if (req.body.Sale !== null) {
+            // if (req.body.Sale !== null) {
+                // query = {
+                    // Regdayiso: {
+                        // $gte: firstDay,
+                        // $lte: today
+                    // },
+                    // $and: [{
+                        // $or: [{
+                            // 'Time_recall.time.id': {
+                                // $gte: req.body.Retime,
+                                // $lte: req.body.Retime2
+                            // }
+                        // }, {
+                            // Recall: true
+                        // }]
+                    // }],
+                    // 'Manager.id': req.body.Sale,
+                    // Center: null,
+                    // 'Center.id': null,
+                    // 'Status_student.id': 0,
+                    // Isupdate: false
+
+                // }
+            // } else {
+                // query = {
+                    // Regdayiso: {
+                        // $gte: firstDay,
+                        // $lte: today
+                    // },
+                    // $and: [{
+                        // $or: [{
+                            // 'Time_recall.time.id': {
+                                // $gte: req.body.Retime,
+                                // $lte: req.body.Retime2
+                            // }
+                        // }, {
+                            // Recall: true
+                        // }]
+                    // }],
+                    // Center: null,
+                    // 'Center.id': null,
+                    // 'Status_student.id': 0,
+                    // Isupdate: false
+                // }
+            // }
+			
+			if (req.body.Sale !== null) {
                 query = {
                     Regdayiso: {
                         $gte: firstDay,
@@ -791,12 +837,7 @@ module.exports = {
                             Recall: true
                         }]
                     }],
-                    'Manager.id': req.body.Sale,
-                    Center: null,
-                    'Center.id': null,
-                    'Status_student.id': 0,
-                    Isupdate: false
-
+                    'Manager.id': req.body.Sale
                 }
             } else {
                 query = {
@@ -813,18 +854,13 @@ module.exports = {
                         }, {
                             Recall: true
                         }]
-                    }],
-                    Center: null,
-                    'Center.id': null,
-                    'Status_student.id': 0,
-                    Isupdate: false
+                    }]
                 }
             }
 
         } else {
             // lọc cho user khác
-
-            if (req.body.Sale !== null) {
+			
                 query = {
                     Regdayiso: {
                         $gte: firstDay,
@@ -841,35 +877,56 @@ module.exports = {
                         }]
                     }],
                     // 'Manager.id': req.body.Sale,
-                    'Manager.id': req.body.Username,
-                    Center: null,
-                    'Center.id': null,
-                    'Status_student.id': 0,
-                    Isupdate: false
+                    'Manager.id': req.body.Username
                 }
-            } else {
-                query = {
-                    Regdayiso: {
-                        $gte: firstDay,
-                        $lte: today
-                    },
-                    $and: [{
-                        $or: [{
-                            'Time_recall.time.id': {
-                                $gte: req.body.Retime,
-                                $lte: req.body.Retime2
-                            }
-                        }, {
-                            Recall: true
-                        }]
-                    }],
-                    'Manager.id': req.body.Username,
-                    Center: null,
-                    'Center.id': null,
-                    'Status_student.id': 0,
-                    Isupdate: false
-                }
-            }
+
+
+            // if (req.body.Sale !== null) {
+                // query = {
+                    // Regdayiso: {
+                        // $gte: firstDay,
+                        // $lte: today
+                    // },
+                    // $and: [{
+                        // $or: [{
+                            // 'Time_recall.time.id': {
+                                // $gte: req.body.Retime,
+                                // $lte: req.body.Retime2
+                            // }
+                        // }, {
+                            // Recall: true
+                        // }]
+                    // }],
+                    // // 'Manager.id': req.body.Sale,
+                    // 'Manager.id': req.body.Username,
+                    // Center: null,
+                    // 'Center.id': null,
+                    // 'Status_student.id': 0,
+                    // Isupdate: false
+                // }
+            // } else {
+                // query = {
+                    // Regdayiso: {
+                        // $gte: firstDay,
+                        // $lte: today
+                    // },
+                    // $and: [{
+                        // $or: [{
+                            // 'Time_recall.time.id': {
+                                // $gte: req.body.Retime,
+                                // $lte: req.body.Retime2
+                            // }
+                        // }, {
+                            // Recall: true
+                        // }]
+                    // }],
+                    // 'Manager.id': req.body.Username,
+                    // Center: null,
+                    // 'Center.id': null,
+                    // 'Status_student.id': 0,
+                    // Isupdate: false
+                // }
+            // }
 
         }
 
@@ -880,29 +937,29 @@ module.exports = {
                 res.status(200).json(response)
             } else {
                 if (data.length > 0) {
-                    var recal = [];
-                    data.forEach(element => {
-                        if (element.Time_recall !== null) {
-                            if (element.Center === null) {
-                                if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
-                                    recal.push(element);
-                                }
-                            } else {
-                                if (element.Center[0].id === null) {
-                                    recal.push(element);
-                                }
-                            }
-                        } else {
-                            if (element.Center === null) {
-                                recal.push(element);
-                            } else {
-                                if (element.Center[0].id === null) {
-                                    recal.push(element);
-                                }
-                            }
-                        }
-                    });
-                    response = { 'error_code': 0, 'students': recal };
+                    // var recal = [];
+                    // data.forEach(element => {
+                        // if (element.Time_recall !== null) {
+                            // if (element.Center === null) {
+                                // if (compareday2(firstDay) <= compareday(element.Time_recall[0].day) <= compareday2(today)) {
+                                    // recal.push(element);
+                                // }
+                            // } else {
+                                // if (element.Center[0].id === null) {
+                                    // recal.push(element);
+                                // }
+                            // }
+                        // } else {
+                            // if (element.Center === null) {
+                                // recal.push(element);
+                            // } else {
+                                // if (element.Center[0].id === null) {
+                                    // recal.push(element);
+                                // }
+                            // }
+                        // }
+                    // });
+                    response = { 'error_code': 0, 'students': data };
                 } else {
                     response = { 'error_code': 2, 'message': 'list is empty' };
                 }
