@@ -329,6 +329,10 @@ sas.post('/chartktn', function (req, res) {
     StudentCtrl.GetKtn(req, res);
 })
 
+sas.post('/charthuy', function(req, res){
+	StudentCtrl.GetHuy(req, res);
+})
+
 sas.post('/chartlh', function (req, res) {
     StudentCtrl.GetLh(req, res);
 })

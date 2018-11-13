@@ -1902,6 +1902,69 @@ module.exports = {
             }
         })
     },
+	GetHuy: function (req, res) {
+		var query;
+        var firstDay = getFirstDateOfMonth();
+        var today = dateFormat(new Date(), "yyyy-mm-dd");
+
+        if (req.body.Fromday === null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: firstDay,
+                    $lte: today
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 4
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today === null) {
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), req.body.Fromday),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 4
+            }
+        }
+        if (req.body.Fromday === null && req.body.Today !== null) {
+            today = req.body.Today;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 4
+            }
+        }
+        if (req.body.Fromday !== null && req.body.Today !== null) {
+            today = req.body.Today;
+            firstDay = req.body.Fromday;
+            query = {
+                Regdayiso: {
+                    $gte: dateFormat(new Date(), firstDay),
+                    $lte: dateFormat(new Date(), today)
+                },
+                'Manager.id': req.body.Username,
+                'Status_student.id': 4
+            }
+        }
+
+        student_model.find(query, function (err, data) {
+            if (err) {
+                console.log('GetKtn ' + err);
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 0, 'h': data };
+                    res.status(200).json(response);
+                } else {
+                    response = { 'error_code': 0, 'h': [] };
+                    res.status(200).json(response);
+                }
+            }
+        })
+	},
     GetLh: function (req, res) {
         var query;
         var firstDay = getFirstDateOfMonth();
