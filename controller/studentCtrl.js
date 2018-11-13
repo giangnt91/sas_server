@@ -966,7 +966,7 @@ module.exports = {
                     var schedule = [];
                     data.forEach(element => {
                         if (compareday(element.Appointment_day) < compareday2(today)) {
-                            if (element.Status_student[0].id !== 3) {
+                            if (element.Status_student[0].id === 0) {
                                 schedule.push(element);
                             }
                         }
