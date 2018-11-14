@@ -406,7 +406,7 @@ module.exports = {
                     month = date.getMonth() + 1;
                     dt = date.getDate();
 
-if (dt < 10) {
+					if (dt < 10) {
                         dt = '0' + dt;
                     }
                     if (month < 10) {
@@ -435,10 +435,10 @@ if (dt < 10) {
                             data.SMS === req.body.detail.SMS) {
                             _isupdate = false;
                         } else {
-                            _isupdate === true;
+                            _isupdate = true;
                         }
                     } else {
-                        _isupdate === true;
+                        _isupdate = true;
                     }
 
 
