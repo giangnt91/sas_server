@@ -265,6 +265,10 @@ sas.post('/upstudent', function (req, res) {
     StudentCtrl.UpdateById(req, res);
 })
 
+sas.post('/sendstudent', function(req, res){
+	StudentCtrl.SendStudentById(req, res);
+})
+
 sas.post('/searchbyphone', function(req, res){
 	StudentCtrl.SearchByPhone(req, res);
 })

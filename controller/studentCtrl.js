@@ -476,6 +476,26 @@ module.exports = {
             }
         })
     },
+	SendStudentById: function(req, res){
+		student_model.findById({ _id: req.body.detail._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                if (data !== null) {
+					data.Manager = req.body.detail.Manager;
+					data.save(function (err) {
+                        if (err) {
+                            console.log('SendStudentById ' + err)
+                        } else {
+                            response = { 'error_code': 0, 'message': 'update data success' };
+                            res.status(200).json(response);
+                        }
+                    })
+				}
+			}
+		}
+	},
     CreateStudent: function (req, res) {
         student_model.find({ Phone: req.body.Phone }, function (err, data) {
             if (err) {
