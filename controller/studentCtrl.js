@@ -494,7 +494,7 @@ module.exports = {
                     })
 				}
 			}
-		}
+		})
 	},
     CreateStudent: function (req, res) {
         student_model.find({ Phone: req.body.Phone }, function (err, data) {
