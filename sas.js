@@ -269,6 +269,10 @@ sas.post('/sendstudent', function(req, res){
 	StudentCtrl.SendStudentById(req, res);
 })
 
+sas.post('/searchpro', function(req, res){
+	StudentCtrl.SearchPro(req, res);
+})
+
 sas.post('/searchbyphone', function(req, res){
 	StudentCtrl.SearchByPhone(req, res);
 })
