@@ -566,15 +566,20 @@ module.exports = {
     // Tìm kiếm
 	SearchPro: function(req, res){
 		var query = {
-			$or: [{
-				Fullname: req.body.proName
-				}, {
-                'Center._id': req.body.proCenter
-            }, {
-                'Address.id': req.body.proAddress
-            }, {
-                'Manager.id': req.body.proSale
-            }]		
+			Fullname: new RegExp('^'+req.body.proName+'$', "i"),
+			'Center._id': req.body.proCenter,
+			'Address.id': req.body.proAddress,
+			'Manager.id': req.body.proSale
+			
+			// $or: [{
+				// Fullname: req.body.proName
+				// }, {
+                // 'Center._id': req.body.proCenter
+            // }, {
+                // 'Address.id': req.body.proAddress
+            // }, {
+                // 'Manager.id': req.body.proSale
+            // }]		
 		}
 		
 		student_model.find(query, function(err, data){
