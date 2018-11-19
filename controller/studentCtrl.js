@@ -1244,11 +1244,14 @@ module.exports = {
 
                             // trạng thái chưa đăng ký
                             if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
-                                if (element.Center[0].id !== null) {
-                                    if (send.contains(element._id.toString()) === false) {
-                                        send.push(element);
-                                    }
-                                }
+								if (element.Center !== null){
+									if (element.Center[0].id !== null) {
+										if (send.contains(element._id.toString()) === false) {
+											send.push(element);
+										}
+									}
+								}
+                                
                             }
                         }
                     });
