@@ -28,9 +28,13 @@ function checkPhoneNumber(phone){
 	let phoneChecked;
 	if(phone.charAt(0) === '0'){
     	phoneChecked = phone.substr(1);
-    }else if( phone.substring(0, 2) === '84'){
-    	phoneChecked = phone.substr(2);
-    }
+    }else{
+		if( phone.substring(0, 2) === '84'){
+			phoneChecked = phone.substr(2);
+		}else{
+			phoneChecked = phone;
+		}
+	}
 	return phoneChecked;
 }
 
