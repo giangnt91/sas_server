@@ -25,11 +25,13 @@ function compareday(x) {
 }
 
 function checkPhoneNumber(phone){
+	let phoneChecked;
 	if(phone.charAt(0) === '0'){
-    	return phone.substr(1);
+    	phoneChecked = phone.substr(1);
     }else if( phone.substring(0, 2) === '84'){
-    	return phone.substr(2);
+    	phoneChecked = phone.substr(2);
     }
+	return phoneChecked;
 }
 
 function getYesterdaysDate() {
