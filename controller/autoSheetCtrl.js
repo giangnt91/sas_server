@@ -191,7 +191,8 @@ function update_total_for_tele(Username) {
 
 // thêm học viên và chia cho telesale
 function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
-    autosheet_model.find({ Phone: stude.sốđiệnthoại }, function (err, data) {
+	let checkPhone = checkPhoneNumber(stude.sốđiệnthoại);
+    autosheet_model.find({ Phone: checkPhone }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
         } else {
@@ -229,7 +230,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 					Fistname: null,
                     Fullname: stude.họtên,
                     Email: stude.email,
-                    Phone: checkPhoneNumber(stude.sốđiệnthoại),
+                    Phone: checkPhone,
                     Sex: null,
                     Address: null,
                     Regday: dayreg,
@@ -308,7 +309,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 						Fistname: null,
                         Fullname: stude.họtên,
                         Email: stude.email,
-                        Phone: checkPhoneNumber(stude.sốđiệnthoại),
+                        Phone: checkPhone,
                         Sex: null,
                         Address: null,
                         Regday: dayreg,
@@ -394,7 +395,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 								Fistname: null,
                                 Fullname: stude.họtên,
                                 Email: stude.email,
-                                Phone: checkPhoneNumber(stude.sốđiệnthoại),
+                                Phone: checkPhone,
                                 Sex: null,
                                 Address: null,
                                 Regday: dayreg,
@@ -456,7 +457,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 								Fistname: null,
                                 Fullname: stude.họtên,
                                 Email: stude.email,
-                                Phone: checkPhoneNumber(stude.sốđiệnthoại),
+                                Phone: checkPhone,
                                 Sex: null,
                                 Address: null,
                                 Regday: dayreg,
