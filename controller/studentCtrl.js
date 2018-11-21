@@ -417,6 +417,7 @@ module.exports = {
                     if (data.Isupdate === false) {
                         if (req.body.detail.Note !== data.Note &&
 							data.Fistname === req.body.detail.Fistname &&
+							data.Lastname === req.body.detail.Lastname &&
                             data.Fullname === req.body.detail.Fullname &&
                             data.Email === req.body.detail.Email &&
                             data.Sex === req.body.detail.Sex &&
@@ -444,6 +445,7 @@ module.exports = {
 
                     isoday = year + '-' + month + '-' + dt;
 					data.Fistname = req.body.detail.Fistname;
+					data.Lastname = req.body.detail.Lastname;
                     data.Fullname = req.body.detail.Fullname;
                     data.Email = req.body.detail.Email;
                     data.Phone = req.body.detail.Phone;
@@ -523,6 +525,7 @@ module.exports = {
                         IdforFrend: IdforFrend,
                         Id_sheet: null,
 						Fistname: req.body.Fistname,
+						Lastname: req.body.Lastname,
                         Fullname: req.body.Fullname,
                         Email: req.body.Email,
                         Phone: req.body.Phone,

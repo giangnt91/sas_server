@@ -9,6 +9,7 @@ var student = new mongoose.Schema({
     IdforFrend: String,
     Id_sheet: String,
 	Fistname: String,
+	Lastname: String,
     Fullname: String,
     Email: String,
     Phone: String,

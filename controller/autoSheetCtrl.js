@@ -38,6 +38,14 @@ function checkPhoneNumber(phone){
 	return phoneChecked;
 }
 
+function getFirstName(name){
+	return name.substring(0, name.lastIndexOf(" ") + 1);
+}
+
+function getLastName(name){
+	return name.substring(name.lastIndexOf(" ") + 1, name.length);
+}
+
 function getYesterdaysDate() {
     var date = new Date();
     date.setDate(date.getDate() - 1);
@@ -198,6 +206,9 @@ function update_total_for_tele(Username) {
 // thêm học viên và chia cho telesale
 function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 	let checkPhone = checkPhoneNumber(stude.sốđiệnthoại);
+	let firstName = getFirstName(stude.họtên);
+	let lastName = getLastName(stude.họtên);
+
     autosheet_model.find({ Phone: checkPhone }, function (err, data) {
         if (err) {
             console.log('insertStudent ' + err);
@@ -233,7 +244,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                 let student = new autosheet_model({
                     IdforFrend: mongoose.Types.ObjectId(),
                     Id_sheet: stude.id,
-					Fistname: null,
+					Fistname: firstName,
+					Lastname: lastName,
                     Fullname: stude.họtên,
                     Email: stude.email,
                     Phone: checkPhone,
@@ -312,7 +324,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                     let student = new autosheet_model({
                         IdforFrend: mongoose.Types.ObjectId(),
                         Id_sheet: stude.id,
-						Fistname: null,
+						Fistname: firstName,
+						Lastname: lastName,
                         Fullname: stude.họtên,
                         Email: stude.email,
                         Phone: checkPhone,
@@ -398,7 +411,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                             let student = new autosheet_model({
                                 IdforFrend: mongoose.Types.ObjectId(),
                                 Id_sheet: stude.id,
-								Fistname: null,
+								Fistname: firstName,
+								Lastname: lastName,
                                 Fullname: stude.họtên,
                                 Email: stude.email,
                                 Phone: checkPhone,
@@ -460,7 +474,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
                             let student = new autosheet_model({
                                 IdforFrend: mongoose.Types.ObjectId(),
                                 Id_sheet: stude.id,
-								Fistname: null,
+								Fistname: firstName,
+								Lastname: lastName,
                                 Fullname: stude.họtên,
                                 Email: stude.email,
                                 Phone: checkPhone,
