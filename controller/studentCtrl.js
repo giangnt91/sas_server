@@ -89,7 +89,10 @@ module.exports = {
                         response = { 'error_code': 0, 'student': _list_student };
                     }
                     res.status(200).json(response);
-                }
+                }else{
+					response = { 'error_code': 0, 'student': [] };
+					res.status(200).json(response);
+				}
             }
         }).sort({ _id: -1 })
     },
