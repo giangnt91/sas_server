@@ -572,7 +572,7 @@ module.exports = {
     // Tìm kiếm
 	SearchPro: function(req, res){
 		var query = {
-			Fullname: new RegExp('^'+req.body.proName+'$', "i"),
+			Lastname: new RegExp('^'+req.body.proName+'$', "i"),
 			'Center._id': req.body.proCenter,
 			'Address.id': req.body.proAddress,
 			'Manager.id': req.body.proSale
