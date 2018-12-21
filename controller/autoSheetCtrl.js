@@ -24,8 +24,8 @@ function compareday(x) {
 
 function isoDay(day) {
 	var parts = day.split("/");
-	iday = parseInt(parts[0]) + 1;
-	return parts[1] + '-' + iday + '-' + parts[2];
+	// iday = parseInt(parts[0]) + 1;
+	return parts[1] + '-' + parts[0] + '-' + parts[2];
 }
 
 function checkPhoneNumber(phone) {
