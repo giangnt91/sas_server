@@ -1057,7 +1057,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 		// checkGroup();
 	// }
 	if(a === false){
-		getOldSheet('1uVdqp4iJXgql2GzIB3QSBD4HK_SPlpjFatOTip-BAiY');
+		getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
 		a = true;
 	}
 })
@@ -1075,7 +1075,7 @@ function getOldSheet(idSheet) {
 			function getInfoAndWorksheets(step) {
 				doc.getInfo(function (err, info) {
 					if (info !== undefined) {
-						sheet = info.worksheets[0];
+						sheet = info.worksheets[2];
 					}
 					step();
 				});
