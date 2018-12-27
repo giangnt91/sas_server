@@ -78,7 +78,7 @@ module.exports = {
                     let _role = req.body.Role;
                     let _user = req.body.Username;
                     var _list_student = [];
-                    if (_role[0].id === 0) {
+                    if (parseInt(_role[0].id) === 0) {
                         response = { 'error_code': 0, 'student': data };
                     } else {
                         data.forEach(student => {

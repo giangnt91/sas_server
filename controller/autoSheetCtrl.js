@@ -24,7 +24,7 @@ function compareday(x) {
 
 function isoDay(day) {
 	var parts = day.split("/");
-	// iday = parseInt(parts[0]) + 1;
+	iday = parseInt(parts[0]) + 1;
 	return parts[1] + '-' + parts[0] + '-' + parts[2];
 }
 
@@ -1057,7 +1057,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 		// checkGroup();
 	// }
 	if(a === false){
-		getOldSheet('1R2VD9pkqqYqEZ_VEC0hT_bPI0zF5aW6XwTaK3h8v7Wk');
+		getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
 		a = true;
 	}
 })
@@ -1357,7 +1357,7 @@ function insertOldStudent(stude) {
 	}
 
 	var trungtam = null;
-	if (parseInt(stude.Trungtam) === 1) {
+	if (parseInt(stude.trungtam) === 1) {
 		trungtam = [{
 				_id: stude.trungtam_id,
 				SheetId: stude.trungtamsheetid,
