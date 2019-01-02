@@ -1057,7 +1057,8 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	// checkGroup();
 	// }
 	if (a === false) {
-		getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
+		// getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
+		updateCenter();
 		a = true;
 	}
 })
@@ -1065,14 +1066,14 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 //update info trung tâm
 function updateCenter() {
 	autosheet_model.find({}, function (err, data) {
-		data.forEach(element => {
+		data.forEach( function(element, index) {
 			switch (element.SheetId) {
 			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d6ua4':
 				center = [{
 						_id: '5bae3d255cc51dfc0538a3ec',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: '30/4 CT',
+						Info: '432 - 434 đường 30/4, phường Hưng Lợi, quận Ninh Kiều. Nếu gặp khó khăn trong việc tìm đường, vui lòng liên hệ hotline: 0902351898 - 0901301898',
 						Id: '304CT'
 					}
 				]
@@ -1087,8 +1088,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d165cc51dfc0538a3dd',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: '79 DIS 7',
+						Info: '149 Đường 79, p Tân Quy, Q7. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903166994 - 0902877885',
 						Id: 'DIS7'
 					}
 				]
@@ -1103,8 +1104,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d125cc51dfc0538a3d9',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'bác ái',
+						Info: '19 Bác Ái, p Bình Thọ, Q. Thủ Đức. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0908886930 - 0965512160',
 						Id: 'BA'
 					}
 				]
@@ -1119,8 +1120,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d105cc51dfc0538a3d7',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'bạch đằng',
+						Info: '234/3A Bạch Đằng, p24, Q. Bình Thạnh. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0901252121 - 0938561660.',
 						Id: 'BD'
 					}
 				]
@@ -1135,8 +1136,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d195cc51dfc0538a3e0',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Bàu Cát',
+						Info: '261 Bàu Cát, p12, Tân Bình ( phia ngoai logo English4u). Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0906305898 - 0901371898',
 						Id: 'BC'
 					}
 				]
@@ -1151,8 +1152,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d205cc51dfc0538a3e7',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Biên Hòa',
+						Info: '314/37 Phạm Văn Thuận, Thống Nhất, Biên Hoà ( phia ngoai logo English4u) . Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902861898',
 						Id: 'PVT'
 					}
 				]
@@ -1167,8 +1168,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d1f5cc51dfc0538a3e6',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Chánh Nghĩa',
+						Info: '96 đường D3a, khu dân cư Chánh Nghĩa, tp.Thủ Dầu Một , Bình Dương. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902550898 - 0962004647',
 						Id: 'CN'
 					}
 				]
@@ -1183,8 +1184,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d215cc51dfc0538a3e8',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Đà Nẵng',
+						Info: '84 Nguyễn Hữu Dật, phường Hoà Cường Bắc, Quận Hải Châu, Đa Nang. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 090 198 38 80',
 						Id: 'HC'
 					}
 				]
@@ -1199,8 +1200,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d1e5cc51dfc0538a3e5',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Đại Lộ Bình Dương',
+						Info: '530 Đại lộ Bình Dương, tp.Thủ Dầu Một , Bình Dương. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902723898 - 0902311898',
 						Id: 'DLBD'
 					}
 				]
@@ -1215,8 +1216,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d235cc51dfc0538a3ea',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Điện Biên Phủ',
+						Info: 'P2 Ung Van Khiem , phuong 25 quan Binh Thanh ( doan giao Ung Van Khiem - Dien Bien Phu, gan chan cau Sai Gon). Neu gap kho khan trong viec tim duong, vui long lien he 0903761898',
 						Id: 'DBP'
 					}
 				]
@@ -1231,8 +1232,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d1b5cc51dfc0538a3e2',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Hoa Lan',
+						Info: '82 Hoa Lan, Phường 02, Quận Phú Nhuận, TP Hồ Chí Minh. Nếu gặp khó khăn trong việc tìm dương, vui lòng liên hệ hotline 0906742898 - 0906834898',
 						Id: 'HL'
 					}
 				]
@@ -1247,8 +1248,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d115cc51dfc0538a3d8',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'lạc long quân',
+						Info: '423/30 Lạc Long Quan, p5. Q11. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902914115 - 0931461614',
 						Id: 'LLQ'
 					}
 				]
@@ -1263,8 +1264,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d135cc51dfc0538a3da',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Lê Hồng Phong',
+						Info: '781/A12 Lê Hồng Phong, p12, Q10. Neu gap kho khan trong viec tim duong, vui long lien he hotline: - 0963305178 - 0963241724',
 						Id: 'LHP'
 					}
 				]
@@ -1279,8 +1280,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d1c5cc51dfc0538a3e3',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Lê Văn Việt',
+						Info: '431A Lê Văn Việt, p Tăng Nhơn Phú, quận 9. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902673898 - 0903125898',
 						Id: 'LVV'
 					}
 				]
@@ -1295,8 +1296,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d1a5cc51dfc0538a3e1',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Lý Chiêu Hoàng',
+						Info: '127D Lý Chiêu Hoàng, phường 10, Q6 ( phia ngoai logo English4u). Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0909712898 - 0902916898',
 						Id: 'LCH'
 					}
 				]
@@ -1311,8 +1312,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d1d5cc51dfc0538a3e4',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Phạm Thị Tánh',
+						Info: '9/13-9/15 dường Phạm Thị Tánh, Phường 4, Quận 8 (gần ĐH Công nghệ Sài Gòn ) .Nếu gặp khó khăn trong việc tìm đường, vui lòng liên hệ hotline Hotline: 0901.471.898-0903.602.898',
 						Id: 'PTT'
 					}
 				]
@@ -1327,8 +1328,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d265cc51dfc0538a3ed',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Tân Sơn Nhì',
+						Info: '169 đường Tân Sơn Nhì, p Tân Sơn Nhì quận Tân Phú. Nếu gặp khó khăn trong việc tìm dương, vui lòng liên hệ hotline 0906613898 0906615898',
 						Id: 'TSN'
 					}
 				]
@@ -1343,8 +1344,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d175cc51dfc0538a3de',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Tây Thạnh',
+						Info: '84 Tây Thạnh,p Tây Thạnh, Q.Tân Phú. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903622994 - 0906322995',
 						Id: 'TT'
 					}
 				]
@@ -1359,8 +1360,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d225cc51dfc0538a3e9',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Thanh Khê',
+						Info: '601 Điện Biên Phủ, phường Chính Gián, Quận Thanh Khê, Đà Nẵng .Neu gap kho khan trong viec tim duong, vui long lien he hotline:0906792898 - 0902652898',
 						Id: 'TK'
 					}
 				]
@@ -1375,8 +1376,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d155cc51dfc0538a3dc',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Trần Bình Trọng',
+						Info: '96 Trần Bình Trọng, p1, Q5. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909676121 - 0907171845',
 						Id: 'TBT'
 					}
 				]
@@ -1391,8 +1392,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d185cc51dfc0538a3df',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Trần Khánh Dư',
+						Info: '39 Trần Khánh Dư, Tân Định, Quận 1 ( phia ngoai logo English4u) . Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909310898 - 0909838258',
 						Id: 'TKD'
 					}
 				]
@@ -1407,8 +1408,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d145cc51dfc0538a3db',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Trần Thị Nghỉ',
+						Info: '13 Trần Thị Nghỉ, p7, Q.Gò Vấp. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903711882 - 0903755882',
 						Id: 'TTN'
 					}
 				]
@@ -1423,8 +1424,8 @@ function updateCenter() {
 				center = [{
 						_id: '5bae3d245cc51dfc0538a3eb',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Trần Văn Hoài CT',
+						Info: '146Q, Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều. TP. Cần Thơ . Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0932105898 - 0938105898',
 						Id: 'TVH'
 					}
 				]
@@ -1439,8 +1440,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b29a1e6ad600fefd992',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Trương Văn Bang (Vũng Tàu)',
+						Info: '16 Trương Văn Bang, Phường7, TP Vũng Tàu. Neu gap kho khan trong viec tim duong, vui long lien he hotline',
 						Id: 'TVB'
 					}
 				]
@@ -1455,8 +1456,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b2aa1e6ad600fefd993',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Phong Châu (Huế)',
+						Info: '5B Phong Châu, Phường Phú Hội, TP Huế. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0906 765 828 || 0906 705 828',
 						Id: 'PC'
 					}
 				]
@@ -1471,8 +1472,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b2ba1e6ad600fefd994',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Lê Hồng Phong (Nha Trang)',
+						Info: '7 Lê Hồng Phong, TP Nha trang, Tỉnh Khánh Hòa. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909 571 898 || 0909 543 898',
 						Id: 'LHP (NT)'
 					}
 				]
@@ -1487,8 +1488,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b2ca1e6ad600fefd995',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Nguyễn Đình Chiểu (Nha Trang)',
+						Info: '20 Nguyễn Đình Chiểu, Phường Vĩnh Phước, TP Nha Trang, Tỉnh Khánh Hòa. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909 075 898 || 0909 003 898',
 						Id: 'NDC (NT)'
 					}
 				]
@@ -1503,8 +1504,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b2da1e6ad600fefd996',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Phạm Tuấn Tài (Hà Nội)',
+						Info: '25 Phạm Tuấn Tài, P. Dịch Vọng Hậu, Q. Cầu Giấy, Tp. Hà Nội. Neu gap kho khan trong viec tim duong, vui long lien he hotline',
 						Id: 'PTT (HN)'
 					}
 				]
@@ -1519,8 +1520,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b2ea1e6ad600fefd997',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Chi Lăng',
+						Info: '80 Chi Lăng, Phường Hải Châu 2, Quận Hải Châu, TP Đà Nẵng. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902 390 898',
 						Id: 'CL (DN)'
 					}
 				]
@@ -1535,8 +1536,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b2fa1e6ad600fefd998',
 						SheetId: element.SheetId,
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Hà Huy Giáp',
+						Info: 'Hà Huy Giáp',
 						Id: 'HHG'
 					}
 				]
@@ -1551,8 +1552,8 @@ function updateCenter() {
 				center = [{
 						_id: '5c2a4b30a1e6ad600fefd999',
 						SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/djhdx',
-						Name: element.Name,
-						Info: element.Info,
+						Name: 'Trần Quang Diệu (Hà Nội)',
+						Info: '65 Trần Quang Diệu, Quận Đống Đa TP Hà Nội. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0981.140.578.- 0981.270.578',
 						Id: 'TQD (HN)'
 					}
 				]
@@ -1563,6 +1564,7 @@ function updateCenter() {
 					}
 				})
 			}
+			console.log(index);
 		})
 	});
 }
