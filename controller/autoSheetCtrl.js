@@ -1052,15 +1052,520 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	// myday = d.getDate();
 
 	// if (myday > 5) {
-		// get_list_tele_5();
+	// get_list_tele_5();
 	// } else {
-		// checkGroup();
+	// checkGroup();
 	// }
-	if(a === false){
+	if (a === false) {
 		getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
 		a = true;
 	}
 })
+
+//update info trung tâm
+function updateCenter() {
+	autosheet_model.find({}, function (err, data) {
+		data.forEach(element => {
+			switch (element.SheetId) {
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d6ua4':
+				center = [{
+						_id: '5bae3d255cc51dfc0538a3ec',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: '304CT'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 1');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/clrrx':
+				center = [{
+						_id: '5bae3d165cc51dfc0538a3dd',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'DIS7'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 2');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cre1l':
+				center = [{
+						_id: '5bae3d125cc51dfc0538a3d9',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'BA'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 3');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cokwr':
+				center = [{
+						_id: '5bae3d105cc51dfc0538a3d7',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'BD'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 4');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d180g':
+				center = [{
+						_id: '5bae3d195cc51dfc0538a3e0',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'BC'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 5');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/db1zf':
+				center = [{
+						_id: '5bae3d205cc51dfc0538a3e7',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'PVT'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 6');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d9ney':
+				center = [{
+						_id: '5bae3d1f5cc51dfc0538a3e6',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'CN'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 7');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dcgjs':
+				center = [{
+						_id: '5bae3d215cc51dfc0538a3e8',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'HC'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 8');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cx0b9':
+				center = [{
+						_id: '5bae3d1e5cc51dfc0538a3e5',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'DLBD'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 9');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d415a':
+				center = [{
+						_id: '5bae3d235cc51dfc0538a3ea',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'DBP'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 10');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cssly':
+				center = [{
+						_id: '5bae3d1b5cc51dfc0538a3e2',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'HL'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 11');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cpzh4':
+				center = [{
+						_id: '5bae3d115cc51dfc0538a3d8',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'LLQ'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 12');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/chk2m':
+				center = [{
+						_id: '5bae3d135cc51dfc0538a3da',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'LHP'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 13');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cu76f':
+				center = [{
+						_id: '5bae3d1c5cc51dfc0538a3e3',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'LVV'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 14');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d2mkx':
+				center = [{
+						_id: '5bae3d1a5cc51dfc0538a3e1',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'LCH'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 15');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cvlqs':
+				center = [{
+						_id: '5bae3d1d5cc51dfc0538a3e4',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'PTT'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 16');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d88ul':
+				center = [{
+						_id: '5bae3d265cc51dfc0538a3ed',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TSN'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 17');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cyevm':
+				center = [{
+						_id: '5bae3d175cc51dfc0538a3de',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TT'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 18');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ddv49':
+				center = [{
+						_id: '5bae3d225cc51dfc0538a3e9',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TK'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 19');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ckd7g':
+				center = [{
+						_id: '5bae3d155cc51dfc0538a3dc',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TBT'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 20');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cztg3':
+				center = [{
+						_id: '5bae3d185cc51dfc0538a3df',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TKD'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 21');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ciyn3':
+				center = [{
+						_id: '5bae3d145cc51dfc0538a3db',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TTN'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 22');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d5fpr':
+				center = [{
+						_id: '5bae3d245cc51dfc0538a3eb',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TVH'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 23');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dkvya':
+				center = [{
+						_id: '5c2a4b29a1e6ad600fefd992',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TVB'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 24');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dmair':
+				center = [{
+						_id: '5c2a4b2aa1e6ad600fefd993',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'PC'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 25');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dnp34':
+				center = [{
+						_id: '5c2a4b2ba1e6ad600fefd994',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'LHP (NT)'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 26');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dp3nl':
+				center = [{
+						_id: '5c2a4b2ca1e6ad600fefd995',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'NDC (NT)'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 27');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/df9om':
+				center = [{
+						_id: '5c2a4b2da1e6ad600fefd996',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'PTT (HN)'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 28');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dgo93':
+				center = [{
+						_id: '5c2a4b2ea1e6ad600fefd997',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'CL (DN)'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 29');
+					}
+				})
+				break;
+			case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/di2tg':
+				center = [{
+						_id: '5c2a4b2fa1e6ad600fefd998',
+						SheetId: element.SheetId,
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'HHG'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 30');
+					}
+				})
+				break;
+			default:
+				center = [{
+						_id: '5c2a4b30a1e6ad600fefd999',
+						SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/djhdx',
+						Name: element.Name,
+						Info: element.Info,
+						Id: 'TQD (HN)'
+					}
+				]
+				element.Center = center;
+				element.save(function (err) {
+					if (err) {
+						console.log('update trung tam bi loi 31');
+					}
+				})
+			}
+		})
+	});
+}
 
 // import from old data
 function getOldSheet(idSheet) {
@@ -1127,16 +1632,15 @@ function insertOldStudent(stude) {
 	// let dayreg = getDayReg(stude.ngaydangky);
 	isoday = isoDay(stude.ngaydangky);
 	let baodanhday = null;
-	if(stude.ngaybaodanh !== ''){
+	if (stude.ngaybaodanh !== '') {
 		baodanhday = isoDay(stude.ngaybaodanh);
 	}
-	
-	
+
 	isodayHen = null;
-	if(stude.ngayhen !== ''){
+	if (stude.ngayhen !== '') {
 		isodayHen = isoDay(stude.ngayhen);
 	}
-	
+
 	// let timereg = getTimeReg(stude.ngaydangky);
 	let timereg = null;
 	let manager = {
@@ -1538,7 +2042,7 @@ function insertOldStudent(stude) {
 			name: '21:00'
 		}
 	}
-	
+
 	if (parseInt(stude.goilai) === 1) {
 		timeRecal = [{
 				day: stude.ngaygoilai,
@@ -1549,16 +2053,16 @@ function insertOldStudent(stude) {
 
 	let trungdata = null;
 	let diffDays = null;
-	switch(parseInt(stude.thoigiantrung)){
-		case 1: 
-			diffDays = 30;
-			break;
-		case 2: 
-			diffDays = 60;
-			break;
-		case 3: 
-			diffDays = 90;
-			break;
+	switch (parseInt(stude.thoigiantrung)) {
+	case 1:
+		diffDays = 30;
+		break;
+	case 2:
+		diffDays = 60;
+		break;
+	case 3:
+		diffDays = 90;
+		break;
 	}
 	if (parseInt(stude.trung) === 1) {
 		trungdata = {
@@ -1574,17 +2078,17 @@ function insertOldStudent(stude) {
 	}
 
 	let khoahoc;
-	switch(parseInt(stude.khoahoc)){
-		case 1: 
-			khoahoc = 2;
-			break;
-		case 2: 
-			khoahoc = 3;
-			break;
-		default:
-			khoahoc = 0;
+	switch (parseInt(stude.khoahoc)) {
+	case 1:
+		khoahoc = 2;
+		break;
+	case 2:
+		khoahoc = 3;
+		break;
+	default:
+		khoahoc = 0;
 	}
-	
+
 	let diachi;
 	switch (parseInt(stude.diachi)) {
 	case 1:
@@ -1755,7 +2259,7 @@ function insertOldStudent(stude) {
 			name: 'Khác'
 		}
 	}
-	
+
 	let student = new autosheet_model({
 			IdforFrend: mongoose.Types.ObjectId(),
 			Id_sheet: stude.sheetID,
