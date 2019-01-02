@@ -3179,12 +3179,20 @@ module.exports = {
 								}
 							}
 						});
-						response = {
-							'error_code': 0,
-							'students': send,
-							'total': totalStudent,
-							'filtered': totalStudent
-						};
+						if(send.length > 0){
+							response = {
+								'error_code': 0,
+								'students': send,
+								'total': send.length,
+								'filtered': send.length
+							};
+						}else{
+							response = {
+								'error_code': 2,
+								'message': 'list is empty'
+							};
+						}
+						
 					} else {
 						response = {
 							'error_code': 2,
