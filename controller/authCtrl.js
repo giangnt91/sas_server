@@ -619,6 +619,7 @@ module.exports = {
 					} else {
 						if (data.length > 0) {
 							if(req.body._Status === 2){
+								var today = dateFormat(new Date(), "yyyy-mm-dd");
 								var schedule = [];
 								data.forEach(element => {
 									if (compareday(element.Appointment_day) < compareday2(today)) {

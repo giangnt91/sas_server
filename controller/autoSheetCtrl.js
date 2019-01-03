@@ -1067,506 +1067,517 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 function updateCenter() {
 	autosheet_model.find({}, function (err, data) {
 		data.forEach(function (element, index) {
-			if (element.Center !== null) {
-				switch (element.Center[0].SheetId) {
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d6ua4':
-					center = [{
-							_id: '5bae3d255cc51dfc0538a3ec',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d6ua4',
-							Name: '30/4 CT',
-							Info: '432 - 434 đường 30/4, phường Hưng Lợi, quận Ninh Kiều. Nếu gặp khó khăn trong việc tìm đường, vui lòng liên hệ hotline: 0902351898 - 0901301898',
-							Id: '304CT'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 1');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/clrrx':
-					center = [{
-							_id: '5bae3d165cc51dfc0538a3dd',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/clrrx',
-							Name: '79 DIS 7',
-							Info: '149 Đường 79, p Tân Quy, Q7. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903166994 - 0902877885',
-							Id: 'DIS7'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 2');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cre1l':
-					center = [{
-							_id: '5bae3d125cc51dfc0538a3d9',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cre1l',
-							Name: 'bác ái',
-							Info: '19 Bác Ái, p Bình Thọ, Q. Thủ Đức. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0908886930 - 0965512160',
-							Id: 'BA'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 3');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cokwr':
-					center = [{
-							_id: '5bae3d105cc51dfc0538a3d7',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cokwr',
-							Name: 'bạch đằng',
-							Info: '234/3A Bạch Đằng, p24, Q. Bình Thạnh. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0901252121 - 0938561660.',
-							Id: 'BD'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 4');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d180g':
-					center = [{
-							_id: '5bae3d195cc51dfc0538a3e0',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d180g',
-							Name: 'Bàu Cát',
-							Info: '261 Bàu Cát, p12, Tân Bình ( phia ngoai logo English4u). Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0906305898 - 0901371898',
-							Id: 'BC'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 5');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/db1zf':
-					center = [{
-							_id: '5bae3d205cc51dfc0538a3e7',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/db1zf',
-							Name: 'Biên Hòa',
-							Info: '314/37 Phạm Văn Thuận, Thống Nhất, Biên Hoà ( phia ngoai logo English4u) . Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902861898',
-							Id: 'PVT'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 6');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d9ney':
-					center = [{
-							_id: '5bae3d1f5cc51dfc0538a3e6',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d9ney',
-							Name: 'Chánh Nghĩa',
-							Info: '96 đường D3a, khu dân cư Chánh Nghĩa, tp.Thủ Dầu Một , Bình Dương. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902550898 - 0962004647',
-							Id: 'CN'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 7');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dcgjs':
-					center = [{
-							_id: '5bae3d215cc51dfc0538a3e8',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dcgjs',
-							Name: 'Đà Nẵng',
-							Info: '84 Nguyễn Hữu Dật, phường Hoà Cường Bắc, Quận Hải Châu, Đa Nang. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 090 198 38 80',
-							Id: 'HC'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 8');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cx0b9':
-					center = [{
-							_id: '5bae3d1e5cc51dfc0538a3e5',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cx0b9',
-							Name: 'Đại Lộ Bình Dương',
-							Info: '530 Đại lộ Bình Dương, tp.Thủ Dầu Một , Bình Dương. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902723898 - 0902311898',
-							Id: 'DLBD'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 9');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d415a':
-					center = [{
-							_id: '5bae3d235cc51dfc0538a3ea',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d415a',
-							Name: 'Điện Biên Phủ',
-							Info: 'P2 Ung Van Khiem , phuong 25 quan Binh Thanh ( doan giao Ung Van Khiem - Dien Bien Phu, gan chan cau Sai Gon). Neu gap kho khan trong viec tim duong, vui long lien he 0903761898',
-							Id: 'DBP'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 10');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cssly':
-					center = [{
-							_id: '5bae3d1b5cc51dfc0538a3e2',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cssly',
-							Name: 'Hoa Lan',
-							Info: '82 Hoa Lan, Phường 02, Quận Phú Nhuận, TP Hồ Chí Minh. Nếu gặp khó khăn trong việc tìm dương, vui lòng liên hệ hotline 0906742898 - 0906834898',
-							Id: 'HL'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 11');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cpzh4':
-					center = [{
-							_id: '5bae3d115cc51dfc0538a3d8',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cpzh4',
-							Name: 'lạc long quân',
-							Info: '423/30 Lạc Long Quan, p5. Q11. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902914115 - 0931461614',
-							Id: 'LLQ'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 12');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/chk2m':
-					center = [{
-							_id: '5bae3d135cc51dfc0538a3da',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/chk2m',
-							Name: 'Lê Hồng Phong',
-							Info: '781/A12 Lê Hồng Phong, p12, Q10. Neu gap kho khan trong viec tim duong, vui long lien he hotline: - 0963305178 - 0963241724',
-							Id: 'LHP'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 13');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cu76f':
-					center = [{
-							_id: '5bae3d1c5cc51dfc0538a3e3',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cu76f',
-							Name: 'Lê Văn Việt',
-							Info: '431A Lê Văn Việt, p Tăng Nhơn Phú, quận 9. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902673898 - 0903125898',
-							Id: 'LVV'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 14');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d2mkx':
-					center = [{
-							_id: '5bae3d1a5cc51dfc0538a3e1',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d2mkx',
-							Name: 'Lý Chiêu Hoàng',
-							Info: '127D Lý Chiêu Hoàng, phường 10, Q6 ( phia ngoai logo English4u). Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0909712898 - 0902916898',
-							Id: 'LCH'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 15');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cvlqs':
-					center = [{
-							_id: '5bae3d1d5cc51dfc0538a3e4',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cvlqs',
-							Name: 'Phạm Thị Tánh',
-							Info: '9/13-9/15 dường Phạm Thị Tánh, Phường 4, Quận 8 (gần ĐH Công nghệ Sài Gòn ) .Nếu gặp khó khăn trong việc tìm đường, vui lòng liên hệ hotline Hotline: 0901.471.898-0903.602.898',
-							Id: 'PTT'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 16');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d88ul':
-					center = [{
-							_id: '5bae3d265cc51dfc0538a3ed',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d88ul',
-							Name: 'Tân Sơn Nhì',
-							Info: '169 đường Tân Sơn Nhì, p Tân Sơn Nhì quận Tân Phú. Nếu gặp khó khăn trong việc tìm dương, vui lòng liên hệ hotline 0906613898 0906615898',
-							Id: 'TSN'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 17');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cyevm':
-					center = [{
-							_id: '5bae3d175cc51dfc0538a3de',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cyevm',
-							Name: 'Tây Thạnh',
-							Info: '84 Tây Thạnh,p Tây Thạnh, Q.Tân Phú. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903622994 - 0906322995',
-							Id: 'TT'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 18');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ddv49':
-					center = [{
-							_id: '5bae3d225cc51dfc0538a3e9',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ddv49',
-							Name: 'Thanh Khê',
-							Info: '601 Điện Biên Phủ, phường Chính Gián, Quận Thanh Khê, Đà Nẵng .Neu gap kho khan trong viec tim duong, vui long lien he hotline:0906792898 - 0902652898',
-							Id: 'TK'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 19');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ckd7g':
-					center = [{
-							_id: '5bae3d155cc51dfc0538a3dc',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ckd7g',
-							Name: 'Trần Bình Trọng',
-							Info: '96 Trần Bình Trọng, p1, Q5. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909676121 - 0907171845',
-							Id: 'TBT'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 20');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cztg3':
-					center = [{
-							_id: '5bae3d185cc51dfc0538a3df',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cztg3',
-							Name: 'Trần Khánh Dư',
-							Info: '39 Trần Khánh Dư, Tân Định, Quận 1 ( phia ngoai logo English4u) . Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909310898 - 0909838258',
-							Id: 'TKD'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 21');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ciyn3':
-					center = [{
-							_id: '5bae3d145cc51dfc0538a3db',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ciyn3',
-							Name: 'Trần Thị Nghỉ',
-							Info: '13 Trần Thị Nghỉ, p7, Q.Gò Vấp. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903711882 - 0903755882',
-							Id: 'TTN'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 22');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d5fpr':
-					center = [{
-							_id: '5bae3d245cc51dfc0538a3eb',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d5fpr',
-							Name: 'Trần Văn Hoài CT',
-							Info: '146Q, Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều. TP. Cần Thơ . Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0932105898 - 0938105898',
-							Id: 'TVH'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 23');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dkvya':
-					center = [{
-							_id: '5c2a4b29a1e6ad600fefd992',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dkvya',
-							Name: 'Trương Văn Bang (Vũng Tàu)',
-							Info: '16 Trương Văn Bang, Phường7, TP Vũng Tàu. Neu gap kho khan trong viec tim duong, vui long lien he hotline',
-							Id: 'TVB'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 24');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dmair':
-					center = [{
-							_id: '5c2a4b2aa1e6ad600fefd993',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dmair',
-							Name: 'Phong Châu (Huế)',
-							Info: '5B Phong Châu, Phường Phú Hội, TP Huế. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0906 765 828 || 0906 705 828',
-							Id: 'PC'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 25');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dnp34':
-					center = [{
-							_id: '5c2a4b2ba1e6ad600fefd994',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dnp34',
-							Name: 'Lê Hồng Phong (Nha Trang)',
-							Info: '7 Lê Hồng Phong, TP Nha trang, Tỉnh Khánh Hòa. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909 571 898 || 0909 543 898',
-							Id: 'LHP (NT)'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 26');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dp3nl':
-					center = [{
-							_id: '5c2a4b2ca1e6ad600fefd995',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dp3nl',
-							Name: 'Nguyễn Đình Chiểu (Nha Trang)',
-							Info: '20 Nguyễn Đình Chiểu, Phường Vĩnh Phước, TP Nha Trang, Tỉnh Khánh Hòa. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909 075 898 || 0909 003 898',
-							Id: 'NDC (NT)'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 27');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/df9om':
-					center = [{
-							_id: '5c2a4b2da1e6ad600fefd996',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/df9om',
-							Name: 'Phạm Tuấn Tài (Hà Nội)',
-							Info: '25 Phạm Tuấn Tài, P. Dịch Vọng Hậu, Q. Cầu Giấy, Tp. Hà Nội. Neu gap kho khan trong viec tim duong, vui long lien he hotline',
-							Id: 'PTT (HN)'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 28');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dgo93':
-					center = [{
-							_id: '5c2a4b2ea1e6ad600fefd997',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dgo93',
-							Name: 'Chi Lăng',
-							Info: '80 Chi Lăng, Phường Hải Châu 2, Quận Hải Châu, TP Đà Nẵng. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902 390 898',
-							Id: 'CL (DN)'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 29');
-						}
-					})
-					break;
-				case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/di2tg':
-					center = [{
-							_id: '5c2a4b2fa1e6ad600fefd998',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/di2tg',
-							Name: 'Hà Huy Giáp',
-							Info: 'Hà Huy Giáp',
-							Id: 'HHG'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 30');
-						}
-					})
-					break;
-				default:
-					center = [{
-							_id: '5c2a4b30a1e6ad600fefd999',
-							SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/djhdx',
-							Name: 'Trần Quang Diệu (Hà Nội)',
-							Info: '65 Trần Quang Diệu, Quận Đống Đa TP Hà Nội. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0981.140.578.- 0981.270.578',
-							Id: 'TQD (HN)'
-						}
-					]
-					element.Center = center;
-					element.save(function (err) {
-						if (err) {
-							console.log('update trung tam bi loi 31');
-						}
-					})
-				}
-				console.log(index);
+			if (element.Appointment_day === '') {
+				element.Appointment_day = null;
+				element.save(function (err) {
+					if (err) {
+						console.log('update Appointment_day bi loi: '+ index);
+					}else{
+						console.log(index);
+					}
+				})
+				
 			}
+			// if (element.Center !== null) {
+				// switch (element.Center[0].SheetId) {
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d6ua4':
+					// center = [{
+							// _id: '5bae3d255cc51dfc0538a3ec',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d6ua4',
+							// Name: '30/4 CT',
+							// Info: '432 - 434 đường 30/4, phường Hưng Lợi, quận Ninh Kiều. Nếu gặp khó khăn trong việc tìm đường, vui lòng liên hệ hotline: 0902351898 - 0901301898',
+							// Id: '304CT'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 1');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/clrrx':
+					// center = [{
+							// _id: '5bae3d165cc51dfc0538a3dd',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/clrrx',
+							// Name: '79 DIS 7',
+							// Info: '149 Đường 79, p Tân Quy, Q7. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903166994 - 0902877885',
+							// Id: 'DIS7'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 2');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cre1l':
+					// center = [{
+							// _id: '5bae3d125cc51dfc0538a3d9',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cre1l',
+							// Name: 'bác ái',
+							// Info: '19 Bác Ái, p Bình Thọ, Q. Thủ Đức. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0908886930 - 0965512160',
+							// Id: 'BA'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 3');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cokwr':
+					// center = [{
+							// _id: '5bae3d105cc51dfc0538a3d7',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cokwr',
+							// Name: 'bạch đằng',
+							// Info: '234/3A Bạch Đằng, p24, Q. Bình Thạnh. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0901252121 - 0938561660.',
+							// Id: 'BD'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 4');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d180g':
+					// center = [{
+							// _id: '5bae3d195cc51dfc0538a3e0',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d180g',
+							// Name: 'Bàu Cát',
+							// Info: '261 Bàu Cát, p12, Tân Bình ( phia ngoai logo English4u). Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0906305898 - 0901371898',
+							// Id: 'BC'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 5');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/db1zf':
+					// center = [{
+							// _id: '5bae3d205cc51dfc0538a3e7',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/db1zf',
+							// Name: 'Biên Hòa',
+							// Info: '314/37 Phạm Văn Thuận, Thống Nhất, Biên Hoà ( phia ngoai logo English4u) . Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902861898',
+							// Id: 'PVT'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 6');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d9ney':
+					// center = [{
+							// _id: '5bae3d1f5cc51dfc0538a3e6',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d9ney',
+							// Name: 'Chánh Nghĩa',
+							// Info: '96 đường D3a, khu dân cư Chánh Nghĩa, tp.Thủ Dầu Một , Bình Dương. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902550898 - 0962004647',
+							// Id: 'CN'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 7');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dcgjs':
+					// center = [{
+							// _id: '5bae3d215cc51dfc0538a3e8',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dcgjs',
+							// Name: 'Đà Nẵng',
+							// Info: '84 Nguyễn Hữu Dật, phường Hoà Cường Bắc, Quận Hải Châu, Đa Nang. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 090 198 38 80',
+							// Id: 'HC'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 8');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cx0b9':
+					// center = [{
+							// _id: '5bae3d1e5cc51dfc0538a3e5',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cx0b9',
+							// Name: 'Đại Lộ Bình Dương',
+							// Info: '530 Đại lộ Bình Dương, tp.Thủ Dầu Một , Bình Dương. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902723898 - 0902311898',
+							// Id: 'DLBD'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 9');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d415a':
+					// center = [{
+							// _id: '5bae3d235cc51dfc0538a3ea',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d415a',
+							// Name: 'Điện Biên Phủ',
+							// Info: 'P2 Ung Van Khiem , phuong 25 quan Binh Thanh ( doan giao Ung Van Khiem - Dien Bien Phu, gan chan cau Sai Gon). Neu gap kho khan trong viec tim duong, vui long lien he 0903761898',
+							// Id: 'DBP'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 10');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cssly':
+					// center = [{
+							// _id: '5bae3d1b5cc51dfc0538a3e2',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cssly',
+							// Name: 'Hoa Lan',
+							// Info: '82 Hoa Lan, Phường 02, Quận Phú Nhuận, TP Hồ Chí Minh. Nếu gặp khó khăn trong việc tìm dương, vui lòng liên hệ hotline 0906742898 - 0906834898',
+							// Id: 'HL'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 11');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cpzh4':
+					// center = [{
+							// _id: '5bae3d115cc51dfc0538a3d8',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cpzh4',
+							// Name: 'lạc long quân',
+							// Info: '423/30 Lạc Long Quan, p5. Q11. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902914115 - 0931461614',
+							// Id: 'LLQ'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 12');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/chk2m':
+					// center = [{
+							// _id: '5bae3d135cc51dfc0538a3da',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/chk2m',
+							// Name: 'Lê Hồng Phong',
+							// Info: '781/A12 Lê Hồng Phong, p12, Q10. Neu gap kho khan trong viec tim duong, vui long lien he hotline: - 0963305178 - 0963241724',
+							// Id: 'LHP'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 13');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cu76f':
+					// center = [{
+							// _id: '5bae3d1c5cc51dfc0538a3e3',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cu76f',
+							// Name: 'Lê Văn Việt',
+							// Info: '431A Lê Văn Việt, p Tăng Nhơn Phú, quận 9. Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0902673898 - 0903125898',
+							// Id: 'LVV'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 14');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d2mkx':
+					// center = [{
+							// _id: '5bae3d1a5cc51dfc0538a3e1',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d2mkx',
+							// Name: 'Lý Chiêu Hoàng',
+							// Info: '127D Lý Chiêu Hoàng, phường 10, Q6 ( phia ngoai logo English4u). Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0909712898 - 0902916898',
+							// Id: 'LCH'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 15');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cvlqs':
+					// center = [{
+							// _id: '5bae3d1d5cc51dfc0538a3e4',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cvlqs',
+							// Name: 'Phạm Thị Tánh',
+							// Info: '9/13-9/15 dường Phạm Thị Tánh, Phường 4, Quận 8 (gần ĐH Công nghệ Sài Gòn ) .Nếu gặp khó khăn trong việc tìm đường, vui lòng liên hệ hotline Hotline: 0901.471.898-0903.602.898',
+							// Id: 'PTT'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 16');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d88ul':
+					// center = [{
+							// _id: '5bae3d265cc51dfc0538a3ed',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d88ul',
+							// Name: 'Tân Sơn Nhì',
+							// Info: '169 đường Tân Sơn Nhì, p Tân Sơn Nhì quận Tân Phú. Nếu gặp khó khăn trong việc tìm dương, vui lòng liên hệ hotline 0906613898 0906615898',
+							// Id: 'TSN'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 17');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cyevm':
+					// center = [{
+							// _id: '5bae3d175cc51dfc0538a3de',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cyevm',
+							// Name: 'Tây Thạnh',
+							// Info: '84 Tây Thạnh,p Tây Thạnh, Q.Tân Phú. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903622994 - 0906322995',
+							// Id: 'TT'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 18');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ddv49':
+					// center = [{
+							// _id: '5bae3d225cc51dfc0538a3e9',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ddv49',
+							// Name: 'Thanh Khê',
+							// Info: '601 Điện Biên Phủ, phường Chính Gián, Quận Thanh Khê, Đà Nẵng .Neu gap kho khan trong viec tim duong, vui long lien he hotline:0906792898 - 0902652898',
+							// Id: 'TK'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 19');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ckd7g':
+					// center = [{
+							// _id: '5bae3d155cc51dfc0538a3dc',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ckd7g',
+							// Name: 'Trần Bình Trọng',
+							// Info: '96 Trần Bình Trọng, p1, Q5. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909676121 - 0907171845',
+							// Id: 'TBT'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 20');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cztg3':
+					// center = [{
+							// _id: '5bae3d185cc51dfc0538a3df',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/cztg3',
+							// Name: 'Trần Khánh Dư',
+							// Info: '39 Trần Khánh Dư, Tân Định, Quận 1 ( phia ngoai logo English4u) . Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909310898 - 0909838258',
+							// Id: 'TKD'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 21');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ciyn3':
+					// center = [{
+							// _id: '5bae3d145cc51dfc0538a3db',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/ciyn3',
+							// Name: 'Trần Thị Nghỉ',
+							// Info: '13 Trần Thị Nghỉ, p7, Q.Gò Vấp. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0903711882 - 0903755882',
+							// Id: 'TTN'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 22');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d5fpr':
+					// center = [{
+							// _id: '5bae3d245cc51dfc0538a3eb',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/d5fpr',
+							// Name: 'Trần Văn Hoài CT',
+							// Info: '146Q, Trần Văn Hoài, Phường Xuân Khánh, Quận Ninh Kiều. TP. Cần Thơ . Neu gap kho khan trong viec tim duong, vui long lien he hotline: 0932105898 - 0938105898',
+							// Id: 'TVH'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 23');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dkvya':
+					// center = [{
+							// _id: '5c2a4b29a1e6ad600fefd992',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dkvya',
+							// Name: 'Trương Văn Bang (Vũng Tàu)',
+							// Info: '16 Trương Văn Bang, Phường7, TP Vũng Tàu. Neu gap kho khan trong viec tim duong, vui long lien he hotline',
+							// Id: 'TVB'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 24');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dmair':
+					// center = [{
+							// _id: '5c2a4b2aa1e6ad600fefd993',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dmair',
+							// Name: 'Phong Châu (Huế)',
+							// Info: '5B Phong Châu, Phường Phú Hội, TP Huế. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0906 765 828 || 0906 705 828',
+							// Id: 'PC'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 25');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dnp34':
+					// center = [{
+							// _id: '5c2a4b2ba1e6ad600fefd994',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dnp34',
+							// Name: 'Lê Hồng Phong (Nha Trang)',
+							// Info: '7 Lê Hồng Phong, TP Nha trang, Tỉnh Khánh Hòa. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909 571 898 || 0909 543 898',
+							// Id: 'LHP (NT)'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 26');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dp3nl':
+					// center = [{
+							// _id: '5c2a4b2ca1e6ad600fefd995',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dp3nl',
+							// Name: 'Nguyễn Đình Chiểu (Nha Trang)',
+							// Info: '20 Nguyễn Đình Chiểu, Phường Vĩnh Phước, TP Nha Trang, Tỉnh Khánh Hòa. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0909 075 898 || 0909 003 898',
+							// Id: 'NDC (NT)'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 27');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/df9om':
+					// center = [{
+							// _id: '5c2a4b2da1e6ad600fefd996',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/df9om',
+							// Name: 'Phạm Tuấn Tài (Hà Nội)',
+							// Info: '25 Phạm Tuấn Tài, P. Dịch Vọng Hậu, Q. Cầu Giấy, Tp. Hà Nội. Neu gap kho khan trong viec tim duong, vui long lien he hotline',
+							// Id: 'PTT (HN)'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 28');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dgo93':
+					// center = [{
+							// _id: '5c2a4b2ea1e6ad600fefd997',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/dgo93',
+							// Name: 'Chi Lăng',
+							// Info: '80 Chi Lăng, Phường Hải Châu 2, Quận Hải Châu, TP Đà Nẵng. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0902 390 898',
+							// Id: 'CL (DN)'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 29');
+						// }
+					// })
+					// break;
+				// case 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/di2tg':
+					// center = [{
+							// _id: '5c2a4b2fa1e6ad600fefd998',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/di2tg',
+							// Name: 'Hà Huy Giáp',
+							// Info: 'Hà Huy Giáp',
+							// Id: 'HHG'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 30');
+						// }
+					// })
+					// break;
+				// default:
+					// center = [{
+							// _id: '5c2a4b30a1e6ad600fefd999',
+							// SheetId: 'https://spreadsheets.google.com/feeds/list/192v0mC5dtpsuJOszkKdOEvR9oiLSWoU0ybSEoMmEk_Y/od6/djhdx',
+							// Name: 'Trần Quang Diệu (Hà Nội)',
+							// Info: '65 Trần Quang Diệu, Quận Đống Đa TP Hà Nội. Neu gap kho khan trong viec tim duong, vui long lien he hotline 0981.140.578.- 0981.270.578',
+							// Id: 'TQD (HN)'
+						// }
+					// ]
+					// element.Center = center;
+					// element.save(function (err) {
+						// if (err) {
+							// console.log('update trung tam bi loi 31');
+						// }
+					// })
+				// }
+				// console.log(index);
+			// }
 		})
 	});
 }
