@@ -253,7 +253,7 @@ module.exports = {
 	GetallQuery: function (req, res) {
 		var query;
 		let totalStudent = 0;
-		let timeOut = 0;
+		let timeOut = 600;
 
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
@@ -529,7 +529,7 @@ module.exports = {
 
 			}
 		} else {
-			timeOut = 600;
+
 			if (req.body.Role[0].id === 0) {
 
 				if (req.body._status === null && req.body.form === null) {
@@ -1246,7 +1246,7 @@ module.exports = {
 		getTotal(query, function (data) {
 			totalStudent = data;
 		});
-
+		
 		setTimeout(function () {
 			student_model.find(query, function (err, data) {
 				if (err) {
