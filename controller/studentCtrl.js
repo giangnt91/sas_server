@@ -1264,7 +1264,7 @@ module.exports = {
 				_id: -1
 			}).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
-		
+
 	},
 	Getfornof: function (req, res) {
 		student_model.find({
@@ -2137,6 +2137,7 @@ module.exports = {
 			// lọc cho user khác
 			if (req.body.Role[0].id !== 0) {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
@@ -2148,9 +2149,11 @@ module.exports = {
 					'Center.id': null,
 					Isupdate: false,
 					'Status_student.id': 0
+					
 				}
 			} else {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
@@ -2161,12 +2164,15 @@ module.exports = {
 					'Center.id': null,
 					Isupdate: false,
 					'Status_student.id': 0
+					
 				}
+
 			}
 		} else {
 			// lọc cho user khác
 			if (req.body.Role[0].id !== 0) {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
@@ -2202,9 +2208,11 @@ module.exports = {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
 					]
+					
 				}
 			} else {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
@@ -2239,6 +2247,7 @@ module.exports = {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
 					]
+					
 				}
 			}
 		}
@@ -2313,16 +2322,14 @@ module.exports = {
 
 				if (req.body.Sale !== null) {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						$and: [{
 								$or: [{
-										'Time_recall.time.id': {
-											$gte: req.body.Retime,
-											$lte: req.body.Retime2
-										}
+										Time_recall: { $ne: null }
 									}, {
 										Recall: true
 									}
@@ -2333,22 +2340,21 @@ module.exports = {
 					}
 				} else {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						$and: [{
 								$or: [{
-										'Time_recall.time.id': {
-											$gte: req.body.Retime,
-											$lte: req.body.Retime2
-										}
+										Time_recall: { $ne: null }
 									}, {
 										Recall: true
 									}
 								]
 							}
 						]
+						
 					}
 				}
 
@@ -2356,23 +2362,22 @@ module.exports = {
 				// lọc cho user khác
 
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
 					$and: [{
 							$or: [{
-									'Time_recall.time.id': {
-										$gte: req.body.Retime,
-										$lte: req.body.Retime2
+										Time_recall: { $ne: null }
+									}, {
+										Recall: true
 									}
-								}, {
-									Recall: true
-								}
-							]
+								]
 						}
 					],
 					'Manager.id': req.body.Username
+					
 				}
 
 			}
@@ -2382,16 +2387,14 @@ module.exports = {
 
 				if (req.body.Sale !== null) {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						$and: [{
 								$or: [{
-										'Time_recall.time.id': {
-											$gte: req.body.Retime,
-											$lte: req.body.Retime2
-										}
+										Time_recall: { $ne: null }
 									}, {
 										Recall: true
 									}
@@ -2421,19 +2424,18 @@ module.exports = {
 								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
 						]
+						
 					}
 				} else {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						$and: [{
 								$or: [{
-										'Time_recall.time.id': {
-											$gte: req.body.Retime,
-											$lte: req.body.Retime2
-										}
+										Time_recall: { $ne: null }
 									}, {
 										Recall: true
 									}
@@ -2462,6 +2464,7 @@ module.exports = {
 								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
 						]
+						
 					}
 				}
 
@@ -2469,20 +2472,18 @@ module.exports = {
 				// lọc cho user khác
 
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
 					$and: [{
 							$or: [{
-									'Time_recall.time.id': {
-										$gte: req.body.Retime,
-										$lte: req.body.Retime2
+										Time_recall: { $ne: null }
+									}, {
+										Recall: true
 									}
-								}, {
-									Recall: true
-								}
-							]
+								]
 						}
 					],
 					'Manager.id': req.body.Username,
@@ -2508,6 +2509,7 @@ module.exports = {
 							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
 					]
+					
 				}
 
 			}
@@ -2531,7 +2533,8 @@ module.exports = {
 		getTotal(query, function (data) {
 			totalStudent = data;
 		});
-
+		
+		
 		setTimeout(function () {
 			student_model.find(query, function (err, data) {
 				if (err) {
@@ -2582,37 +2585,67 @@ module.exports = {
 			if (req.body.Role[0].id === 0) {
 				if (req.body.Sale !== null) {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						'Manager.id': req.body.Sale,
-						Appointment_day: {
-							$ne: null
-						}
+						// Appointment_day: {
+							// $ne: null
+						// },
+						$and: [{
+								Appointment_day: {
+									$lt: today
+								}
+							}, {
+								'Status_student.id': 0
+							}
+						]
+						
 					}
 				} else {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
-						Appointment_day: {
-							$ne: null
-						}
+						// Appointment_day: {
+							// $ne: null
+						// },
+						$and: [{
+								Appointment_day: {
+									$lt: today
+								}
+							}, {
+								'Status_student.id': 0
+							}
+						]
+						
 					}
 				}
 			} else {
 				// tìm cho user khác
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
-					Appointment_day: {
-						$ne: null
-					},
-					'Manager.id': req.body.Username
+					// Appointment_day: {
+					// $ne: null
+					// },
+					'Manager.id': req.body.Username,
+					$and: [{
+							Appointment_day: {
+								$lt: today
+							}
+						}, {
+							'Status_student.id': 0
+						}
+					]
+					
 				}
 			}
 		} else {
@@ -2620,14 +2653,15 @@ module.exports = {
 			if (req.body.Role[0].id === 0) {
 				if (req.body.Sale !== null) {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						'Manager.id': req.body.Sale,
-						Appointment_day: {
-							$ne: null
-						},
+						// Appointment_day: {
+							// $ne: null
+						// },
 						$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 							}, {
@@ -2651,53 +2685,74 @@ module.exports = {
 							}, {
 								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
+						],
+						$and: [{
+								Appointment_day: {
+									$lt: today
+								}
+							}, {
+								'Status_student.id': 0
+							}
 						]
+						
 					}
 				} else {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
-						Appointment_day: {
-							$ne: null
-						},
-						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						// Appointment_day: {
+							// $ne: null
+						// },
+							$or: [{
+									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									Email: new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									Phone: req.body.Search.value
+								}, {
+									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+								}, {
+									'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+								}
+							],
+						$and: [{
+								Appointment_day: {
+									$lt: today
+								}
 							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 0
 							}
 						]
+						
 					}
+
 				}
 			} else {
 				// tìm cho user khác
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
-					Appointment_day: {
-						$ne: null
-					},
+					// Appointment_day: {
+						// $ne: null
+					// },
 					'Manager.id': req.body.Username,
 					$or: [{
 							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -2722,7 +2777,16 @@ module.exports = {
 						}, {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
-					]
+					],
+					$and: [{
+								Appointment_day: {
+									$lt: today
+								}
+							}, {
+								'Status_student.id': 0
+							}
+						]
+						
 				}
 			}
 		}
@@ -2745,7 +2809,8 @@ module.exports = {
 		getTotal(query, function (data) {
 			totalStudent = data;
 		});
-
+		
+		
 		setTimeout(function () {
 			student_model.find(query, function (err, data) {
 				if (err) {
@@ -2757,17 +2822,17 @@ module.exports = {
 					res.status(200).json(response)
 				} else {
 					if (data.length > 0) {
-						var schedule = [];
-						data.forEach(element => {
-							if (compareday(element.Appointment_day) < compareday2(today)) {
-								if (element.Status_student[0].id === 0) {
-									schedule.push(element);
-								}
-							}
-						});
+						// var schedule = [];
+						// data.forEach(element => {
+							// if (compareday(element.Appointment_day) < compareday2(today)) {
+								// if (element.Status_student[0].id === 0) {
+									// schedule.push(element);
+								// }
+							// }
+						// });
 						response = {
 							'error_code': 0,
-							'students': schedule,
+							'students': data,
 							'total': totalStudent,
 							'filtered': totalStudent
 						};
@@ -2802,24 +2867,31 @@ module.exports = {
 			// lọc cho user thường
 			if (req.body.Role[0].id !== 0) {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
-					'Manager.id': req.body.Username
+					'Manager.id': req.body.Username,
+					'Status_student.id': 2
+					
 				}
 			} else {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
-					}
+					},
+					'Status_student.id': 2
+					
 				}
 			}
 		} else {
 			// lọc cho user thường
 			if (req.body.Role[0].id !== 0) {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
@@ -2848,10 +2920,13 @@ module.exports = {
 						}, {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
-					]
+					],
+					'Status_student.id': 2
+					
 				}
 			} else {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
@@ -2879,7 +2954,9 @@ module.exports = {
 						}, {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
-					]
+					],
+					'Status_student.id': 2
+					
 				}
 			}
 		}
@@ -2902,7 +2979,7 @@ module.exports = {
 		getTotal(query, function (data) {
 			totalStudent = data;
 		});
-
+		
 		setTimeout(function () {
 			student_model.find(query, function (err, data) {
 				if (err) {
@@ -2914,16 +2991,9 @@ module.exports = {
 					res.status(200).json(response)
 				} else {
 					if (data.length > 0) {
-						var unreg = [];
-						data.forEach(element => {
-							if (element.Status_student[0].id === 2) {
-								unreg.push(element);
-							}
-						});
-
 						response = {
 							'error_code': 0,
-							'students': unreg,
+							'students': data,
 							'total': totalStudent,
 							'filtered': totalStudent
 						};
@@ -2935,7 +3005,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			})
+			}).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
 	},
 	SearchS: function (req, res) {
@@ -2959,127 +3029,353 @@ module.exports = {
 			if (req.body.Role[0].id === 0) {
 				if (req.body.Sale !== null) {
 					query = {
-						Regdayiso: {
-							$gte: firstDay,
-							$lte: today
-						},
-						'Manager.id': req.body.Sale
-					}
-				} else {
-					query = {
-						Regdayiso: {
-							$gte: firstDay,
-							$lte: today
-						}
-					}
-				}
-			} else {
-				query = {
-					Regdayiso: {
-						$gte: firstDay,
-						$lte: today
-					},
-					'Manager.id': req.body.Username
-				}
-			}
-		} else {
-			// lọc cho admin
-			if (req.body.Role[0].id === 0) {
-				if (req.body.Sale !== null) {
-					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						'Manager.id': req.body.Sale,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+								$and: [{
+										Appointment_day: {
+											$lt: today
+										}
+									}, {
+										'Status_student.id': {
+											$ne: 3
+										}
+									}
+								]
 							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 1
 							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 2
 							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 4
 							}, {
-								Phone: req.body.Search.value
+								'Status_student.id': 0
 							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
-						]
+								$and: [{
+										'Status_student.id': 0
+									}, {
+										$or: [{
+												Isupdate: true
+											}, {
+												'Center.id': {
+													$ne: null
+												}
+											}
+										]
+									}
+								]
+							}]
+						
 					}
 				} else {
 					query = {
+						
 						Regdayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+								$and: [{
+										Appointment_day: {
+											$lt: today
+										}
+									}, {
+										'Status_student.id': {
+											$ne: 3
+										}
+									}
+								]
 							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 1
 							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 2
 							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+								'Status_student.id': 4
 							}, {
-								Phone: req.body.Search.value
+								'Status_student.id': 0
 							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
-						]
+								$and: [{
+										'Status_student.id': 0
+									}, {
+										$or: [{
+												Isupdate: true
+											}, {
+												'Center.id': {
+													$ne: null
+												}
+											}
+										]
+									}
+								]
+							}]
+						
 					}
 				}
 			} else {
 				query = {
+					
 					Regdayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
-							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Email: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Phone: req.body.Search.value
-						}, {
-							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-						}
-					]
+								$and: [{
+										Appointment_day: {
+											$lt: today
+										}
+									}, {
+										'Status_student.id': {
+											$ne: 3
+										}
+									}
+								]
+							}, {
+								'Status_student.id': 1
+							}, {
+								'Status_student.id': 2
+							}, {
+								'Status_student.id': 4
+							}, {
+								'Status_student.id': 0
+							}, {
+								$and: [{
+										'Status_student.id': 0
+									}, {
+										$or: [{
+												Isupdate: true
+											}, {
+												'Center.id': {
+													$ne: null
+												}
+											}
+										]
+									}
+								]
+							}]
+					
+				}
+			}
+		} else {
+
+			// lọc cho admin
+			if (req.body.Role[0].id === 0) {
+				if (req.body.Sale !== null) {
+					query = {
+						
+						Regdayiso: {
+							$gte: firstDay,
+							$lte: today
+						},
+						'Manager.id': req.body.Sale,
+						$and: [{
+								$or: [{
+										Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Email: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Phone: req.body.Search.value
+									}, {
+										Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+									}
+								]
+							}
+						],
+						$or: [{
+								$and: [{
+										Appointment_day: {
+											$lt: today
+										}
+									}, {
+										'Status_student.id': {
+											$ne: 3
+										}
+									}
+								]
+							}, {
+								'Status_student.id': 1
+							}, {
+								'Status_student.id': 2
+							}, {
+								'Status_student.id': 4
+							}, {
+								'Status_student.id': 0
+							}, {
+								$and: [{
+										'Status_student.id': 0
+									}, {
+										$or: [{
+												Isupdate: true
+											}, {
+												'Center.id': {
+													$ne: null
+												}
+											}
+										]
+									}
+								]
+							}]
+
+					}
+				} else {
+					query = {
+						
+						Regdayiso: {
+							$gte: firstDay,
+							$lte: today
+						},
+						$and: [{
+								$or: [{
+										Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Email: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Phone: req.body.Search.value
+									}, {
+										Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+									}
+								]
+							}
+						],
+						$or: [{
+								$and: [{
+										Appointment_day: {
+											$lt: today
+										}
+									}, {
+										'Status_student.id': {
+											$ne: 3
+										}
+									}
+								]
+							}, {
+								'Status_student.id': 1
+							}, {
+								'Status_student.id': 2
+							}, {
+								'Status_student.id': 4
+							}, {
+								'Status_student.id': 0
+							}, {
+								$and: [{
+										'Status_student.id': 0
+									}, {
+										$or: [{
+												Isupdate: true
+											}, {
+												'Center.id': {
+													$ne: null
+												}
+											}
+										]
+									}
+								]
+							}]
+						
+					}
+				}
+			} else {
+				query = {
+					
+					Regdayiso: {
+						$gte: firstDay,
+						$lte: today
+					},
+					'Manager.id': req.body.Username,
+					$and: [{
+								$or: [{
+										Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Email: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										Phone: req.body.Search.value
+									}, {
+										Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+									}, {
+										'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+									}
+								]
+							}
+						],
+						$or: [{
+								$and: [{
+										Appointment_day: {
+											$lt: today
+										}
+									}, {
+										'Status_student.id': {
+											$ne: 3
+										}
+									}
+								]
+							}, {
+								'Status_student.id': 1
+							}, {
+								'Status_student.id': 2
+							}, {
+								'Status_student.id': 4
+							}, {
+								'Status_student.id': 0
+							}, {
+								$and: [{
+										'Status_student.id': 0
+									}, {
+										$or: [{
+												Isupdate: true
+											}, {
+												'Center.id': {
+													$ne: null
+												}
+											}
+										]
+									}
+								]
+							}]
+					
 				}
 			}
 		}
@@ -3102,7 +3398,7 @@ module.exports = {
 		getTotal(query, function (data) {
 			totalStudent = data;
 		});
-
+		
 		setTimeout(function () {
 			student_model.find(query, function (err, data) {
 				if (err) {
@@ -3115,84 +3411,85 @@ module.exports = {
 				} else {
 					if (data.length > 0) {
 
-						Array.prototype.contains = function (obj) {
-							var i = this.length;
-							while (i--) {
-								if (this[i]._id === obj) {
-									return true;
-								}
-							}
-							return false;
-						}
+						// Array.prototype.contains = function (obj) {
+						// var i = this.length;
+						// while (i--) {
+						// if (this[i]._id === obj) {
+						// return true;
+						// }
+						// }
+						// return false;
+						// }
 
-						var send = [];
-						data.forEach(element => {
+						// var send = [];
+						// data.forEach(element => {
 
-							// hẹn chưa đến
-							if (element.Appointment_day !== null) {
-								if (compareday(element.Appointment_day) < compareday2(today)) {
-									if (element.Status_student[0].id !== 3) {
-										if (send.contains(element._id.toString()) === false) {
-											send.push(element);
-										}
-									}
-								}
-							} else {
-								// trạng thái đến chưa đăng ký
-								if (element.Status_student[0].id === 2) {
-									if (send.contains(element._id.toString()) === false) {
-										send.push(element);
-									}
-								}
+						// // hẹn chưa đến
+						// if (element.Appointment_day !== null) {
+						// if (compareday(element.Appointment_day) < compareday2(today)) {
+						// if (element.Status_student[0].id !== 3) {
+						// if (send.contains(element._id.toString()) === false) {
+						// send.push(element);
+						// }
+						// }
+						// }
+						// } else {
+						// // trạng thái đến chưa đăng ký
+						// if (element.Status_student[0].id === 2) {
+						// if (send.contains(element._id.toString()) === false) {
+						// send.push(element);
+						// }
+						// }
 
-								// trạng thái hủy
-								if (element.Status_student[0].id === 4) {
-									if (send.contains(element._id.toString()) === false) {
-										send.push(element);
-									}
-								}
+						// // trạng thái hủy
+						// if (element.Status_student[0].id === 4) {
+						// if (send.contains(element._id.toString()) === false) {
+						// send.push(element);
+						// }
+						// }
 
-								// trạng thái không tìm năng
-								if (element.Status_student[0].id === 1) {
-									if (send.contains(element._id.toString()) === false) {
-										send.push(element);
-									}
-								}
+						// // trạng thái không tìm năng
+						// if (element.Status_student[0].id === 1) {
+						// if (send.contains(element._id.toString()) === false) {
+						// send.push(element);
+						// }
+						// }
 
-								// trạng thái đã đăng ký
-								if (element.Status_student[0].id === 3) {
-									if (send.contains(element._id.toString()) === false) {
-										send.push(element);
-									}
-								}
+						// // trạng thái đã đăng ký
+						// if (element.Status_student[0].id === 3) {
+						// if (send.contains(element._id.toString()) === false) {
+						// send.push(element);
+						// }
+						// }
 
-								// trạng thái chưa đăng ký
-								if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
-									if (element.Center !== null) {
-										if (element.Center[0].id !== null) {
-											if (send.contains(element._id.toString()) === false) {
-												send.push(element);
-											}
-										}
-									}
+						// // trạng thái chưa đăng ký
+						// if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
+						// if (element.Center !== null) {
+						// if (element.Center[0].id !== null) {
+						// if (send.contains(element._id.toString()) === false) {
+						// send.push(element);
+						// }
+						// }
+						// }
 
-								}
-							}
-						});
-						if(send.length > 0){
-							response = {
-								'error_code': 0,
-								'students': send,
-								'total': send.length,
-								'filtered': send.length
-							};
-						}else{
-							response = {
-								'error_code': 2,
-								'message': 'list is empty'
-							};
-						}
-						
+						// }
+						// }
+						// });
+
+						// if(send.length > 0){
+						response = {
+							'error_code': 0,
+							'students': data,
+							'total': totalStudent,
+							'filtered': totalStudent
+						};
+						// }else{
+						// response = {
+						// 'error_code': 2,
+						// 'message': 'list is empty'
+						// };
+						// }
+
 					} else {
 						response = {
 							'error_code': 2,
@@ -3226,28 +3523,37 @@ module.exports = {
 			if (req.body.Role[0].id === 0) {
 				if (req.body.Sale !== null) {
 					query = {
+						
 						Appointment_dayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
+						Appointment_day: { $ne: null },
 						'Manager.id': req.body.Sale
+						
 					}
 				} else {
 					query = {
+						
 						Appointment_dayiso: {
 							$gte: firstDay,
 							$lte: today
-						}
+						},
+						Appointment_day: { $ne: null },
+						
 					}
 				}
 			} else {
 				// cho user khác
 				query = {
+					
 					Appointment_dayiso: {
 						$gte: firstDay,
 						$lte: today
 					},
+					Appointment_day: { $ne: null },
 					'Manager.id': req.body.Username
+					
 				}
 			}
 		} else {
@@ -3255,10 +3561,12 @@ module.exports = {
 			if (req.body.Role[0].id === 0) {
 				if (req.body.Sale !== null) {
 					query = {
+						
 						Appointment_dayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
+						Appointment_day: { $ne: null },
 						'Manager.id': req.body.Sale,
 						$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -3284,13 +3592,16 @@ module.exports = {
 								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
 						]
+						
 					}
 				} else {
 					query = {
+						
 						Appointment_dayiso: {
 							$gte: firstDay,
 							$lte: today
 						},
+						Appointment_day: { $ne: null },
 						$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 							}, {
@@ -3315,6 +3626,7 @@ module.exports = {
 								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
 						]
+						
 					}
 				}
 			} else {
@@ -3324,6 +3636,7 @@ module.exports = {
 						$gte: firstDay,
 						$lte: today
 					},
+					Appointment_day: { $ne: null },
 					'Manager.id': req.body.Username,
 					$or: [{
 							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -3349,6 +3662,7 @@ module.exports = {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
 					]
+					
 				}
 			}
 		}
@@ -3397,7 +3711,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			})
+			}).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
 	},
 

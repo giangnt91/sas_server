@@ -1058,7 +1058,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	// }
 	if (a === false) {
 		// getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
-		updateCenter();
+		// updateCenter();
 		a = true;
 	}
 })
