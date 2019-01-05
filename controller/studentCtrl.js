@@ -2808,8 +2808,6 @@ module.exports = {
 		getTotal(query, function (data) {
 			totalStudent = data;
 		});
-		
-		console.log(query);
 
 		setTimeout(function () {
 			student_model.find(query, function (err, data) {
