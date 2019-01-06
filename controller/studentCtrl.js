@@ -4772,7 +4772,7 @@ module.exports = {
 						res.status(200).json(response);
 					}
 
-				}, 200)
+				}, 500)
 			}
 		})
 	},
