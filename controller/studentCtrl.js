@@ -3003,7 +3003,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			}).skip(req.body.Start).limit(req.body.Length);
+			}).sort({Regdayiso: -1}).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
 	},
 	SearchS: function (req, res) {
@@ -3727,7 +3727,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			}).skip(req.body.Start).limit(req.body.Length);
+			}).sort({Appointment_dayiso: -1}).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
 	},
 
