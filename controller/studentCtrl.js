@@ -4647,20 +4647,24 @@ module.exports = {
 	},
 	Gettq: function (req, res) {
 		var query;
+		var timeOut = 200;
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			firstDay = req.body.Fromday;
 			today = req.body.Today;
+			timeOut = 2000;
 		}
 
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			firstDay = req.body.Fromday
+			firstDay = req.body.Fromday;
+			timeOut = 2000;
 		}
 
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
+			timeOut = 2000;
 		}
 
 		if (req.body.TheForm !== null) {
@@ -4681,7 +4685,7 @@ module.exports = {
 				'Manager.mid': req.body.Username
 			}
 		}
-
+		
 		student_model.find(query, function (err, data) {
 			if (err) {
 				console.log('GetLh ' + err);
@@ -4772,7 +4776,7 @@ module.exports = {
 						res.status(200).json(response);
 					}
 
-				}, 500)
+				}, timeOut)
 			}
 		})
 	},
