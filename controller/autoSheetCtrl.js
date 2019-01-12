@@ -564,18 +564,18 @@ function getSheet(list) {
 					sheet.getRows({
 						offset: 1
 						// orderby: 'col2'
-					}, function (err, rows) {
+					}, async function (err, rows) {
 						if (rows !== undefined && rows !== null) {
 							if (rows.length > 0) {
 								// var j = 0;
 								//lấy danh sách học viên mới
 								for (let i = 0; i < rows.length; i++) {
 									if (rows[i].move === "") {
-										setTimeout(function () {
+										// setTimeout(function () {
 											rows[i].move = "moved";
 											rows[i].save();
-											get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
-										}, 1000 * i)
+											await get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
+										// }, 1000 * i)
 									}
 								}
 							}
@@ -597,7 +597,7 @@ function checkGroup() {
 		Sheet: {
 			$ne: null
 		}
-	}, function (err, data) {
+	}, async function (err, data) {
 		if (err) {
 			console.log('checkGroup ' + err);
 		} else {
@@ -605,15 +605,15 @@ function checkGroup() {
 				let list_sheet = [];
 				data.forEach(element => {
 					for (let i = 0; i < element.Sheet.length; i++) {
-						setTimeout(function () {
+						// setTimeout(function () {
 							let tmp = {
 								idgroup: element._id,
 								sheet: element.Sheet[i].id,
 								mid: element.Sheet[i].muser,
 								mname: element.Sheet[i].name
 							}
-							getSheet(tmp);
-						}, i * 3000)
+							await getSheet(tmp);
+						// }, i * 3000)
 					}
 				});
 			}
@@ -627,14 +627,14 @@ function CheckStudentIn() {
 		'Role.id': 1,
 		'Status_user.id': 1
 	};
-	auth_model.find(query, function (err, data) {
+	auth_model.find(query, async function (err, data) {
 		if (err) {
 			console.log('CheckStudentIn: ' + err)
 		} else {
 			if (data.length > 0) {
 				for (let i = 0; i < data.length; i++) {
-					setTimeout(function () {
-						autosheet_model.find({
+					// setTimeout(function () {
+						await autosheet_model.find({
 							'Manager.id': data[i].Username,
 							'Status_student.id': 3
 						}, function (err, _data) {
@@ -656,7 +656,7 @@ function CheckStudentIn() {
 							}
 						})
 
-					}, i * 2000)
+					// }, i * 2000)
 				}
 			}
 		}
@@ -670,19 +670,20 @@ function CheckStudentInByday(last_day) {
 		'Status_user.id': 1
 	};
 
-	auth_model.find(query, function (err, data) {
+	auth_model.find(query, async function (err, data) {
 		if (err) {
 			console.log('CheckStudentIn: ' + err)
 		} else {
 			if (data.length > 0) {
 				for (let i = 0; i < data.length; i++) {
-					setTimeout(function () {
+					// setTimeout(function () {
 						var query_2 = {
 							'Manager.id': data[i].Username,
 							'Status_student.id': 3,
 							'Dayenrollment': dateFormat(new Date(), last_day)
 						}
-						autosheet_model.find(query_2, function (err, _data) {
+						
+						await autosheet_model.find(query_2, function (err, _data) {
 							if (err) {
 								console.log('Find Student: ' + err)
 							} else {
@@ -700,7 +701,7 @@ function CheckStudentInByday(last_day) {
 							}
 						})
 
-					}, i * 2000)
+					// }, i * 2000)
 				}
 			}
 		}
@@ -763,7 +764,7 @@ function checkGroup5(user) {
 		Sheet: {
 			$ne: null
 		}
-	}, function (err, data) {
+	}, async function (err, data) {
 		if (err) {
 			console.log('checkGroup ' + err);
 		} else {
@@ -771,15 +772,15 @@ function checkGroup5(user) {
 				let list_sheet = [];
 				data.forEach(element => {
 					for (let i = 0; i < element.Sheet.length; i++) {
-						setTimeout(function () {
+						// setTimeout(function () {
 							let tmp = {
 								idgroup: element._id,
 								sheet: element.Sheet[i].id,
 								mid: element.Sheet[i].muser,
 								mname: element.Sheet[i].name
 							}
-							getSheet5(tmp, user.length);
-						}, i * 3000)
+							await getSheet5(tmp, user.length);
+						// }, i * 3000)
 					}
 				});
 			}
@@ -812,7 +813,7 @@ function getSheet5(list, user) {
 					sheet.getRows({
 						offset: 1
 						// orderby: 'col2'
-					}, function (err, rows) {
+					}, async function (err, rows) {
 						if (rows !== undefined && rows !== null) {
 							if (rows.length > 0) {
 								// var j = 0;
@@ -824,26 +825,26 @@ function getSheet5(list, user) {
 										// rows[i].save();
 
 										if (u <= Math.ceil(user)) {
-											setTimeout(function () {
+											// setTimeout(function () {
 												rows[i].move = "moved";
 												rows[i].save();
-												get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
-											}, 1000 * i)
+												await get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
+											// }, 1000 * i)
 											++u
 										} else if ((user * 2) > u && u < user) {
 											index = Math.random() * (user - 0) + 0;
-											setTimeout(function () {
+											// setTimeout(function () {
 												rows[i].move = "moved";
 												rows[i].save();
-												get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
-											}, 1000 * i)
+												await get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
+											// }, 1000 * i)
 											++u;
 										} else {
-											setTimeout(function () {
+											// setTimeout(function () {
 												rows[i].move = "moved";
 												rows[i].save();
-												get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
-											}, 1000 * i)
+												await get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
+											// }, 1000 * i)
 										}
 									}
 								}
@@ -889,14 +890,14 @@ function getRegStudent(id) {
 				if (sheet !== undefined) {
 					sheet.getRows({
 						offset: 1
-					}, function (err, rows) {
+					}, async function (err, rows) {
 						if (rows !== undefined && rows !== null) {
 							if (rows.length > 0) {
 								//lấy danh sách học viên mới
 								for (let i = 0; i < rows.length; i++) {
-									setTimeout(function () {
+									// setTimeout(function () {
 										var today = dateFormat(new Date(), "yyyy-mm-dd");
-										autosheet_model.findOne({
+										await autosheet_model.findOne({
 											Phone: rows[i].phone
 										}, function (err, data) {
 											if (err) {
@@ -920,7 +921,7 @@ function getRegStudent(id) {
 												}
 											}
 										})
-									}, 1000 * i)
+									// }, 1000 * i)
 								}
 							}
 						}
@@ -958,14 +959,14 @@ function addCenter(id) {
 				if (sheet !== undefined) {
 					sheet.getRows({
 						offset: 1
-					}, function (err, rows) {
+					}, async function (err, rows) {
 						if (rows !== undefined && rows !== null) {
 							if (rows.length > 0) {
 								//lấy danh sách học viên mới
 								for (let i = 0; i < rows.length; i++) {
-									setTimeout(function () {
-										insertCenter(rows[i]);
-									}, 1000 * i)
+									// setTimeout(function () {
+										await insertCenter(rows[i]);
+									// }, 1000 * i)
 								}
 							}
 						}
@@ -1057,7 +1058,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	// checkGroup();
 	// }
 	if (a === false) {
-		// getOldSheet('1QWR5sKiXeKIgg3ARUmj3ziqmzHpmDnhlurt03gOH3l0');
+		 // getOldSheet('1EGUMpYGucubPUzxPWPnnf86oEKqZuzI20QYndM9llLw');
 		// updateCenter();
 		a = true;
 	}
@@ -1595,29 +1596,27 @@ function getOldSheet(idSheet) {
 			function getInfoAndWorksheets(step) {
 				doc.getInfo(function (err, info) {
 					if (info !== undefined) {
-						sheet = info.worksheets[2];
+						sheet = info.worksheets[3];
 					}
 					step();
 				});
 			},
-			function workingWithRows(step) {
+		 function workingWithRows(step) {
 				// google provides some query options
 				if (sheet !== undefined) {
 					sheet.getRows({
 						offset: 1
 						// orderby: 'col2'
-					}, function (err, rows) {
+					}, async function (err, rows) {
 						if (rows !== undefined && rows !== null) {
 							if (rows.length > 0) {
-								// var j = 0;
 								//lấy danh sách học viên mới
 								for (let i = 0; i < rows.length; i++) {
-									if (rows[i].move === "") {
-										setTimeout(function () {
-											rows[i].move = "moved";
-											rows[i].save();
-											insertOldStudent(rows[i]);
-										}, 1000 * i)
+									// rows[i].move = "moved";
+									// rows[i].save();
+									if(i < 0){
+										await insertOldStudent(rows[i]);
+										console.log(i);
 									}
 								}
 							}
@@ -1638,13 +1637,6 @@ function insertOldStudent(stude) {
 	let firstName = getFirstName(stude.fullname);
 	let lastName = getLastName(stude.fullname);
 
-	// autosheet_model.find({ Phone: checkPhone }, function (err, data) {
-	// if (err) {
-	// console.log('insertOldStudent ' + err);
-	// } else {
-
-	// if (data.length === 0) {
-	// let dayreg = getDayReg(stude.ngaydangky);
 	isoday = isoDay(stude.ngaydangky);
 	let baodanhday = null;
 	if (stude.ngaybaodanh !== '') {
@@ -1652,8 +1644,18 @@ function insertOldStudent(stude) {
 	}
 
 	isodayHen = null;
-	if (stude.ngayhen !== '') {
+	if (stude.ngayhen !== '0') {
 		isodayHen = isoDay(stude.ngayhen);
+	}
+	
+	appointmentDay = null;
+	if(stude.ngayhen !== '0'){
+		appointmentDay = stude.ngayhen;
+	}
+	
+	email = '';
+	if(stude.email !== '0'){
+		email = stude.email;
 	}
 
 	// let timereg = getTimeReg(stude.ngaydangky);
@@ -1878,10 +1880,10 @@ function insertOldStudent(stude) {
 	var trungtam = null;
 	if (parseInt(stude.trungtam) === 1) {
 		trungtam = [{
-				_id: stude.trungtam_id,
+				_id: stude.trungtamid,
 				SheetId: stude.trungtamsheetid,
 				Name: stude.trungtamname,
-				Id: stude.trungtamId,
+				Id: stude.trungtamid_2,
 				Info: stude.trungtaminfo
 			}
 		]
@@ -2281,7 +2283,7 @@ function insertOldStudent(stude) {
 			Fistname: firstName,
 			Lastname: lastName,
 			Fullname: stude.fullname,
-			Email: stude.email,
+			Email: email,
 			Phone: checkPhone,
 			Sex: sex,
 			Address: diachi,
@@ -2295,7 +2297,7 @@ function insertOldStudent(stude) {
 			Center: trungtam,
 			Time_recall: timeRecal,
 			Recall: goilai,
-			Appointment_day: stude.ngayhen,
+			Appointment_day: appointmentDay,
 			Appointment_dayiso: isodayHen,
 			Appointment_time: giohen,
 			Status_student: status_student,
@@ -2309,11 +2311,6 @@ function insertOldStudent(stude) {
 	student.save(function (err) {
 		if (err) {
 			console.log('save student ' + err)
-		} else {
-			// update_total_for_tele(tele.nsername);
 		}
 	})
-	// }
-	// }
-	// });
 }
