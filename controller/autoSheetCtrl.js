@@ -1058,7 +1058,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	// checkGroup();
 	// }
 	if (a === false) {
-		 // getOldSheet('1EGUMpYGucubPUzxPWPnnf86oEKqZuzI20QYndM9llLw');
+		 // getOldSheet('1s66YS00TfoCyC-Qu3KdND-kDzzLVphykZm6XDfPZLf4');
 		// updateCenter();
 		a = true;
 	}
@@ -1687,6 +1687,12 @@ function insertOldStudent(stude) {
 		status_student = {
 			id: 3,
 			name: 'Đã đăng ký'
+		}
+		break;
+		case 4:
+		status_student = {
+			id: 4,
+			name: 'Hủy'
 		}
 		break;
 	default:
