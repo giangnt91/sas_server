@@ -25,7 +25,7 @@ function compareday(x) {
 function isoDay(day) {
 	var parts = day.split("/");
 	iday = parseInt(parts[0]) + 1;
-	return parts[1] + '-' + parts[0] + '-' + parts[2];
+	return parts[1] + '-' + iday + '-' + parts[2];
 }
 
 function checkPhoneNumber(phone) {
@@ -1058,7 +1058,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	// checkGroup();
 	// }
 	if (a === false) {
-		 // getOldSheet('1s66YS00TfoCyC-Qu3KdND-kDzzLVphykZm6XDfPZLf4');
+		 // getOldSheet('1cLJyvMeVExYspXt9agq9nZDPng4JLlunSGAJUe5jocg');
 		// updateCenter();
 		a = true;
 	}
@@ -1614,7 +1614,7 @@ function getOldSheet(idSheet) {
 								for (let i = 0; i < rows.length; i++) {
 									// rows[i].move = "moved";
 									// rows[i].save();
-									if(i < 0){
+									if(i < 10000){
 										await insertOldStudent(rows[i]);
 										console.log(i);
 									}
