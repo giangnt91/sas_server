@@ -1063,8 +1063,8 @@ schedule.scheduleJob('0 0 0 * * *', function () {
 var a = false;
 schedule.scheduleJob('*/10 * * * * *', function () {
 
-	// var d = new Date();
-	// myday = d.getDate();
+	var d = new Date();
+	myday = d.getDate();
 
 	if (myday > 5) {
 		get_list_tele_5();
