@@ -1323,8 +1323,11 @@ module.exports = {
 					dt = date.getDate();
 
 					if (dt < 10) {
-						dt = '0' + dt;
+						dt = '0' + ( dt + 1);
+					}else if(10 < dt < 30){
+						dt = dt + 1;
 					}
+					
 					if (month < 10) {
 						month = '0' + month;
 					}
@@ -1448,8 +1451,11 @@ module.exports = {
 					dt = date.getDate();
 
 					if (dt < 10) {
-						dt = '0' + dt;
+						dt = '0' + ( dt + 1);
+					}else if(10 < dt < 30){
+						dt = dt + 1;
 					}
+
 					if (month < 10) {
 						month = '0' + month;
 					}
