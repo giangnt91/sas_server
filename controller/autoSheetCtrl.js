@@ -597,13 +597,13 @@ function checkGroup() {
 		Sheet: {
 			$ne: null
 		}
-	}, async function (err, data) {
+	}, function (err, data) {
 		if (err) {
 			console.log('checkGroup ' + err);
 		} else {
 			if (data.length > 0) {
 				let list_sheet = [];
-				data.forEach(element => {
+				data.forEach( async element => {
 					for (let i = 0; i < element.Sheet.length; i++) {
 						// setTimeout(function () {
 							let tmp = {
@@ -764,13 +764,13 @@ function checkGroup5(user) {
 		Sheet: {
 			$ne: null
 		}
-	}, async function (err, data) {
+	}, function (err, data) {
 		if (err) {
 			console.log('checkGroup ' + err);
 		} else {
 			if (data.length > 0) {
 				let list_sheet = [];
-				data.forEach(element => {
+				data.forEach( async element => {
 					for (let i = 0; i < element.Sheet.length; i++) {
 						// setTimeout(function () {
 							let tmp = {
