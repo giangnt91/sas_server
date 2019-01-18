@@ -16,13 +16,13 @@ function compareday(x) {
 // compare day
 function compareday2(x) {
 	var parts = x.split("-");
-	return parts[0] + '' + parts[1] + '' + parts[2]; ;
+	return parts[0] + '' + parts[1] + '' + parts[2];;
 }
 
 function getFirstDateOfMonth() {
 	var date = new Date(),
-	y = date.getFullYear(),
-	m = date.getMonth();
+		y = date.getFullYear(),
+		m = date.getMonth();
 	var firstDay = new Date(y, m, 1);
 
 	firstDay = moment(firstDay).format('YYYY-MM-DD');
@@ -33,9 +33,9 @@ function getFirstDateOfMonth() {
 module.exports = {
 	Csms: function (req, res) {
 		var _sms = new sms_model({
-				Title: req.body.Title,
-				SMS: req.body.SMS
-			});
+			Title: req.body.Title,
+			SMS: req.body.SMS
+		});
 		_sms.save(function (err) {
 			if (err) {
 				console.log('CSMS ' + err)
@@ -81,26 +81,26 @@ module.exports = {
 			timeOut = 600;
 			query = {
 				$or: [{
-						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Email: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Phone: req.body.Search.value
-					}, {
-						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}
+					Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Email: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Phone: req.body.Search.value
+				}, {
+					Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}
 				]
 			}
 		}
@@ -108,7 +108,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -159,26 +159,26 @@ module.exports = {
 			timeOut = 600;
 			query = {
 				$or: [{
-						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Email: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Phone: req.body.Search.value
-					}, {
-						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}
+					Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Email: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Phone: req.body.Search.value
+				}, {
+					Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}
 				]
 			}
 		}
@@ -186,7 +186,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -539,6 +539,40 @@ module.exports = {
 							$lte: dateFormat(new Date(), today)
 						},
 						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
+						]
+					}
+				}
+
+				if (req.body._status !== null && req.body.form === null) {
+					// online không trùng
+					if (req.body._status === 1) {
+						query = {
+							Regdayiso: {
+								$gte: dateFormat(new Date(), firstDay),
+								$lte: dateFormat(new Date(), today)
+							},
+							'Duplicate': null,
+							$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 							}, {
 								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -559,40 +593,6 @@ module.exports = {
 							}, {
 								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
-						]
-					}
-				}
-
-				if (req.body._status !== null && req.body.form === null) {
-					// online không trùng
-					if (req.body._status === 1) {
-						query = {
-							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
-							},
-							'Duplicate': null,
-							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
 							]
 						}
 					}
@@ -606,26 +606,26 @@ module.exports = {
 							},
 							'Status_student.id': 3,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -641,73 +641,6 @@ module.exports = {
 								$ne: null
 							},
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
-							]
-						}
-					}
-
-					// không tiềm năng
-					if (req.body._status === 4) {
-						query = {
-							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
-							},
-							'Status_student.id': 1,
-							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
-							]
-						}
-					}
-
-				}
-
-				if (req.body._status === null && req.body.form !== null) {
-					query = {
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						},
-						'Manager.sheetId': req.body.form,
-						$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 							}, {
 								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -728,6 +661,73 @@ module.exports = {
 							}, {
 								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
+							]
+						}
+					}
+
+					// không tiềm năng
+					if (req.body._status === 4) {
+						query = {
+							Regdayiso: {
+								$gte: dateFormat(new Date(), firstDay),
+								$lte: dateFormat(new Date(), today)
+							},
+							'Status_student.id': 1,
+							$or: [{
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
+							]
+						}
+					}
+
+				}
+
+				if (req.body._status === null && req.body.form !== null) {
+					query = {
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						},
+						'Manager.sheetId': req.body.form,
+						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -744,26 +744,26 @@ module.exports = {
 							'Manager.sheetId': req.body.form,
 							'Duplicate': null,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -778,26 +778,26 @@ module.exports = {
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 3,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -814,26 +814,26 @@ module.exports = {
 								$ne: null
 							},
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -848,26 +848,26 @@ module.exports = {
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 1,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -882,6 +882,41 @@ module.exports = {
 						},
 						'Manager.mid': req.body.Username,
 						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
+						]
+					}
+				}
+
+				if (req.body._status !== null && req.body.form === null) {
+					// online không trùng
+					if (req.body._status === 1) {
+						query = {
+							Regdayiso: {
+								$gte: dateFormat(new Date(), firstDay),
+								$lte: dateFormat(new Date(), today)
+							},
+							'Duplicate': null,
+							'Manager.mid': req.body.Username,
+							$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 							}, {
 								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -902,41 +937,6 @@ module.exports = {
 							}, {
 								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
-						]
-					}
-				}
-
-				if (req.body._status !== null && req.body.form === null) {
-					// online không trùng
-					if (req.body._status === 1) {
-						query = {
-							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
-							},
-							'Duplicate': null,
-							'Manager.mid': req.body.Username,
-							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
 							]
 						}
 					}
@@ -951,26 +951,26 @@ module.exports = {
 							'Status_student.id': 3,
 							'Manager.mid': req.body.Username,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -987,75 +987,6 @@ module.exports = {
 							},
 							'Manager.mid': req.body.Username,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
-							]
-						}
-					}
-
-					// không tiềm năng
-					if (req.body._status === 4) {
-						query = {
-							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
-							},
-							'Status_student.id': 1,
-							'Manager.mid': req.body.Username,
-							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
-							]
-						}
-					}
-
-				}
-
-				if (req.body._status === null && req.body.form !== null) {
-					query = {
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						},
-						'Manager.sheetId': req.body.form,
-						'Manager.mid': req.body.Username,
-						$or: [{
 								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 							}, {
 								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -1076,6 +1007,75 @@ module.exports = {
 							}, {
 								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
+							]
+						}
+					}
+
+					// không tiềm năng
+					if (req.body._status === 4) {
+						query = {
+							Regdayiso: {
+								$gte: dateFormat(new Date(), firstDay),
+								$lte: dateFormat(new Date(), today)
+							},
+							'Status_student.id': 1,
+							'Manager.mid': req.body.Username,
+							$or: [{
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
+							]
+						}
+					}
+
+				}
+
+				if (req.body._status === null && req.body.form !== null) {
+					query = {
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						},
+						'Manager.sheetId': req.body.form,
+						'Manager.mid': req.body.Username,
+						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -1093,26 +1093,26 @@ module.exports = {
 							'Duplicate': null,
 							'Manager.mid': req.body.Username,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -1128,26 +1128,26 @@ module.exports = {
 							'Status_student.id': 3,
 							'Manager.mid': req.body.Username,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -1165,26 +1165,26 @@ module.exports = {
 							},
 							'Manager.mid': req.body.Username,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -1200,26 +1200,26 @@ module.exports = {
 							'Status_student.id': 1,
 							'Manager.mid': req.body.Username,
 							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}
 							]
 						}
 					}
@@ -1231,7 +1231,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -1323,11 +1323,11 @@ module.exports = {
 					dt = date.getDate();
 
 					if (dt < 10) {
-						dt = '0' + ( dt + 1);
-					}else if(10 < dt < 30){
+						dt = '0' + (dt + 1);
+					} else if (10 < dt < 30) {
 						dt = dt + 1;
 					}
-					
+
 					if (month < 10) {
 						month = '0' + month;
 					}
@@ -1445,14 +1445,14 @@ module.exports = {
 					}
 				} else {
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
-						date = new Date();
+					date = new Date();
 					year = date.getFullYear();
 					month = date.getMonth() + 1;
 					dt = date.getDate();
 
 					if (dt < 10) {
-						dt = '0' + ( dt + 1);
-					}else if(10 < dt < 30){
+						dt = '0' + (dt + 1);
+					} else if (10 < dt < 30) {
 						dt = dt + 1;
 					}
 
@@ -1462,36 +1462,36 @@ module.exports = {
 					isoday = year + '-' + month + '-' + dt;
 					var IdforFrend = mongoose.Types.ObjectId();
 					var new_student = new student_model({
-							IdforFrend: IdforFrend,
-							Id_sheet: null,
-							Fistname: req.body.Fistname,
-							Lastname: req.body.Lastname,
-							Fullname: req.body.Fullname,
-							Email: req.body.Email,
-							Phone: req.body.Phone,
-							Sex: req.body.Sex,
-							Address: req.body.Address,
-							Regday: req.body.Regday,
-							Regdayiso: isoday,
-							Regday2: null,
-							Regtime: timereg,
-							Dayenrollment: null,
-							Note: req.body.Note,
-							SMS: null,
-							Center: req.body.Center,
-							Time_recall: null,
-							Recall: false,
-							Appointment_day: req.body.Appointment_day,
-							Appointment_dayiso: req.body.Appointment_dayiso,
-							Appointment_time: req.body.Appointment_time,
-							Status_student: req.body.Status_student,
-							ListFriend: null,
-							Manager: req.body.Manager,
-							Isupdate: false,
-							Duplicate: null,
-							Course: 0,
-							EditHistory: null
-						});
+						IdforFrend: IdforFrend,
+						Id_sheet: null,
+						Fistname: req.body.Fistname,
+						Lastname: req.body.Lastname,
+						Fullname: req.body.Fullname,
+						Email: req.body.Email,
+						Phone: req.body.Phone,
+						Sex: req.body.Sex,
+						Address: req.body.Address,
+						Regday: req.body.Regday,
+						Regdayiso: isoday,
+						Regday2: null,
+						Regtime: timereg,
+						Dayenrollment: null,
+						Note: req.body.Note,
+						SMS: null,
+						Center: req.body.Center,
+						Time_recall: null,
+						Recall: false,
+						Appointment_day: req.body.Appointment_day,
+						Appointment_dayiso: req.body.Appointment_dayiso,
+						Appointment_time: req.body.Appointment_time,
+						Status_student: req.body.Status_student,
+						ListFriend: null,
+						Manager: req.body.Manager,
+						Isupdate: false,
+						Duplicate: null,
+						Course: 0,
+						EditHistory: null
+					});
 
 					new_student.save(function (err) {
 						if (err) {
@@ -1532,26 +1532,26 @@ module.exports = {
 				'Address.id': req.body.proAddress,
 				'Manager.id': req.body.proSale,
 				$or: [{
-						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Email: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Phone: req.body.Search.value
-					}, {
-						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}
+					Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Email: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Phone: req.body.Search.value
+				}, {
+					Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}
 				]
 			}
 		}
@@ -1559,7 +1559,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -1619,26 +1619,26 @@ module.exports = {
 			query = {
 				Phone: req.body.Phone,
 				$or: [{
-						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Email: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						Phone: req.body.Search.value
-					}, {
-						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}, {
-						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-					}
+					Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Email: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					Phone: req.body.Search.value
+				}, {
+					Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}, {
+					'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+				}
 				]
 			}
 		}
@@ -1646,7 +1646,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -1815,26 +1815,26 @@ module.exports = {
 							$lte: today
 						},
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -1847,26 +1847,26 @@ module.exports = {
 						},
 						'Center._id': req.body.Center,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -1879,26 +1879,26 @@ module.exports = {
 						},
 						'Status_student.id': req.body.Status,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -1912,26 +1912,26 @@ module.exports = {
 						'Status_student.id': req.body.Status,
 						'Center._id': req.body.Center,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -1948,26 +1948,26 @@ module.exports = {
 						},
 						'Manager.gtele': req.body.Username,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -1981,26 +1981,26 @@ module.exports = {
 						'Center._id': req.body.Center,
 						'Manager.gtele': req.body.Username,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -2014,26 +2014,26 @@ module.exports = {
 						'Status_student.id': req.body.Status,
 						'Manager.gtele': req.body.Username,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -2048,26 +2048,26 @@ module.exports = {
 						'Center._id': req.body.Center,
 						'Manager.gtele': req.body.Username,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						]
 					}
 				}
@@ -2079,7 +2079,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -2191,28 +2191,28 @@ module.exports = {
 					Isupdate: false,
 					'Status_student.id': 0,
 					$or: [{
-							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Email: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Phone: req.body.Search.value
-						}, {
-							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-						}
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					]
 
 				}
@@ -2230,28 +2230,28 @@ module.exports = {
 					Isupdate: false,
 					'Status_student.id': 0,
 					$or: [{
-							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Email: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Phone: req.body.Search.value
-						}, {
-							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-						}
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					]
 
 				}
@@ -2261,7 +2261,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -2334,15 +2334,15 @@ module.exports = {
 							$lte: today
 						},
 						$and: [{
-								$or: [{
-										Time_recall: {
-											$ne: null
-										}
-									}, {
-										Recall: true
-									}
-								]
+							$or: [{
+								Time_recall: {
+									$ne: null
+								}
+							}, {
+								Recall: true
 							}
+							]
+						}
 						],
 						'Manager.id': req.body.Sale
 					}
@@ -2354,15 +2354,15 @@ module.exports = {
 							$lte: today
 						},
 						$and: [{
-								$or: [{
-										Time_recall: {
-											$ne: null
-										}
-									}, {
-										Recall: true
-									}
-								]
+							$or: [{
+								Time_recall: {
+									$ne: null
+								}
+							}, {
+								Recall: true
 							}
+							]
+						}
 						]
 
 					}
@@ -2378,15 +2378,15 @@ module.exports = {
 						$lte: today
 					},
 					$and: [{
-							$or: [{
-									Time_recall: {
-										$ne: null
-									}
-								}, {
-									Recall: true
-								}
-							]
+						$or: [{
+							Time_recall: {
+								$ne: null
+							}
+						}, {
+							Recall: true
 						}
+						]
+					}
 					],
 					'Manager.id': req.body.Username
 
@@ -2405,107 +2405,18 @@ module.exports = {
 							$lte: today
 						},
 						$and: [{
-								$or: [{
-										Time_recall: {
-											$ne: null
-										}
-									}, {
-										Recall: true
-									}
-								]
+							$or: [{
+								Time_recall: {
+									$ne: null
+								}
+							}, {
+								Recall: true
 							}
+							]
+						}
 						],
 						'Manager.id': req.body.Sale,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
-						]
-
-					}
-				} else {
-					query = {
-
-						Regdayiso: {
-							$gte: firstDay,
-							$lte: today
-						},
-						$and: [{
-								$or: [{
-										Time_recall: {
-											$ne: null
-										}
-									}, {
-										Recall: true
-									}
-								]
-							}
-						],
-						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
-						]
-
-					}
-				}
-
-			} else {
-				// lọc cho user khác
-
-				query = {
-
-					Regdayiso: {
-						$gte: firstDay,
-						$lte: today
-					},
-					$and: [{
-							$or: [{
-									Time_recall: {
-										$ne: null
-									}
-								}, {
-									Recall: true
-								}
-							]
-						}
-					],
-					'Manager.id': req.body.Username,
-					$or: [{
 							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 						}, {
 							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -2526,6 +2437,95 @@ module.exports = {
 						}, {
 							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
+						]
+
+					}
+				} else {
+					query = {
+
+						Regdayiso: {
+							$gte: firstDay,
+							$lte: today
+						},
+						$and: [{
+							$or: [{
+								Time_recall: {
+									$ne: null
+								}
+							}, {
+								Recall: true
+							}
+							]
+						}
+						],
+						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
+						]
+
+					}
+				}
+
+			} else {
+				// lọc cho user khác
+
+				query = {
+
+					Regdayiso: {
+						$gte: firstDay,
+						$lte: today
+					},
+					$and: [{
+						$or: [{
+							Time_recall: {
+								$ne: null
+							}
+						}, {
+							Recall: true
+						}
+						]
+					}
+					],
+					'Manager.id': req.body.Username,
+					$or: [{
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					]
 
 				}
@@ -2536,7 +2536,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -2671,28 +2671,28 @@ module.exports = {
 						},
 						'Manager.id': req.body.Sale,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						],
 						'Status_student.id': 0
 						// $and: [{
@@ -2713,28 +2713,28 @@ module.exports = {
 							$lte: today
 						},
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
 						],
 						'Status_student.id': 0
 						// $and: [{
@@ -2759,37 +2759,37 @@ module.exports = {
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
-							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Email: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Phone: req.body.Search.value
-						}, {
-							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-						}
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					],
 					'Status_student.id': 0
 					// $and: [{
-							// Appointment_day: {
-								// $lt: today
-							// }
-						// }, {
-							// 'Status_student.id': 0
-						// }
+					// Appointment_day: {
+					// $lt: today
+					// }
+					// }, {
+					// 'Status_student.id': 0
+					// }
 					// ]
 
 				}
@@ -2799,7 +2799,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -2848,7 +2848,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			}).sort({Appointment_dayiso: 1}).skip(req.body.Start).limit(req.body.Length);
+			}).sort({ Appointment_dayiso: 1 }).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut)
 	},
 	SearchUn: function (req, res) {
@@ -2902,28 +2902,28 @@ module.exports = {
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
-							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Email: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Phone: req.body.Search.value
-						}, {
-							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-						}
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					],
 					'Status_student.id': 2
 
@@ -2936,28 +2936,28 @@ module.exports = {
 						$lte: today
 					},
 					$or: [{
-							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Email: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							Phone: req.body.Search.value
-						}, {
-							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-						}, {
-							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-						}
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					],
 					'Status_student.id': 2
 
@@ -2968,7 +2968,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -3009,7 +3009,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			}).sort({Regdayiso: -1}).skip(req.body.Start).limit(req.body.Length);
+			}).sort({ Regdayiso: -1 }).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
 	},
 	SearchS: function (req, res) {
@@ -3040,39 +3040,39 @@ module.exports = {
 						},
 						'Manager.id': req.body.Sale,
 						$or: [{
-								$and: [{
-										Appointment_day: {
-											$lt: today
-										}
-									}, {
-										'Status_student.id': {
-											$ne: 3
-										}
-									}
-								]
+							$and: [{
+								Appointment_day: {
+									$lt: today
+								}
 							}, {
-								'Status_student.id': 1
-							}, {
-								'Status_student.id': 2
-							}, {
-								'Status_student.id': 4
-							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
+						}, {
+							'Status_student.id': 1
+						}, {
+							'Status_student.id': 2
+						}, {
+							'Status_student.id': 4
+						}, {
+							'Status_student.id': 0
+						}, {
+							$and: [{
 								'Status_student.id': 0
 							}, {
-								$and: [{
-										'Status_student.id': 0
-									}, {
-										$or: [{
-												Isupdate: true
-											}, {
-												'Center.id': {
-													$ne: null
-												}
-											}
-										]
+								$or: [{
+									Isupdate: true
+								}, {
+									'Center.id': {
+										$ne: null
 									}
+								}
 								]
 							}
+							]
+						}
 						]
 
 					}
@@ -3084,39 +3084,39 @@ module.exports = {
 							$lte: today
 						},
 						$or: [{
-								$and: [{
-										Appointment_day: {
-											$lt: today
-										}
-									}, {
-										'Status_student.id': {
-											$ne: 3
-										}
-									}
-								]
+							$and: [{
+								Appointment_day: {
+									$lt: today
+								}
 							}, {
-								'Status_student.id': 1
-							}, {
-								'Status_student.id': 2
-							}, {
-								'Status_student.id': 4
-							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
+						}, {
+							'Status_student.id': 1
+						}, {
+							'Status_student.id': 2
+						}, {
+							'Status_student.id': 4
+						}, {
+							'Status_student.id': 0
+						}, {
+							$and: [{
 								'Status_student.id': 0
 							}, {
-								$and: [{
-										'Status_student.id': 0
-									}, {
-										$or: [{
-												Isupdate: true
-											}, {
-												'Center.id': {
-													$ne: null
-												}
-											}
-										]
+								$or: [{
+									Isupdate: true
+								}, {
+									'Center.id': {
+										$ne: null
 									}
+								}
 								]
 							}
+							]
+						}
 						]
 
 					}
@@ -3130,39 +3130,39 @@ module.exports = {
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
-							$and: [{
-									Appointment_day: {
-										$lt: today
-									}
-								}, {
-									'Status_student.id': {
-										$ne: 3
-									}
-								}
-							]
+						$and: [{
+							Appointment_day: {
+								$lt: today
+							}
 						}, {
-							'Status_student.id': 1
-						}, {
-							'Status_student.id': 2
-						}, {
-							'Status_student.id': 4
-						}, {
+							'Status_student.id': {
+								$ne: 3
+							}
+						}
+						]
+					}, {
+						'Status_student.id': 1
+					}, {
+						'Status_student.id': 2
+					}, {
+						'Status_student.id': 4
+					}, {
+						'Status_student.id': 0
+					}, {
+						$and: [{
 							'Status_student.id': 0
 						}, {
-							$and: [{
-									'Status_student.id': 0
-								}, {
-									$or: [{
-											Isupdate: true
-										}, {
-											'Center.id': {
-												$ne: null
-											}
-										}
-									]
+							$or: [{
+								Isupdate: true
+							}, {
+								'Center.id': {
+									$ne: null
 								}
+							}
 							]
 						}
+						]
+					}
 					]
 
 				}
@@ -3180,66 +3180,66 @@ module.exports = {
 						},
 						'Manager.id': req.body.Sale,
 						$and: [{
-								$or: [{
-										Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Email: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Phone: req.body.Search.value
-									}, {
-										Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-									}
-								]
+							$or: [{
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
+							]
+						}
 						],
 						$or: [{
-								$and: [{
-										Appointment_day: {
-											$lt: today
-										}
-									}, {
-										'Status_student.id': {
-											$ne: 3
-										}
-									}
-								]
+							$and: [{
+								Appointment_day: {
+									$lt: today
+								}
 							}, {
-								'Status_student.id': 1
-							}, {
-								'Status_student.id': 2
-							}, {
-								'Status_student.id': 4
-							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
+						}, {
+							'Status_student.id': 1
+						}, {
+							'Status_student.id': 2
+						}, {
+							'Status_student.id': 4
+						}, {
+							'Status_student.id': 0
+						}, {
+							$and: [{
 								'Status_student.id': 0
 							}, {
-								$and: [{
-										'Status_student.id': 0
-									}, {
-										$or: [{
-												Isupdate: true
-											}, {
-												'Center.id': {
-													$ne: null
-												}
-											}
-										]
+								$or: [{
+									Isupdate: true
+								}, {
+									'Center.id': {
+										$ne: null
 									}
+								}
 								]
 							}
+							]
+						}
 						]
 
 					}
@@ -3251,66 +3251,66 @@ module.exports = {
 							$lte: today
 						},
 						$and: [{
-								$or: [{
-										Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Email: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										Phone: req.body.Search.value
-									}, {
-										Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-									}, {
-										'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-									}
-								]
+							$or: [{
+								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Email: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								Phone: req.body.Search.value
+							}, {
+								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+							}, {
+								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 							}
+							]
+						}
 						],
 						$or: [{
-								$and: [{
-										Appointment_day: {
-											$lt: today
-										}
-									}, {
-										'Status_student.id': {
-											$ne: 3
-										}
-									}
-								]
+							$and: [{
+								Appointment_day: {
+									$lt: today
+								}
 							}, {
-								'Status_student.id': 1
-							}, {
-								'Status_student.id': 2
-							}, {
-								'Status_student.id': 4
-							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
+						}, {
+							'Status_student.id': 1
+						}, {
+							'Status_student.id': 2
+						}, {
+							'Status_student.id': 4
+						}, {
+							'Status_student.id': 0
+						}, {
+							$and: [{
 								'Status_student.id': 0
 							}, {
-								$and: [{
-										'Status_student.id': 0
-									}, {
-										$or: [{
-												Isupdate: true
-											}, {
-												'Center.id': {
-													$ne: null
-												}
-											}
-										]
+								$or: [{
+									Isupdate: true
+								}, {
+									'Center.id': {
+										$ne: null
 									}
+								}
 								]
 							}
+							]
+						}
 						]
 
 					}
@@ -3324,66 +3324,66 @@ module.exports = {
 					},
 					'Manager.id': req.body.Username,
 					$and: [{
-							$or: [{
-									Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Email: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									Phone: req.body.Search.value
-								}, {
-									Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-								}, {
-									'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-								}
-							]
+						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
+						]
+					}
 					],
 					$or: [{
-							$and: [{
-									Appointment_day: {
-										$lt: today
-									}
-								}, {
-									'Status_student.id': {
-										$ne: 3
-									}
-								}
-							]
+						$and: [{
+							Appointment_day: {
+								$lt: today
+							}
 						}, {
-							'Status_student.id': 1
-						}, {
-							'Status_student.id': 2
-						}, {
-							'Status_student.id': 4
-						}, {
+							'Status_student.id': {
+								$ne: 3
+							}
+						}
+						]
+					}, {
+						'Status_student.id': 1
+					}, {
+						'Status_student.id': 2
+					}, {
+						'Status_student.id': 4
+					}, {
+						'Status_student.id': 0
+					}, {
+						$and: [{
 							'Status_student.id': 0
 						}, {
-							$and: [{
-									'Status_student.id': 0
-								}, {
-									$or: [{
-											Isupdate: true
-										}, {
-											'Center.id': {
-												$ne: null
-											}
-										}
-									]
+							$or: [{
+								Isupdate: true
+							}, {
+								'Center.id': {
+									$ne: null
 								}
+							}
 							]
 						}
+						]
+					}
 					]
 
 				}
@@ -3393,7 +3393,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -3587,80 +3587,6 @@ module.exports = {
 						},
 						'Manager.id': req.body.Sale,
 						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
-						]
-
-					}
-				} else {
-					query = {
-
-						Appointment_dayiso: {
-							$gte: firstDay,
-							$lte: today
-						},
-						Appointment_day: {
-							$ne: null
-						},
-						$or: [{
-								Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Email: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								Phone: req.body.Search.value
-							}, {
-								Regday: new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
-							}, {
-								'Note': new RegExp('^' + req.body.Search.value + '$', "i")
-							}
-						]
-
-					}
-				}
-			} else {
-				// cho user khác
-				query = {
-					Appointment_dayiso: {
-						$gte: firstDay,
-						$lte: today
-					},
-					Appointment_day: {
-						$ne: null
-					},
-					'Manager.id': req.body.Username,
-					$or: [{
 							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
 						}, {
 							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -3683,6 +3609,80 @@ module.exports = {
 						}, {
 							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
 						}
+						]
+
+					}
+				} else {
+					query = {
+
+						Appointment_dayiso: {
+							$gte: firstDay,
+							$lte: today
+						},
+						Appointment_day: {
+							$ne: null
+						},
+						$or: [{
+							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Email: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							Phone: req.body.Search.value
+						}, {
+							Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+						}, {
+							'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+						}
+						]
+
+					}
+				}
+			} else {
+				// cho user khác
+				query = {
+					Appointment_dayiso: {
+						$gte: firstDay,
+						$lte: today
+					},
+					Appointment_day: {
+						$ne: null
+					},
+					'Manager.id': req.body.Username,
+					$or: [{
+						Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Lastname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Fullname: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Email: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						Phone: req.body.Search.value
+					}, {
+						Regday: new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Status_student.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Center.Name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Address.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Sex.name': new RegExp('^' + req.body.Search.value + '$', "i")
+					}, {
+						'Note': new RegExp('^' + req.body.Search.value + '$', "i")
+					}
 					]
 
 				}
@@ -3692,7 +3692,7 @@ module.exports = {
 		function getTotal(query, callback) {
 			var data = '';
 			student_model.count(query, function (err, success) {
-				if (err) {}
+				if (err) { }
 				if (!success) {
 					//when data not found
 					data = 'null';
@@ -3733,7 +3733,7 @@ module.exports = {
 					}
 					res.status(200).json(response)
 				}
-			}).sort({Appointment_dayiso: -1}).skip(req.body.Start).limit(req.body.Length);
+			}).sort({ Appointment_dayiso: -1 }).skip(req.body.Start).limit(req.body.Length);
 		}, timeOut);
 	},
 
@@ -3747,19 +3747,19 @@ module.exports = {
 			query = {
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								Regdayiso: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}, {
-								Dayenrollment: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}
-						]
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
 					}
+					]
+				}
 				]
 			}
 		}
@@ -3768,19 +3768,19 @@ module.exports = {
 			query = {
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								Regdayiso: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}, {
-								Dayenrollment: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}
-						]
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
 					}
+					]
+				}
 				]
 			}
 		}
@@ -3789,19 +3789,19 @@ module.exports = {
 			query = {
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								Regdayiso: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}, {
-								Dayenrollment: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}
-						]
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
 					}
+					]
+				}
 				]
 			}
 		}
@@ -3811,19 +3811,19 @@ module.exports = {
 			query = {
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								Regdayiso: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}, {
-								Dayenrollment: {
-									$gte: dateFormat(new Date(), firstDay),
-									$lte: dateFormat(new Date(), today)
-								}
-							}
-						]
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
 					}
+					]
+				}
 				]
 			}
 		}
@@ -3840,7 +3840,7 @@ module.exports = {
 
 					data.forEach(element => {
 						if (element.Dayenrollment !== null) {
-							if (compareday(element.Regday) < compareday(today)) {
+							if (compareday(element.Regday) < compareday2(firstDay) && element.Status_student[0].id === 3) {
 								_out.push(element);
 							}
 						}
@@ -3852,11 +3852,11 @@ module.exports = {
 						}
 					});
 					var student = [{
-							On: _on,
-							In: _in,
-							Out: _out,
-							Fri: _fri
-						}
+						On: _on,
+						In: _in,
+						Out: _out,
+						Fri: _fri
+					}
 					];
 					response = {
 						'error_code': 0,
@@ -3865,11 +3865,11 @@ module.exports = {
 					res.status(200).json(response);
 				} else if (data.length === 0) {
 					var student = [{
-							On: [],
-							In: [],
-							Out: [],
-							Fri: []
-						}
+						On: [],
+						In: [],
+						Out: [],
+						Fri: []
+					}
 					];
 					response = {
 						'error_code': 0,
@@ -3986,15 +3986,15 @@ module.exports = {
 					$lte: dateFormat(new Date(), today)
 				},
 				$and: [{
-						$or: [{
-								'Time_recall': {
-									$ne: null
-								}
-							}, {
-								Recall: true
-							}
-						]
+					$or: [{
+						'Time_recall': {
+							$ne: null
+						}
+					}, {
+						Recall: true
 					}
+					]
+				}
 				],
 				Center: null,
 				'Center.id': null,
@@ -4010,15 +4010,15 @@ module.exports = {
 				},
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								'Time_recall': {
-									$ne: null
-								}
-							}, {
-								Recall: true
-							}
-						]
+					$or: [{
+						'Time_recall': {
+							$ne: null
+						}
+					}, {
+						Recall: true
 					}
+					]
+				}
 				],
 				Center: null,
 				'Center.id': null,
@@ -4035,15 +4035,15 @@ module.exports = {
 				},
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								'Time_recall': {
-									$ne: null
-								}
-							}, {
-								Recall: true
-							}
-						]
+					$or: [{
+						'Time_recall': {
+							$ne: null
+						}
+					}, {
+						Recall: true
 					}
+					]
+				}
 				],
 				Center: null,
 				'Center.id': null,
@@ -4060,15 +4060,15 @@ module.exports = {
 				},
 				'Manager.id': req.body.Username,
 				$and: [{
-						$or: [{
-								'Time_recall': {
-									$ne: null
-								}
-							}, {
-								Recall: true
-							}
-						]
+					$or: [{
+						'Time_recall': {
+							$ne: null
+						}
+					}, {
+						Recall: true
 					}
+					]
+				}
 				],
 				Center: null,
 				'Center.id': null,
@@ -4186,12 +4186,12 @@ module.exports = {
 						}
 					});
 					var tl = [{
-							Fullname: data[0].Manager[0].id,
-							On: on,
-							App: app,
-							Notapp: notapp,
-							Notreg: notreg
-						}
+						Fullname: data[0].Manager[0].id,
+						On: on,
+						App: app,
+						Notapp: notapp,
+						Notreg: notreg
+					}
 					]
 					response = {
 						'error_code': 0,
@@ -4629,11 +4629,11 @@ module.exports = {
 					});
 
 					var lh = [{
-							Fullname: data[0].Manager[0].id,
-							DH: dh,
-							Ddk: ddk,
-							Dcdk: dcdk,
-						}
+						Fullname: data[0].Manager[0].id,
+						DH: dh,
+						Ddk: ddk,
+						Dcdk: dcdk,
+					}
 					]
 
 					response = {
@@ -4691,7 +4691,7 @@ module.exports = {
 				'Manager.mid': req.body.Username
 			}
 		}
-		
+
 		student_model.find(query, function (err, data) {
 			if (err) {
 				console.log('GetLh ' + err);
@@ -4702,7 +4702,7 @@ module.exports = {
 					auth_model.findOne({
 						Username: user
 					}, function (err, success) {
-						if (err) {}
+						if (err) { }
 						if (!success) {
 							//when data not found
 							data = 'null';
@@ -4914,7 +4914,7 @@ module.exports = {
 					auth_model.findOne({
 						Username: user
 					}, function (err, success) {
-						if (err) {}
+						if (err) { }
 						if (!success) {
 							//when data not found
 							data = 'null';
