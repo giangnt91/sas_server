@@ -159,8 +159,8 @@ function get_telesale(student, _id, sheet_id, mid, mname) {
 						_day = 90;
 					}
 				}
-
-				insertStudent(student, data[0], sheet_id, mid, mname, _day);
+				checkDuplication(student, data[0], sheet_id, mid, mname, _day);
+				// insertStudent(student, data[0], sheet_id, mid, mname, _day);
 			}
 		}
 
@@ -252,8 +252,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 				dt = date.getDate();
 
 				if (dt < 10) {
-					dt = '0' + ( dt + 1);
-				}else if(10 < dt < 30){
+					dt = '0' + (dt + 1);
+				} else if (10 < dt < 30) {
 					dt = dt + 1;
 				}
 
@@ -323,8 +323,8 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 					dt = date.getDate();
 
 					if (dt < 10) {
-						dt = '0' + ( dt + 1);
-					}else if(10 < dt < 30){
+						dt = '0' + (dt + 1);
+					} else if (10 < dt < 30) {
 						dt = dt + 1;
 					}
 
@@ -403,11 +403,11 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 						month = date.getMonth() + 1;
 						dt = date.getDate();
 						if (dt < 10) {
-							dt = '0' + ( dt + 1);
-						}else if(10 < dt < 30){
+							dt = '0' + (dt + 1);
+						} else if (10 < dt < 30) {
 							dt = dt + 1;
 						}
-				
+
 						if (month < 10) {
 							month = '0' + month;
 						}
@@ -747,8 +747,8 @@ function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
 						_day = 90;
 					}
 				}
-
-				insertStudent(student, data[index], sheet_id, mid, mname, _day);
+				checkDuplication(student, data[index], sheet_id, mid, mname, _day);
+				// insertStudent(student, data[index], sheet_id, mid, mname, _day);
 			}
 		}
 	}).sort({
@@ -1071,11 +1071,11 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	} else {
 		checkGroup();
 	}
-	// if (a === false) {
-	// 	getOldSheet('1cLJyvMeVExYspXt9agq9nZDPng4JLlunSGAJUe5jocg');
-	// 	updateCenter();
-	// 	a = true;
-	// }
+	if (a === false) {
+		// getOldSheet('1cLJyvMeVExYspXt9agq9nZDPng4JLlunSGAJUe5jocg');
+		// updateCenter();
+		a = true;
+	}
 })
 
 //update info trung tâm
@@ -1597,6 +1597,103 @@ function updateCenter() {
 	});
 }
 
+// save dup data to sheet
+function saveDupData(data) {
+	var doc = new GoogleSpreadsheet('1KCi-0r8aHAkj5vd3P99yG0cLEhI_U6_SYXQ71ZUH-O8');
+	var sheet;
+	async.series([
+		function setAuth(step) {
+			// see notes below for authentication instructions!
+			var creds = require('../2i studio-fd2ce7d288b9.json');
+			doc.useServiceAccountAuth(creds, step);
+		},
+		function getInfoAndWorksheets(step) {
+			doc.getInfo(function (err, info) {
+				if (info !== undefined) {
+					sheet = info.worksheets[0];
+				}
+				step();
+			});
+		},
+		function workingWithRows(step) {
+			// google provides some query options
+			if (sheet !== undefined) {
+				sheet.addRow({
+					time: data.ngaydangky,
+					Name: data.fullname,
+					Phone: data.phone,
+					Email: data.email
+				}, function(err){
+					if(err){
+						console.log(err)
+					}
+				})
+			}
+		}
+	], function (err) {
+		if (err) {
+			console.log('Error: ' + err);
+		}
+	});
+}
+
+// check data from old crm
+function checkDuplication(data, tele, sheet_id, mid, mname, admin_time) {
+	var doc = new GoogleSpreadsheet('1rFX49ARfLmBBqxwj-S3H_Mt6regZmUeheNfiPisIu_w');
+	var sheet;
+	async.series([
+		function setAuth(step) {
+			// see notes below for authentication instructions!
+			var creds = require('../2i studio-fd2ce7d288b9.json');
+			doc.useServiceAccountAuth(creds, step);
+		},
+		function getInfoAndWorksheets(step) {
+			doc.getInfo(function (err, info) {
+				if (info !== undefined) {
+					sheet = info.worksheets[0];
+				}
+				step();
+			});
+		},
+		function workingWithRows(step) {
+			// google provides some query options
+			if (sheet !== undefined) {
+				sheet.getRows({
+					offset: 1
+					// orderby: 'col2'
+				}, function (err, rows) {
+					if (rows !== undefined && rows !== null) {
+						if (rows.length > 0) {
+							var i = 0;
+							var dupData = false;
+							let checkPhone = checkPhoneNumber(data.phone);
+
+							for(i=0; i<rows.length; i ++){
+								if(rows[i].phone === checkPhone){
+									dupData = true
+								}
+							}
+							
+							if(dupData === true){
+								saveDupData(data);
+							}else{
+								insertOldStudent(data);
+								// insertStudent(data, tele, sheet_id, mid, mname, admin_time);
+							}
+		
+						}
+					}
+					step();
+				});
+			}
+		}
+	], function (err) {
+		if (err) {
+			console.log('Error: ' + err);
+		}
+	});
+}
+
 // import from old data
 function getOldSheet(idSheet) {
 	var doc = new GoogleSpreadsheet(idSheet);
@@ -1628,9 +1725,11 @@ function getOldSheet(idSheet) {
 							for (let i = 0; i < rows.length; i++) {
 								// rows[i].move = "moved";
 								// rows[i].save();
-								if (i < 10000) {
-									await insertOldStudent(rows[i]);
-									console.log(i);
+								if (i < 100) {
+									await	setTimeout(() =>{
+										checkDuplication(rows[i]);
+										console.log(i);
+									}, 500)	
 								}
 							}
 						}
