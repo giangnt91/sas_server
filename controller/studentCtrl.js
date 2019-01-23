@@ -1695,6 +1695,9 @@ module.exports = {
 			today = req.body.Regday2;
 		}
 
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
 		// tìm kiếm cho admin
 
 		if (req.body.Search.value === '') {
@@ -2124,6 +2127,9 @@ module.exports = {
 			today = req.body.Regday2;
 		}
 
+		firstDay =  firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
 		if (req.body.Search.value === '') {
 			// lọc cho user khác
 			if (req.body.Role[0].id !== 0) {
@@ -2306,6 +2312,9 @@ module.exports = {
 		if (req.body.Reday2 !== null) {
 			today = req.body.Reday2;
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
 
 		if (req.body.Search.value === '') {
 			// lọc cho admin
@@ -2582,6 +2591,9 @@ module.exports = {
 			today = req.body.Regday2;
 		}
 
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
 		if (req.body.Search.value === '') {
 			// tìm cho admin
 			if (req.body.Role[0].id === 0) {
@@ -2852,6 +2864,9 @@ module.exports = {
 			today = req.body.Regday2;
 		}
 
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
 		if (req.body.Search.value === '') {
 			// lọc cho user thường
 			if (req.body.Role[0].id !== 0) {
@@ -3012,6 +3027,9 @@ module.exports = {
 		if (req.body.Regday2 !== null) {
 			today = req.body.Regday2;
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
 
 		if (req.body.Search.value === '') {
 			// lọc cho admin
@@ -3512,6 +3530,9 @@ module.exports = {
 		if (req.body.Cday2 !== null) {
 			today = req.body.Cday2;
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
 
 		if (req.body.Search.value === '') {
 			// kiểm tra cho admin
