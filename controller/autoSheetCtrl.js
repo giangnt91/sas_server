@@ -551,11 +551,11 @@ function getSheet(list) {
 							//lấy danh sách học viên mới
 							for (let i = 0; i < rows.length; i++) {
 								if (rows[i].move === "") {
-									// setTimeout(function () {
-									rows[i].move = "moved";
-									rows[i].save();
-									await get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
-									// }, 1000 * i)
+									setTimeout(function () {
+										rows[i].move = "moved";
+										rows[i].save();
+										get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
+									}, 1000 * i)
 								}
 							}
 						}
@@ -808,26 +808,26 @@ function getSheet5(list, user) {
 									// rows[i].save();
 
 									if (u <= Math.ceil(user)) {
-										// setTimeout(function () {
-										rows[i].move = "moved";
-										rows[i].save();
-										await get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
-										// }, 1000 * i)
+										setTimeout(function () {
+											rows[i].move = "moved";
+											rows[i].save();
+											get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
+										}, 1000 * i)
 										++u
 									} else if ((user * 2) > u && u < user) {
 										index = Math.random() * (user - 0) + 0;
-										// setTimeout(function () {
-										rows[i].move = "moved";
-										rows[i].save();
-										await get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
-										// }, 1000 * i)
+										setTimeout(function () {
+											rows[i].move = "moved";
+											rows[i].save();
+											get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
+										}, 1000 * i)
 										++u;
 									} else {
-										// setTimeout(function () {
-										rows[i].move = "moved";
-										rows[i].save();
-										await get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
-										// }, 1000 * i)
+										setTimeout(function () {
+											rows[i].move = "moved";
+											rows[i].save();
+											get_telesale(rows[i], _id.toString(), list.sheet, list.mid, list.mname);
+										}, 1000 * i)
 									}
 								}
 							}
