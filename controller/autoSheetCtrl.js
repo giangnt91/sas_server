@@ -1678,8 +1678,8 @@ function checkDuplication(data, tele, sheet_id, mid, mname, admin_time) {
 							if(dupData === true){
 								saveDupData(data);
 							}else{
-								insertOldStudent(data);
-								// insertStudent(data, tele, sheet_id, mid, mname, admin_time);
+								// insertOldStudent(data);
+								insertStudent(data, tele, sheet_id, mid, mname, admin_time);
 							}
 		
 						}
