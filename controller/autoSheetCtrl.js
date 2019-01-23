@@ -264,7 +264,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 				if (month < 10) {
 					month = '0' + month;
 				}
-				isoday = year + '-' + month + '-' + dt;
+				isoday = isoDay(dayreg);
 				let timereg = dateFormat(new Date(), "HH:MM:ss")
 				let manager = {
 					id: tele.Username,
@@ -335,7 +335,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 					if (month < 10) {
 						month = '0' + month;
 					}
-					isoday = year + '-' + month + '-' + dt;
+					isoday = isoDay(dayreg);
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
 					let manager = {
 						id: data[0].Manager[0].id,
@@ -415,7 +415,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 						if (month < 10) {
 							month = '0' + month;
 						}
-						isoday = year + '-' + month + '-' + dt;
+						isoday = isoDay(dayreg);
 						let timereg = dateFormat(new Date(), "HH:MM:ss")
 
 						// đếm số ngày với định dạng mm/dd/yyyy
