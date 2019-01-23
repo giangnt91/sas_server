@@ -250,20 +250,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 
 			if (data.length === 0) {
 				let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
-				date = new Date();
-				year = date.getFullYear();
-				month = date.getMonth() + 1;
-				dt = date.getDate();
 
-				if (dt < 10) {
-					dt = '0' + (dt + 1);
-				} else if (10 < dt < 30) {
-					dt = dt + 1;
-				}
-
-				if (month < 10) {
-					month = '0' + month;
-				}
 				isoday = isoDay(dayreg);
 				let timereg = dateFormat(new Date(), "HH:MM:ss")
 				let manager = {
@@ -321,20 +308,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 				// case 1: đã đăng ký học
 				if (data[0].Status_student[0].id === 3) {
 					let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
-					date = new Date();
-					year = date.getFullYear();
-					month = date.getMonth() + 1;
-					dt = date.getDate();
 
-					if (dt < 10) {
-						dt = '0' + (dt + 1);
-					} else if (10 < dt < 30) {
-						dt = dt + 1;
-					}
-
-					if (month < 10) {
-						month = '0' + month;
-					}
 					isoday = isoDay(dayreg);
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
 					let manager = {
@@ -402,19 +376,7 @@ function insertStudent(stude, tele, sheet_id, mid, mname, admin_time) {
 				else {
 					if (stude.id !== data[0].Id_sheet) {
 						let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
-						date = new Date();
-						year = date.getFullYear();
-						month = date.getMonth() + 1;
-						dt = date.getDate();
-						if (dt < 10) {
-							dt = '0' + (dt + 1);
-						} else if (10 < dt < 30) {
-							dt = dt + 1;
-						}
 
-						if (month < 10) {
-							month = '0' + month;
-						}
 						isoday = isoDay(dayreg);
 						let timereg = dateFormat(new Date(), "HH:MM:ss")
 

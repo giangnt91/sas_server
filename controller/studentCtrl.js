@@ -13,6 +13,17 @@ function compareday(x) {
 	return parts[2] + '' + parts[1] + '' + parts[0];
 }
 
+function isoDay(day) {
+	var parts = day.split("/");
+	if (parseInt(parts[0]) < 30) {
+		iday = parseInt(parts[0]) + 1;
+	} else {
+		iday = parts[0];
+	}
+
+	return parts[1] + '-' + iday + '-' + parts[2];
+}
+
 // compare day
 function compareday2(x) {
 	var parts = x.split("-");
@@ -1317,20 +1328,7 @@ module.exports = {
 				res.status(200).json(response);
 			} else {
 				if (data !== null) {
-					date = new Date();
-					year = date.getFullYear();
-					month = date.getMonth() + 1;
-					dt = date.getDate();
-
-					if (dt < 10) {
-						dt = '0' + (dt + 1);
-					} else if (10 < dt < 30) {
-						dt = dt + 1;
-					}
-
-					if (month < 10) {
-						month = '0' + month;
-					}
+					let dayNow = dateFormat(new Date(), "dd/mm/yyyy");
 
 					var _isupdate;
 					if (data.Isupdate === false) {
@@ -1361,7 +1359,7 @@ module.exports = {
 						_isupdate = true;
 					}
 
-					isoday = year + '-' + month + '-' + dt;
+					isoday = isoDay(dayNow);
 					data.Fistname = req.body.detail.Fistname;
 					data.Lastname = req.body.detail.Lastname;
 					data.Fullname = req.body.detail.Fullname;
@@ -1445,21 +1443,8 @@ module.exports = {
 					}
 				} else {
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
-					date = new Date();
-					year = date.getFullYear();
-					month = date.getMonth() + 1;
-					dt = date.getDate();
 
-					if (dt < 10) {
-						dt = '0' + (dt + 1);
-					} else if (10 < dt < 30) {
-						dt = dt + 1;
-					}
-
-					if (month < 10) {
-						month = '0' + month;
-					}
-					isoday = year + '-' + month + '-' + dt;
+					isoday = isoDay(req.body.Regday);
 					var IdforFrend = mongoose.Types.ObjectId();
 					var new_student = new student_model({
 						IdforFrend: IdforFrend,
