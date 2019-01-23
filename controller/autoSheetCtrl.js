@@ -1666,7 +1666,7 @@ function checkDuplication(data, tele, sheet_id, mid, mname, admin_time) {
 						if (rows.length > 0) {
 							var i = 0;
 							var dupData = false;
-							let checkPhone = checkPhoneNumber(data.phone);
+							let checkPhone = checkPhoneNumber(data.sốđiệnthoại);
 
 							for(i=0; i<rows.length; i ++){
 								if(rows[i].phone === checkPhone){
