@@ -159,7 +159,11 @@ function get_telesale(student, _id, sheet_id, mid, mname) {
 						_day = 90;
 					}
 				}
-				checkDuplication(student, data[0], sheet_id, mid, mname, _day);
+
+				setTimeout(()=>{
+					checkDuplication(student, data[0], sheet_id, mid, mname, _day);
+			 	}, 1000)
+				
 				// insertStudent(student, data[0], sheet_id, mid, mname, _day);
 			}
 		}
@@ -747,7 +751,10 @@ function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
 						_day = 90;
 					}
 				}
-				checkDuplication(student, data[index], sheet_id, mid, mname, _day);
+				setTimeout(()=>{
+					checkDuplication(student, data[index], sheet_id, mid, mname, _day);
+			 	}, 1000)
+				// checkDuplication(student, data[index], sheet_id, mid, mname, _day);
 				// insertStudent(student, data[index], sheet_id, mid, mname, _day);
 			}
 		}
@@ -1729,10 +1736,8 @@ function getOldSheet(idSheet) {
 								if (i < 1000) {
 									setTimeout(()=>{
 										 checkDuplication(rows[i]);
-										 	console.log(i);
+										 	// console.log(i);
 									}, i * 100)
-									
-								
 								}
 							}
 						}
