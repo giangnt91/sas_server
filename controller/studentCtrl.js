@@ -3746,63 +3746,75 @@ module.exports = {
 		if (req.body.Fromday === null && req.body.Today === null) {
 			query = {
 				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
+				Dayenrollment: {
+					$gte: dateFormat(new Date(), firstDay),
+					$lte: dateFormat(new Date(), today)
 				}
-				]
+				// $and: [{
+				// 	$or: [{
+				// 		Regdayiso: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}, {
+				// 		Dayenrollment: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}
+				// 	]
+				// }
+				// ]
 			}
 		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
 			firstDay = req.body.Fromday;
 			query = {
 				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
+				Dayenrollment: {
+					$gte: dateFormat(new Date(), firstDay),
+					$lte: dateFormat(new Date(), today)
 				}
-				]
+				// $and: [{
+				// 	$or: [{
+				// 		Regdayiso: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}, {
+				// 		Dayenrollment: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}
+				// 	]
+				// }
+				// ]
 			}
 		}
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
 			query = {
 				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
+				Dayenrollment: {
+					$gte: dateFormat(new Date(), firstDay),
+					$lte: dateFormat(new Date(), today)
 				}
-				]
+				// $and: [{
+				// 	$or: [{
+				// 		Regdayiso: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}, {
+				// 		Dayenrollment: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}
+				// 	]
+				// }
+				// ]
 			}
 		}
 		if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -3810,21 +3822,25 @@ module.exports = {
 			today = req.body.Today;
 			query = {
 				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
+				Dayenrollment: {
+					$gte: dateFormat(new Date(), firstDay),
+					$lte: dateFormat(new Date(), today)
 				}
-				]
+				// $and: [{
+				// 	$or: [{
+				// 		Regdayiso: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}, {
+				// 		Dayenrollment: {
+				// 			$gte: dateFormat(new Date(), firstDay),
+				// 			$lte: dateFormat(new Date(), today)
+				// 		}
+				// 	}
+				// 	]
+				// }
+				// ]
 			}
 		}
 
@@ -3844,7 +3860,7 @@ module.exports = {
 								_out.push(element);
 							}
 						}
-						if (element.Status_student[0].id === 3) {
+						if (compareday(element.Regday) > compareday2(firstDay) && element.Status_student[0].id === 3) {
 							_in.push(element);
 						}
 						if (element.ListFriend !== null) {
