@@ -1670,7 +1670,8 @@ function checkDuplication(data, tele, sheet_id, mid, mname, admin_time) {
 
 							for(i=0; i<rows.length; i ++){
 								if(rows[i].phone === checkPhone){
-									dupData = true
+									dupData = true;
+									break;
 								}
 							}
 							
@@ -1725,11 +1726,13 @@ function getOldSheet(idSheet) {
 							for (let i = 0; i < rows.length; i++) {
 								// rows[i].move = "moved";
 								// rows[i].save();
-								if (i < 100) {
-									await	setTimeout(() =>{
-										checkDuplication(rows[i]);
-										console.log(i);
-									}, 500)	
+								if (i < 1000) {
+									setTimeout(()=>{
+										 checkDuplication(rows[i]);
+										 	console.log(i);
+									}, i * 100)
+									
+								
 								}
 							}
 						}
