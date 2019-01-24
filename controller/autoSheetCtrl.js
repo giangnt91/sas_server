@@ -1598,7 +1598,7 @@ function saveDupData(data) {
 						// if (rows.length > 0) {
 							var dupData = false;
 							for (i = 0; i < rows.length; i++) {
-								if (rows[i].phone === checkPhone) {
+								if (rows[i].phone === data.sốđiệnthoại) {
 									dupData = true;
 									break;
 								}
