@@ -1594,6 +1594,7 @@ module.exports = {
 						'error_code': 2,
 						'message': 'Phone is exit'
 					}
+					res.status(200).json(response);
 				} else {
 
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
