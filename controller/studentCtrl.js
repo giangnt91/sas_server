@@ -139,7 +139,7 @@ function saveDupData(data) {
 }
 
 // check data from old crm
-function checkDuplication(data) {
+function checkDuplication(data, res) {
 	var doc = new GoogleSpreadsheet('1rFX49ARfLmBBqxwj-S3H_Mt6regZmUeheNfiPisIu_w');
 	var sheet;
 	async.series([
@@ -1637,7 +1637,7 @@ module.exports = {
 						EditHistory: null
 					});
 
-				 checkDuplication(new_student);
+				 checkDuplication(new_student, res);
 
 				}
 			}
