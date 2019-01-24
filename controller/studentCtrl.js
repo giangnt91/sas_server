@@ -4910,7 +4910,7 @@ module.exports = {
 
 		if (req.body.Username !== null) {
 			query = {
-				Dayenrollment: {
+				Regdayiso: {
 					$gte: firstDay,
 					$lte: today
 				},
@@ -4918,7 +4918,7 @@ module.exports = {
 			}
 		} else {
 			query = {
-				Dayenrollment: {
+				Regdayiso: {
 					$gte: firstDay,
 					$lte: today
 				},
@@ -5034,7 +5034,7 @@ module.exports = {
 		}
 
 		query = {
-			Dayenrollment: {
+			Regdayiso: {
 				$gte: firstDay,
 				$lte: today
 			},
