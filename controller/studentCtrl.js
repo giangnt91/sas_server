@@ -3752,75 +3752,75 @@ module.exports = {
 		if (req.body.Fromday === null && req.body.Today === null) {
 			query = {
 				'Manager.id': req.body.Username,
-				Dayenrollment: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				}
-				// $and: [{
-				// 	$or: [{
-				// 		Regdayiso: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}, {
-				// 		Dayenrollment: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}
-				// 	]
+				// Dayenrollment: {
+				// 	$gte: dateFormat(new Date(), firstDay),
+				// 	$lte: dateFormat(new Date(), today)
 				// }
-				// ]
+				$and: [{
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}
+					]
+				}
+				]
 			}
 		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
 			firstDay = req.body.Fromday;
 			query = {
 				'Manager.id': req.body.Username,
-				Dayenrollment: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				}
-				// $and: [{
-				// 	$or: [{
-				// 		Regdayiso: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}, {
-				// 		Dayenrollment: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}
-				// 	]
+				// Dayenrollment: {
+				// 	$gte: dateFormat(new Date(), firstDay),
+				// 	$lte: dateFormat(new Date(), today)
 				// }
-				// ]
+				$and: [{
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}
+					]
+				}
+				]
 			}
 		}
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
 			query = {
 				'Manager.id': req.body.Username,
-				Dayenrollment: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				}
-				// $and: [{
-				// 	$or: [{
-				// 		Regdayiso: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}, {
-				// 		Dayenrollment: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}
-				// 	]
+				// Dayenrollment: {
+				// 	$gte: dateFormat(new Date(), firstDay),
+				// 	$lte: dateFormat(new Date(), today)
 				// }
-				// ]
+				$and: [{
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}
+					]
+				}
+				]
 			}
 		}
 		if (req.body.Fromday !== null && req.body.Today !== null) {
@@ -3828,25 +3828,25 @@ module.exports = {
 			today = req.body.Today;
 			query = {
 				'Manager.id': req.body.Username,
-				Dayenrollment: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				}
-				// $and: [{
-				// 	$or: [{
-				// 		Regdayiso: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}, {
-				// 		Dayenrollment: {
-				// 			$gte: dateFormat(new Date(), firstDay),
-				// 			$lte: dateFormat(new Date(), today)
-				// 		}
-				// 	}
-				// 	]
+				// Dayenrollment: {
+				// 	$gte: dateFormat(new Date(), firstDay),
+				// 	$lte: dateFormat(new Date(), today)
 				// }
-				// ]
+				$and: [{
+					$or: [{
+						Regdayiso: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}, {
+						Dayenrollment: {
+							$gte: dateFormat(new Date(), firstDay),
+							$lte: dateFormat(new Date(), today)
+						}
+					}
+					]
+				}
+				]
 			}
 		}
 
