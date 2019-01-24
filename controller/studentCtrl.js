@@ -94,13 +94,13 @@ function saveDupData(data) {
 				}, function (err, rows) {
 					if (rows !== undefined && rows !== null) {
 						if (rows.length > 0) {
-							let checkPhone = checkPhoneNumber(data.sốđiệnthoại);
+							let checkPhone = checkPhoneNumber(data.Phone.toString());
 							if (rows.contains(checkPhone) === false) {
 								sheet.addRow({
-									Time: data.time,
-									Name: data.họtên,
-									Phone: data.sốđiệnthoại,
-									Email: data.email
+									Time: data.Regday,
+									Name: data.Fullname,
+									Phone: data.Phone,
+									Email: data.Email
 								}, function (err) {
 									if (err) {
 										console.log(err)
@@ -139,7 +139,7 @@ function saveDupData(data) {
 }
 
 // check data from old crm
-function checkDuplication(sdt) {
+function checkDuplication(data) {
 	var doc = new GoogleSpreadsheet('1rFX49ARfLmBBqxwj-S3H_Mt6regZmUeheNfiPisIu_w');
 	var sheet;
 	async.series([
@@ -165,11 +165,24 @@ function checkDuplication(sdt) {
 				}, function (err, rows) {
 					if (rows !== undefined && rows !== null) {
 						if (rows.length > 0) {
-							let checkPhone = checkPhoneNumber(sdt);
+							let checkPhone = checkPhoneNumber(data.Phone.toString());
 							if (rows.contains(checkPhone) === true) {
-								return true;
+								saveDupData(data);
 							} else {
-								return false;
+								data.save(function (err) {
+									if (err) {
+										response = {
+											'error_code': 1,
+											'message': 'error fetching data'
+										}
+									} else {
+										response = {
+											'error_code': 0,
+											'_id': IdforFrend
+										}
+									}
+									res.status(200).json(response);
+								})
 							}
 
 						}
@@ -1624,24 +1637,8 @@ module.exports = {
 						EditHistory: null
 					});
 
-				 if(checkDuplication(req.body.Phone) === true){
-					saveDupData(new_student);
-				 }else{
-					new_student.save(function (err) {
-						if (err) {
-							response = {
-								'error_code': 1,
-								'message': 'error fetching data'
-							}
-						} else {
-							response = {
-								'error_code': 0,
-								'_id': IdforFrend
-							}
-						}
-						res.status(200).json(response);
-					})
-				 }
+				 checkDuplication(new_student);
+
 				}
 			}
 		})
