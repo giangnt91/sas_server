@@ -1,6 +1,8 @@
 var dateFormat = require('dateformat');
 var mongoose = require('mongoose');
 var moment = require('moment');
+var GoogleSpreadsheet = require('google-spreadsheet');
+var async = require('async');
 
 //get model
 var student_model = require('../model/autoSheet');
@@ -11,6 +13,20 @@ var auth_model = require('../model/auth');
 function compareday(x) {
 	var parts = x.split("/");
 	return parts[2] + '' + parts[1] + '' + parts[0];
+}
+
+function checkPhoneNumber(phone) {
+	let phoneChecked;
+	if (phone.charAt(0) === '0') {
+		phoneChecked = phone.substr(1);
+	} else {
+		if (phone.substring(0, 2) === '84') {
+			phoneChecked = phone.substr(2);
+		} else {
+			phoneChecked = phone;
+		}
+	}
+	return phoneChecked;
 }
 
 function isoDay(day) {
@@ -38,6 +54,135 @@ function getFirstDateOfMonth() {
 
 	firstDay = moment(firstDay).format('YYYY-MM-DD');
 	return firstDay
+}
+
+Array.prototype.contains = function (obj) {
+	var i = this.length;
+	while (i--) {
+		if (this[i].phone === obj) {
+			return true;
+		}
+	}
+	return false;
+}
+
+// save dup data to sheet
+function saveDupData(data) {
+	var doc = new GoogleSpreadsheet('1KCi-0r8aHAkj5vd3P99yG0cLEhI_U6_SYXQ71ZUH-O8');
+	var sheet;
+	async.series([
+		function setAuth(step) {
+			// see notes below for authentication instructions!
+			var creds = require('../2i studio-fd2ce7d288b9.json');
+			doc.useServiceAccountAuth(creds, step);
+		},
+		function getInfoAndWorksheets(step) {
+			doc.getInfo(function (err, info) {
+				if (info !== undefined) {
+					sheet = info.worksheets[0];
+				}
+				step();
+			});
+		},
+		function workingWithRows(step) {
+			// google provides some query options
+			if (sheet !== undefined) {
+
+				sheet.getRows({
+					offset: 1
+					// orderby: 'col2'
+				}, function (err, rows) {
+					if (rows !== undefined && rows !== null) {
+						if (rows.length > 0) {
+							let checkPhone = checkPhoneNumber(data.sốđiệnthoại);
+							if (rows.contains(checkPhone) === false) {
+								sheet.addRow({
+									Time: data.time,
+									Name: data.họtên,
+									Phone: data.sốđiệnthoại,
+									Email: data.email
+								}, function (err) {
+									if (err) {
+										console.log(err)
+									}
+								})
+							}
+						}else{
+							sheet.addRow({
+								// time: data.ngaydangky,
+								// Name: data.fullname,
+								// Phone: data.phone,
+								// Email: data.email
+								Time: data.Regday,
+								Name: data.Fullname,
+								Phone: data.Phone,
+								Email: data.Email
+							}, function (err) {
+								if (err) {
+									console.log(err)
+								}
+							})
+						}
+					}
+					step();
+				});
+
+
+
+			}
+		}
+	], function (err) {
+		if (err) {
+			console.log('Error: ' + err);
+		}
+	});
+}
+
+// check data from old crm
+function checkDuplication(sdt) {
+	var doc = new GoogleSpreadsheet('1rFX49ARfLmBBqxwj-S3H_Mt6regZmUeheNfiPisIu_w');
+	var sheet;
+	async.series([
+		function setAuth(step) {
+			// see notes below for authentication instructions!
+			var creds = require('../2i studio-fd2ce7d288b9.json');
+			doc.useServiceAccountAuth(creds, step);
+		},
+		function getInfoAndWorksheets(step) {
+			doc.getInfo(function (err, info) {
+				if (info !== undefined) {
+					sheet = info.worksheets[0];
+				}
+				step();
+			});
+		},
+		function workingWithRows(step) {
+			// google provides some query options
+			if (sheet !== undefined) {
+				sheet.getRows({
+					offset: 1
+					// orderby: 'col2'
+				}, function (err, rows) {
+					if (rows !== undefined && rows !== null) {
+						if (rows.length > 0) {
+							let checkPhone = checkPhoneNumber(sdt);
+							if (rows.contains(checkPhone) === true) {
+								return true;
+							} else {
+								return false;
+							}
+
+						}
+					}
+					step();
+				});
+			}
+		}
+	], function (err) {
+		if (err) {
+			console.log('Error: ' + err);
+		}
+	});
 }
 
 // Api
@@ -1442,6 +1587,7 @@ module.exports = {
 						'message': 'Phone is exit'
 					}
 				} else {
+					
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
 
 					isoday = isoDay(req.body.Regday);
@@ -1478,6 +1624,9 @@ module.exports = {
 						EditHistory: null
 					});
 
+				 if(checkDuplication(req.body.Phone) === true){
+					saveDupData(new_student);
+				 }else{
 					new_student.save(function (err) {
 						if (err) {
 							response = {
@@ -1492,6 +1641,7 @@ module.exports = {
 						}
 						res.status(200).json(response);
 					})
+				 }
 				}
 			}
 		})
