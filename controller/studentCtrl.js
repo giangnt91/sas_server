@@ -1640,6 +1640,7 @@ module.exports = {
 								'error_code': 2,
 								'message': 'Phone is exit'
 							}
+							res.status(200).json(response);
 						} else {
 							response = {
 								'error_code': 0,
