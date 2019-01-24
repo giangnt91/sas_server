@@ -1566,6 +1566,16 @@ function updateCenter() {
 	});
 }
 
+Array.prototype.contains = function (obj) {
+	var i = this.length;
+	while (i--) {
+		if (this[i].coupon.phone === obj) {
+			return true;
+		}
+	}
+	return false;
+}
+
 // save dup data to sheet
 function saveDupData(data) {
 	var doc = new GoogleSpreadsheet('1KCi-0r8aHAkj5vd3P99yG0cLEhI_U6_SYXQ71ZUH-O8');
@@ -1587,21 +1597,51 @@ function saveDupData(data) {
 		function workingWithRows(step) {
 			// google provides some query options
 			if (sheet !== undefined) {
-				
-					sheet.addRow({
-						// time: data.ngaydangky,
-						// Name: data.fullname,
-						// Phone: data.phone,
-						// Email: data.email
-						Time: data.time,
-						Name: data.họtên,
-						Phone: data.sốđiệnthoại,
-						Email: data.email
-					}, function (err) {
-						if (err) {
-							console.log(err)
+
+				sheet.getRows({
+					offset: 1
+					// orderby: 'col2'
+				}, function (err, rows) {
+					if (rows !== undefined && rows !== null) {
+						if (rows.length > 0) {
+							let checkPhone = checkPhoneNumber(data.sốđiệnthoại);
+							if (rows.contains(checkPhone) === false) {
+								sheet.addRow({
+									// time: data.ngaydangky,
+									// Name: data.fullname,
+									// Phone: data.phone,
+									// Email: data.email
+									Time: data.time,
+									Name: data.họtên,
+									Phone: data.sốđiệnthoại,
+									Email: data.email
+								}, function (err) {
+									if (err) {
+										console.log(err)
+									}
+								})
+							}
+						}else{
+							sheet.addRow({
+								// time: data.ngaydangky,
+								// Name: data.fullname,
+								// Phone: data.phone,
+								// Email: data.email
+								Time: data.time,
+								Name: data.họtên,
+								Phone: data.sốđiệnthoại,
+								Email: data.email
+							}, function (err) {
+								if (err) {
+									console.log(err)
+								}
+							})
 						}
-					})
+					}
+					step();
+				});
+
+
 
 			}
 		}
