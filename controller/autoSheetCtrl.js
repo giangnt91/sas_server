@@ -1587,24 +1587,43 @@ function saveDupData(data) {
 		function workingWithRows(step) {
 			// google provides some query options
 			if (sheet !== undefined) {
-				if (oldData !== data.id) {
-					sheet.addRow({
-						// time: data.ngaydangky,
-						// Name: data.fullname,
-						// Phone: data.phone,
-						// Email: data.email
-						Time: data.time,
-						Name: data.họtên,
-						Phone: data.sốđiệnthoại,
-						Email: data.email
-					}, function (err) {
-						if (err) {
-							console.log(err)
-						} else {
-							oldData = data.id;
+
+				
+
+				sheet.getRows({
+					offset: 1
+					// orderby: 'col2'
+				}, function (err, rows) {
+					if (rows !== undefined && rows !== null) {
+						if (rows.length > 0) {
+							var dupData = false;
+							for (i = 0; i < rows.length; i++) {
+								if (rows[i].phone === checkPhone) {
+									dupData = true;
+									break;
+								}
+							}
+
+							if (dupData === false) {
+								sheet.addRow({
+									// time: data.ngaydangky,
+									// Name: data.fullname,
+									// Phone: data.phone,
+									// Email: data.email
+									Time: data.time,
+									Name: data.họtên,
+									Phone: data.sốđiệnthoại,
+									Email: data.email
+								}, function (err) {
+									if (err) {
+										console.log(err)
+									}
+								})
+							}
 						}
-					})
-				}
+					}
+				})
+
 			}
 		}
 	], function (err) {
