@@ -160,10 +160,10 @@ function get_telesale(student, _id, sheet_id, mid, mname) {
 					}
 				}
 
-				setTimeout(()=>{
+				setTimeout(() => {
 					checkDuplication(student, data[0], sheet_id, mid, mname, _day);
-			 	}, 1000)
-				
+				}, 1000)
+
 				// insertStudent(student, data[0], sheet_id, mid, mname, _day);
 			}
 		}
@@ -713,9 +713,9 @@ function get_list_tele_for_st(student, _id, sheet_id, mid, mname, index) {
 						_day = 90;
 					}
 				}
-				setTimeout(()=>{
+				setTimeout(() => {
 					checkDuplication(student, data[index], sheet_id, mid, mname, _day);
-			 	}, 1000)
+				}, 1000)
 				// checkDuplication(student, data[index], sheet_id, mid, mname, _day);
 				// insertStudent(student, data[index], sheet_id, mid, mname, _day);
 			}
@@ -1587,20 +1587,24 @@ function saveDupData(data) {
 		function workingWithRows(step) {
 			// google provides some query options
 			if (sheet !== undefined) {
-				sheet.addRow({
-					// time: data.ngaydangky,
-					// Name: data.fullname,
-					// Phone: data.phone,
-					// Email: data.email
-					Time: data.time,
-					Name: data.họtên,
-					Phone: data.sốđiệnthoại,
-					Email: data.email
-				}, function(err){
-					if(err){
-						console.log(err)
-					}
-				})
+				if (oldData !== data.id) {
+					sheet.addRow({
+						// time: data.ngaydangky,
+						// Name: data.fullname,
+						// Phone: data.phone,
+						// Email: data.email
+						Time: data.time,
+						Name: data.họtên,
+						Phone: data.sốđiệnthoại,
+						Email: data.email
+					}, function (err) {
+						if (err) {
+							console.log(err)
+						} else {
+							oldData = data.id;
+						}
+					})
+				}
 			}
 		}
 	], function (err) {
@@ -1641,20 +1645,20 @@ function checkDuplication(data, tele, sheet_id, mid, mname, admin_time) {
 							var dupData = false;
 							let checkPhone = checkPhoneNumber(data.sốđiệnthoại);
 
-							for(i=0; i<rows.length; i ++){
-								if(rows[i].phone === checkPhone){
+							for (i = 0; i < rows.length; i++) {
+								if (rows[i].phone === checkPhone) {
 									dupData = true;
 									break;
 								}
 							}
-							
-							if(dupData === true){
+
+							if (dupData === true) {
 								saveDupData(data);
-							}else{
+							} else {
 								// insertOldStudent(data);
 								insertStudent(data, tele, sheet_id, mid, mname, admin_time);
 							}
-		
+
 						}
 					}
 					step();
@@ -1700,9 +1704,9 @@ function getOldSheet(idSheet) {
 								// rows[i].move = "moved";
 								// rows[i].save();
 								if (i < 1000) {
-									setTimeout(()=>{
-										 checkDuplication(rows[i]);
-										 	// console.log(i);
+									setTimeout(() => {
+										checkDuplication(rows[i]);
+										// console.log(i);
 									}, i * 100)
 								}
 							}
