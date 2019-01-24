@@ -107,7 +107,7 @@ function saveDupData(data) {
 									}
 								})
 							}
-						}else{
+						} else {
 							sheet.addRow({
 								// time: data.ngaydangky,
 								// Name: data.fullname,
@@ -139,6 +139,7 @@ function saveDupData(data) {
 }
 
 // check data from old crm
+var dupData = false;
 function checkDuplication(data, res) {
 	var doc = new GoogleSpreadsheet('1rFX49ARfLmBBqxwj-S3H_Mt6regZmUeheNfiPisIu_w');
 	var sheet;
@@ -165,23 +166,17 @@ function checkDuplication(data, res) {
 				}, function (err, rows) {
 					if (rows !== undefined && rows !== null) {
 						if (rows.length > 0) {
+
 							let checkPhone = checkPhoneNumber(data.Phone.toString());
 							if (rows.contains(checkPhone) === true) {
+								dupData = true;
 								saveDupData(data);
 							} else {
+								dupData = false;
 								data.save(function (err) {
 									if (err) {
-										response = {
-											'error_code': 1,
-											'message': 'error fetching data'
-										}
-									} else {
-										response = {
-											'error_code': 0,
-											'_id': IdforFrend
-										}
+										console.log(err);
 									}
-									res.status(200).json(response);
 								})
 							}
 
@@ -1586,7 +1581,7 @@ module.exports = {
 	CreateStudent: function (req, res) {
 		student_model.find({
 			Phone: req.body.Phone
-		}, function (err, data) {
+		}, async function (err, data) {
 			if (err) {
 				response = {
 					'error_code': 1,
@@ -1600,7 +1595,7 @@ module.exports = {
 						'message': 'Phone is exit'
 					}
 				} else {
-					
+
 					let timereg = dateFormat(new Date(), "HH:MM:ss")
 
 					isoday = isoDay(req.body.Regday);
@@ -1637,7 +1632,31 @@ module.exports = {
 						EditHistory: null
 					});
 
-				 checkDuplication(new_student, res);
+					await checkDuplication(new_student);
+
+					setTimeout(() => {
+						if (dupData === true) {
+							response = {
+								'error_code': 2,
+								'message': 'Phone is exit'
+							}
+						} else {
+							data.save(function (err) {
+								if (err) {
+									response = {
+										'error_code': 1,
+										'message': 'error fetching data'
+									}
+								} else {
+									response = {
+										'error_code': 0,
+										'_id': IdforFrend
+									}
+								}
+								res.status(200).json(response);
+							})
+						}
+					}, 3000)
 
 				}
 			}
@@ -2274,7 +2293,7 @@ module.exports = {
 			today = req.body.Regday2;
 		}
 
-		firstDay =  firstDay + 'T17:00:00.000+0000';
+		firstDay = firstDay + 'T17:00:00.000+0000';
 		today = today + 'T17:00:00.000+0000';
 
 		if (req.body.Search.value === '') {
