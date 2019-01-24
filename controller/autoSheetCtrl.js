@@ -1588,9 +1588,13 @@ function saveDupData(data) {
 			// google provides some query options
 			if (sheet !== undefined) {
 				sheet.addRow({
-					time: data.ngaydangky,
-					Name: data.fullname,
-					Phone: data.phone,
+					// time: data.ngaydangky,
+					// Name: data.fullname,
+					// Phone: data.phone,
+					// Email: data.email
+					Time: data.time,
+					Name: data.họtên,
+					Phone: data.sốđiệnthoại,
 					Email: data.email
 				}, function(err){
 					if(err){
