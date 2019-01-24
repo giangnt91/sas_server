@@ -1595,7 +1595,7 @@ function saveDupData(data) {
 					// orderby: 'col2'
 				}, function (err, rows) {
 					if (rows !== undefined && rows !== null) {
-						if (rows.length > 0) {
+						// if (rows.length > 0) {
 							var dupData = false;
 							for (i = 0; i < rows.length; i++) {
 								if (rows[i].phone === checkPhone) {
@@ -1620,7 +1620,7 @@ function saveDupData(data) {
 									}
 								})
 							}
-						}
+						// }
 					}
 				})
 
