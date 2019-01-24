@@ -1569,7 +1569,7 @@ function updateCenter() {
 Array.prototype.contains = function (obj) {
 	var i = this.length;
 	while (i--) {
-		if (this[i].coupon.phone === obj) {
+		if (this[i].phone === obj) {
 			return true;
 		}
 	}
@@ -1679,18 +1679,8 @@ function checkDuplication(data, tele, sheet_id, mid, mname, admin_time) {
 				}, function (err, rows) {
 					if (rows !== undefined && rows !== null) {
 						if (rows.length > 0) {
-							var i = 0;
-							var dupData = false;
 							let checkPhone = checkPhoneNumber(data.sốđiệnthoại);
-
-							for (i = 0; i < rows.length; i++) {
-								if (rows[i].phone === checkPhone) {
-									dupData = true;
-									break;
-								}
-							}
-
-							if (dupData === true) {
+							if (rows.contains(checkPhone) === true) {
 								saveDupData(data);
 							} else {
 								// insertOldStudent(data);
