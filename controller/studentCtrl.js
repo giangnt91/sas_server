@@ -3908,105 +3908,42 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				'Manager.id': req.body.Username,
-				// Dayenrollment: {
-				// 	$gte: dateFormat(new Date(), firstDay),
-				// 	$lte: dateFormat(new Date(), today)
-				// }
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
-				}
-				]
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
 			firstDay = req.body.Fromday;
-			query = {
-				'Manager.id': req.body.Username,
-				// Dayenrollment: {
-				// 	$gte: dateFormat(new Date(), firstDay),
-				// 	$lte: dateFormat(new Date(), today)
-				// }
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
-				}
-				]
-			}
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				'Manager.id': req.body.Username,
-				// Dayenrollment: {
-				// 	$gte: dateFormat(new Date(), firstDay),
-				// 	$lte: dateFormat(new Date(), today)
-				// }
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}
-					]
-				}
-				]
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			firstDay = req.body.Fromday;
 			today = req.body.Today;
-			query = {
-				'Manager.id': req.body.Username,
-				// Dayenrollment: {
-				// 	$gte: dateFormat(new Date(), firstDay),
-				// 	$lte: dateFormat(new Date(), today)
-				// }
-				$and: [{
-					$or: [{
-						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
-					}, {
-						Dayenrollment: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
-						}
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			'Manager.id': req.body.Username,
+			// Dayenrollment: {
+			// 	$gte: dateFormat(new Date(), firstDay),
+			// 	$lte: dateFormat(new Date(), today)
+			// }
+			$and: [{
+				$or: [{
+					Regdayiso: {
+						$gte: firstDay,
+						$lte: today
 					}
-					]
+				}, {
+					Dayenrollment: {
+						$gte: firstDay,
+						$lte: today
+					}
 				}
 				]
 			}
+			]
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4066,71 +4003,34 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				'Manager.id': req.body.Username,
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				Recall: false,
-				Time_recall: null,
-				Center: null,
-				'Center.id': null,
-				'Duplicate': null,
-				Isupdate: false,
-				'Status_student.id': 0
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				Recall: false,
-				Time_recall: null,
-				Center: null,
-				'Center.id': null,
-				'Duplicate': null,
-				Isupdate: false,
-				'Status_student.id': 0
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				Recall: false,
-				Time_recall: null,
-				Center: null,
-				'Center.id': null,
-				'Duplicate': null,
-				Isupdate: false,
-				'Status_student.id': 0
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				Recall: false,
-				Time_recall: null,
-				Center: null,
-				'Center.id': null,
-				'Duplicate': null,
-				Isupdate: false,
-				'Status_student.id': 0
-			}
+			firstDay = req.body.Fromday;
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			Recall: false,
+			Time_recall: null,
+			Center: null,
+			'Center.id': null,
+			'Duplicate': null,
+			Isupdate: false,
+			'Status_student.id': 0
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4159,104 +4059,44 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				'Manager.id': req.body.Username,
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				$and: [{
-					$or: [{
-						'Time_recall': {
-							$ne: null
-						}
-					}, {
-						Recall: true
-					}
-					]
-				}
-				],
-				Center: null,
-				'Center.id': null,
-				'Status_student.id': 0,
-				Isupdate: false
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						'Time_recall': {
-							$ne: null
-						}
-					}, {
-						Recall: true
-					}
-					]
-				}
-				],
-				Center: null,
-				'Center.id': null,
-				'Status_student.id': 0,
-				Isupdate: false
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						'Time_recall': {
-							$ne: null
-						}
-					}, {
-						Recall: true
-					}
-					]
-				}
-				],
-				Center: null,
-				'Center.id': null,
-				'Status_student.id': 0,
-				Isupdate: false
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				$and: [{
-					$or: [{
-						'Time_recall': {
-							$ne: null
-						}
-					}, {
-						Recall: true
-					}
-					]
-				}
-				],
-				Center: null,
-				'Center.id': null,
-				'Status_student.id': 0,
-				Isupdate: false
-			}
+			firstDay = req.body.Fromday;
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			$and: [{
+				$or: [{
+					'Time_recall': {
+						$ne: null
+					}
+				}, {
+					Recall: true
+				}
+				]
+			}
+			],
+			Center: null,
+			'Center.id': null,
+			'Status_student.id': 0,
+			Isupdate: false
+		}
+		
 
 		student_model.find(query, function (err, data) {
 			if (err) {
@@ -4295,49 +4135,30 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username,
-				'Duplicate': null
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Duplicate': null
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Duplicate': null
-			}
 		}
+		
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Duplicate': null
-			}
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			'Duplicate': null
+		}
+
 		student_model.find(query, function (err, data) {
 			if (err) {
 				console.log('Gettl ' + err);
@@ -4395,45 +4216,29 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username
-			}
+			firstDay = req.body.Fromday;
 		}
+		
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username
-			}
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username
+		}
+
 		student_model.find(query, function (err, data) {
 			if (err) {
 				console.log('GetHcd ' + err);
@@ -4470,48 +4275,28 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 2
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 2
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 2
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 2
-			}
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			'Status_student.id': 2
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4539,48 +4324,28 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 0
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 0
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 0
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 0
-			}
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			'Status_student.id': 0
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4608,48 +4373,28 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 1
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 1
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 1
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 1
-			}
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today =  today + 'T17:00:00.000+0000';
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			'Status_student.id': 1
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4677,48 +4422,30 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 4
-			}
-		}
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 4
-			}
+			firstDay = req.body.Fromday;
 		}
+
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 4
-			}
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username,
-				'Status_student.id': 4
-			}
+		
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username,
+			'Status_student.id': 4
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4746,44 +4473,27 @@ module.exports = {
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-		if (req.body.Fromday === null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: firstDay,
-					$lte: today
-				},
-				'Manager.id': req.body.Username,
-			}
-		}
+
 		if (req.body.Fromday !== null && req.body.Today === null) {
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), req.body.Fromday),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username
-			}
+			firstDay = req.body.Fromday;
 		}
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username
-			}
 		}
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
-			query = {
-				Regdayiso: {
-					$gte: dateFormat(new Date(), firstDay),
-					$lte: dateFormat(new Date(), today)
-				},
-				'Manager.id': req.body.Username
-			}
+		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
+		query = {
+			Regdayiso: {
+				$gte: firstDay,
+				$lte: today
+			},
+			'Manager.id': req.body.Username
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4853,6 +4563,9 @@ module.exports = {
 			today = req.body.Today;
 			timeOut = 2000;
 		}
+		
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
 
 		if (req.body.TheForm !== null) {
 			query = {
@@ -4985,6 +4698,9 @@ module.exports = {
 			today = req.body.Today;
 		}
 
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
 		query = {
 			Regdayiso: {
 				$gte: firstDay,
@@ -5066,6 +4782,9 @@ module.exports = {
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
 
 		if (req.body.Username !== null) {
 			query = {
@@ -5191,6 +4910,9 @@ module.exports = {
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
 		}
+
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
 
 		query = {
 			Regdayiso: {
