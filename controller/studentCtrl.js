@@ -435,14 +435,17 @@ module.exports = {
 			today = req.body.Today;
 		}
 
+		firstDay = firstDay + 'T17:00:00.000+0000';
+		today = today + 'T17:00:00.000+0000';
+
 		if (req.body.Search.value === '') {
 			if (req.body.Role[0].id === 0) {
 
 				if (req.body._status === null && req.body.form === null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						}
 					}
 				}
@@ -452,8 +455,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': null
 						}
@@ -463,8 +466,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 3
 						}
@@ -474,8 +477,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': {
 								$ne: null
@@ -487,8 +490,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 1
 						}
@@ -499,8 +502,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form !== null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						'Manager.sheetId': req.body.form
 					}
@@ -512,8 +515,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': null
@@ -524,8 +527,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 3
@@ -536,8 +539,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': {
@@ -550,8 +553,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 1
@@ -563,8 +566,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form === null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						'Manager.mid': req.body.Username
 					}
@@ -575,8 +578,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': null,
 							'Manager.mid': req.body.Username
@@ -587,8 +590,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 3,
 							'Manager.mid': req.body.Username
@@ -599,8 +602,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': {
 								$ne: null
@@ -613,8 +616,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 1,
 							'Manager.mid': req.body.Username
@@ -626,8 +629,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form !== null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						'Manager.sheetId': req.body.form,
 						'Manager.mid': req.body.Username
@@ -640,8 +643,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': null,
@@ -653,8 +656,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 3,
@@ -666,8 +669,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': {
@@ -681,8 +684,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 1,
@@ -699,8 +702,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form === null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						$or: [{
 							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -732,8 +735,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': null,
 							$or: [{
@@ -765,8 +768,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 3,
 							$or: [{
@@ -798,8 +801,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': {
 								$ne: null
@@ -833,8 +836,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 1,
 							$or: [{
@@ -867,8 +870,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form !== null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						'Manager.sheetId': req.body.form,
 						$or: [{
@@ -902,8 +905,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': null,
@@ -936,8 +939,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 3,
@@ -970,8 +973,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': {
@@ -1006,8 +1009,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 1,
@@ -1041,8 +1044,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form === null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						'Manager.mid': req.body.Username,
 						$or: [{
@@ -1075,8 +1078,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': null,
 							'Manager.mid': req.body.Username,
@@ -1109,8 +1112,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 3,
 							'Manager.mid': req.body.Username,
@@ -1143,8 +1146,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Duplicate': {
 								$ne: null
@@ -1179,8 +1182,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Status_student.id': 1,
 							'Manager.mid': req.body.Username,
@@ -1214,8 +1217,8 @@ module.exports = {
 				if (req.body._status === null && req.body.form !== null) {
 					query = {
 						Regdayiso: {
-							$gte: dateFormat(new Date(), firstDay),
-							$lte: dateFormat(new Date(), today)
+							$gte: firstDay,
+							$lte: today
 						},
 						'Manager.sheetId': req.body.form,
 						'Manager.mid': req.body.Username,
@@ -1250,8 +1253,8 @@ module.exports = {
 					if (req.body._status === 1) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': null,
@@ -1285,8 +1288,8 @@ module.exports = {
 					if (req.body._status === 2) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 3,
@@ -1320,8 +1323,8 @@ module.exports = {
 					if (req.body._status === 3) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Duplicate': {
@@ -1357,8 +1360,8 @@ module.exports = {
 					if (req.body._status === 4) {
 						query = {
 							Regdayiso: {
-								$gte: dateFormat(new Date(), firstDay),
-								$lte: dateFormat(new Date(), today)
+								$gte: firstDay,
+								$lte: today
 							},
 							'Manager.sheetId': req.body.form,
 							'Status_student.id': 1,
