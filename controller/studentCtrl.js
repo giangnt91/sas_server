@@ -3693,8 +3693,8 @@ module.exports = {
 			today = req.body.Cday2;
 		}
 
-		firstDay = firstDay + 'T17:00:00.000+0000';
-		today = today + 'T17:00:00.000+0000';
+		firstDay = firstDay + 'T00:00:00.000+0000';
+		today = today + 'T00:00:00.000+0000';
 
 		if (req.body.Search.value === '') {
 			// kiểm tra cho admin
