@@ -4093,11 +4093,12 @@ module.exports = {
 				}
 				]
 			}
-			],
-			Center: null,
-			'Center.id': null,
-			'Status_student.id': 0,
-			Isupdate: false
+			]
+			// ,
+			// Center: null,
+			// 'Center.id': null,
+			// 'Status_student.id': 0,
+			// Isupdate: false
 		}
 		
 
@@ -4106,20 +4107,20 @@ module.exports = {
 				console.log('GetdetailRecall ' + err);
 			} else {
 				if (data.length > 0) {
-					var recall = [];
-					data.forEach(element => {
-						if (element.Center === null) {
-							recall.push(element);
-						} else {
-							if (element.Center[0].id === null) {
-								recall.push(element);
-							}
-						}
-					})
+					// var recall = [];
+					// data.forEach(element => {
+					// 	if (element.Center === null) {
+					// 		recall.push(element);
+					// 	} else {
+					// 		if (element.Center[0].id === null) {
+					// 			recall.push(element);
+					// 		}
+					// 	}
+					// })
 
 					response = {
 						'error_code': 0,
-						'recall': recall
+						'recall': data
 					};
 					res.status(200).json(response);
 				} else {
