@@ -2753,8 +2753,8 @@ module.exports = {
 			today = req.body.Regday2;
 		}
 
-		firstDay = firstDay + 'T17:00:00.000+0000';
-		today = today + 'T17:00:00.000+0000';
+		firstDay = firstDay + 'T00:00:00.000+0000';
+		today = today + 'T00:00:00.000+0000';
 
 		if (req.body.Search.value === '') {
 			// tìm cho admin
@@ -2763,8 +2763,8 @@ module.exports = {
 					query = {
 
 						Appointment_dayiso: {
-							$gte: firstDay,
-							$lte: today
+							$gt: firstDay,
+							$lt: today
 						},
 						'Manager.id': req.body.Sale,
 						'Status_student.id': 0
@@ -2782,8 +2782,8 @@ module.exports = {
 					query = {
 
 						Appointment_dayiso: {
-							$gte: firstDay,
-							$lte: today
+						  $gt: firstDay,
+							$lt: today
 						},
 						'Status_student.id': 0
 						// $and: [{
@@ -2802,8 +2802,8 @@ module.exports = {
 				query = {
 
 					Appointment_dayiso: {
-						$gte: firstDay,
-						$lte: today
+						$gt: firstDay,
+						$lt: today
 					},
 					'Manager.id': req.body.Username,
 					'Status_student.id': 0
@@ -2825,8 +2825,8 @@ module.exports = {
 					query = {
 
 						Appointment_dayiso: {
-							$gte: firstDay,
-							$lte: today
+							$gt: firstDay,
+							$lt: today
 						},
 						'Manager.id': req.body.Sale,
 						$or: [{
@@ -2868,8 +2868,8 @@ module.exports = {
 					query = {
 
 						Appointment_dayiso: {
-							$gte: firstDay,
-							$lte: today
+							$gt: firstDay,
+							$lt: today
 						},
 						$or: [{
 							Fistname: new RegExp('^' + req.body.Search.value + '$', "i")
@@ -2913,8 +2913,8 @@ module.exports = {
 				query = {
 
 					Appointment_dayiso: {
-						$gte: firstDay,
-						$lte: today
+						$gt: firstDay,
+						$lt: today
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
