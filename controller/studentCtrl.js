@@ -3205,16 +3205,16 @@ module.exports = {
 						},
 						'Manager.id': req.body.Sale,
 						$or: [{
-							$and: [{
+							// $and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							}, {
-								'Status_student.id': {
-									$ne: 3
-								}
-							}
-							]
+							// }, {
+							// 	'Status_student.id': {
+							// 		$ne: 3
+							// 	}
+							// }
+							// ]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3249,16 +3249,16 @@ module.exports = {
 							$lte: today
 						},
 						$or: [{
-							$and: [{
+							// $and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							}, {
-								'Status_student.id': {
-									$ne: 3
-								}
-							}
-							]
+							// }, {
+							// 	'Status_student.id': {
+							// 		$ne: 3
+							// 	}
+							// }
+							// ]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3295,16 +3295,16 @@ module.exports = {
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
-						$and: [{
+						// $and: [{
 							Appointment_day: {
 								$lt: today
 							}
-						}, {
-							'Status_student.id': {
-								$ne: 3
-							}
-						}
-						]
+						// }, {
+						// 	'Status_student.id': {
+						// 		$ne: 3
+						// 	}
+						// }
+						// ]
 					}, {
 						'Status_student.id': 1
 					}, {
@@ -3372,16 +3372,16 @@ module.exports = {
 						}
 						],
 						$or: [{
-							$and: [{
+							// $and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							}, {
-								'Status_student.id': {
-									$ne: 3
-								}
-							}
-							]
+							// }, {
+							// 	'Status_student.id': {
+							// 		$ne: 3
+							// 	}
+							// }
+							// ]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3443,16 +3443,16 @@ module.exports = {
 						}
 						],
 						$or: [{
-							$and: [{
+							// $and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							}, {
-								'Status_student.id': {
-									$ne: 3
-								}
-							}
-							]
+							// }, {
+							// 	'Status_student.id': {
+							// 		$ne: 3
+							// 	}
+							// }
+							// ]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3516,16 +3516,16 @@ module.exports = {
 					}
 					],
 					$or: [{
-						$and: [{
+						// $and: [{
 							Appointment_day: {
 								$lt: today
 							}
-						}, {
-							'Status_student.id': {
-								$ne: 3
-							}
-						}
-						]
+						// }, {
+						// 	'Status_student.id': {
+						// 		$ne: 3
+						// 	}
+						// }
+						// ]
 					}, {
 						'Status_student.id': 1
 					}, {
