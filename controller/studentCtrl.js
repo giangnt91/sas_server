@@ -4489,13 +4489,16 @@ module.exports = {
 			firstDay = req.body.Fromday;
 		}
 
-		firstDay = firstDay + 'T17:00:00.000+0000';
-		today = today + 'T17:00:00.000+0000';
+		firstDay = firstDay + 'T00:00:00.000+0000';
+		today = today + 'T00:00:00.000+0000';
 
 		query = {
-			Regdayiso: {
+			Appointment_dayiso: {
 				$gte: firstDay,
 				$lte: today
+			},
+			Appointment_day: {
+				$ne: null
 			},
 			'Manager.id': req.body.Username
 		}
