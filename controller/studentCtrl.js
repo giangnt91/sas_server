@@ -4483,19 +4483,18 @@ module.exports = {
 			}
 		})
 	},
-	GetHcd: function (req, res) {
+	GetLh: function (req, res) {
 		var query;
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
+
 		if (req.body.Fromday !== null && req.body.Today === null) {
 			firstDay = req.body.Fromday;
 		}
-		
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
 		}
-
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
@@ -4503,40 +4502,58 @@ module.exports = {
 
 		firstDay = firstDay + 'T00:00:00.000+0000';
 		today = today + 'T00:00:00.000+0000';
+
 		query = {
 			Appointment_dayiso: {
-				$gt: firstDay,
-				$lt: today
+				$gte: firstDay,
+				$lte: today
 			},
-			'Manager.id': req.body.Username,
-			'Status_student.id': 0
+			Appointment_day: {
+				$ne: null
+			},
+			'Manager.id': req.body.Username
 		}
 
 		student_model.find(query, function (err, data) {
 			if (err) {
-				console.log('GetHcd ' + err);
+				console.log('GetLh ' + err);
 			} else {
 				if (data.length > 0) {
-					// var notapp = [];
-					// data.forEach(element => {
-						// if (element.Appointment_day !== null) {
-							// if (compareday(element.Appointment_day) < compareday2(today)) {
-								// if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
-									// notapp.push(element);
-								// }
+					var dh = [];
+					var ddk = [];
+					var dcdk = [];
+					data.forEach(element => {
+						if (element.Appointment_day !== null && element.Appointment_time !== null) {
+							// if (element.Appointment_time[0].id !== null) {
+							dh.push(element);
 							// }
-						// }
-					// });
-					// var hcd = notapp;
+						}
+						if (element.Status_student[0].id === 3) {
+							ddk.push(element);
+						}
+
+						if (element.Status_student[0].id === 2) {
+							dcdk.push(element);
+						}
+					});
+
+					var lh = [{
+						Fullname: data[0].Manager[0].id,
+						DH: dh,
+						Ddk: ddk,
+						Dcdk: dcdk,
+					}
+					]
+
 					response = {
 						'error_code': 0,
-						'hcd': data
+						'lh': lh
 					};
 					res.status(200).json(response);
 				} else {
 					response = {
-						'error_code': 0,
-						'hcd': []
+						'error_code': 2,
+						'lh': 'not found'
 					};
 					res.status(200).json(response);
 				}
