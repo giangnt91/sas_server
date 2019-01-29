@@ -4244,14 +4244,15 @@ module.exports = {
 			firstDay = req.body.Fromday;
 		}
 
-		firstDay = firstDay + 'T17:00:00.000+0000';
-		today = today + 'T17:00:00.000+0000';
+		firstDay = firstDay + 'T00:00:00.000+0000';
+		today = today + 'T00:00:00.000+0000';
 		query = {
-			Regdayiso: {
+			Appointment_dayiso: {
 				$gte: firstDay,
 				$lte: today
 			},
-			'Manager.id': req.body.Username
+			'Manager.id': req.body.Username,
+			'Status_student.id': 0
 		}
 
 		student_model.find(query, function (err, data) {
@@ -4259,20 +4260,20 @@ module.exports = {
 				console.log('GetHcd ' + err);
 			} else {
 				if (data.length > 0) {
-					var notapp = [];
-					data.forEach(element => {
-						if (element.Appointment_day !== null) {
-							if (compareday(element.Appointment_day) < compareday2(today)) {
-								if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
-									notapp.push(element);
-								}
-							}
-						}
-					});
-					var hcd = notapp;
+					// var notapp = [];
+					// data.forEach(element => {
+					// 	if (element.Appointment_day !== null) {
+					// 		if (compareday(element.Appointment_day) < compareday2(today)) {
+					// 			if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+					// 				notapp.push(element);
+					// 			}
+					// 		}
+					// 	}
+					// });
+					// var hcd = notapp;
 					response = {
 						'error_code': 0,
-						'hcd': hcd
+						'hcd': data
 					};
 					res.status(200).json(response);
 				} else {
