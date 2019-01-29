@@ -4248,8 +4248,8 @@ module.exports = {
 		today = today + 'T00:00:00.000+0000';
 		query = {
 			Appointment_dayiso: {
-				$gte: firstDay,
-				$lte: today
+				$gt: firstDay,
+				$lt: today
 			},
 			'Manager.id': req.body.Username,
 			'Status_student.id': 0
