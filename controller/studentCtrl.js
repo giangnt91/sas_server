@@ -3249,16 +3249,16 @@ module.exports = {
 							$lte: today
 						},
 						$or: [{
-							// $and: [{
+							$and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							// }, {
-							// 	'Status_student.id': {
-							// 		$ne: 3
-							// 	}
-							// }
-							// ]
+							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3266,7 +3266,7 @@ module.exports = {
 						}, {
 							'Status_student.id': 4
 						}, {
-							'Status_student.id': 0
+							'Status_student.id': 3
 						}, {
 							$and: [{
 								'Status_student.id': 0
@@ -3277,6 +3277,8 @@ module.exports = {
 									'Center.id': {
 										$ne: null
 									}
+								},{
+									Center: { $ne: null }
 								}
 								]
 							}
@@ -3285,6 +3287,7 @@ module.exports = {
 						]
 
 					}
+
 				}
 			} else {
 				query = {
@@ -3295,40 +3298,42 @@ module.exports = {
 					},
 					'Manager.id': req.body.Username,
 					$or: [{
-						// $and: [{
-							Appointment_day: {
-								$lt: today
-							}
-						// }, {
-						// 	'Status_student.id': {
-						// 		$ne: 3
-						// 	}
-						// }
-						// ]
-					}, {
-						'Status_student.id': 1
-					}, {
-						'Status_student.id': 2
-					}, {
-						'Status_student.id': 4
-					}, {
-						'Status_student.id': 0
-					}, {
-						$and: [{
-							'Status_student.id': 0
-						}, {
-							$or: [{
-								Isupdate: true
-							}, {
-								'Center.id': {
-									$ne: null
+							$and: [{
+								Appointment_day: {
+									$lt: today
 								}
+							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
+						}, {
+							'Status_student.id': 1
+						}, {
+							'Status_student.id': 2
+						}, {
+							'Status_student.id': 4
+						}, {
+							'Status_student.id': 3
+						}, {
+							$and: [{
+								'Status_student.id': 0
+							}, {
+								$or: [{
+									Isupdate: true
+								}, {
+									'Center.id': {
+										$ne: null
+									}
+								},{
+									Center: { $ne: null }
+								}
+								]
 							}
 							]
 						}
 						]
-					}
-					]
 
 				}
 			}
@@ -3372,16 +3377,16 @@ module.exports = {
 						}
 						],
 						$or: [{
-							// $and: [{
+							$and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							// }, {
-							// 	'Status_student.id': {
-							// 		$ne: 3
-							// 	}
-							// }
-							// ]
+							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3389,7 +3394,7 @@ module.exports = {
 						}, {
 							'Status_student.id': 4
 						}, {
-							'Status_student.id': 0
+							'Status_student.id': 3
 						}, {
 							$and: [{
 								'Status_student.id': 0
@@ -3400,6 +3405,8 @@ module.exports = {
 									'Center.id': {
 										$ne: null
 									}
+								},{
+									Center: { $ne: null }
 								}
 								]
 							}
@@ -3443,16 +3450,16 @@ module.exports = {
 						}
 						],
 						$or: [{
-							// $and: [{
+							$and: [{
 								Appointment_day: {
 									$lt: today
 								}
-							// }, {
-							// 	'Status_student.id': {
-							// 		$ne: 3
-							// 	}
-							// }
-							// ]
+							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
 						}, {
 							'Status_student.id': 1
 						}, {
@@ -3460,7 +3467,7 @@ module.exports = {
 						}, {
 							'Status_student.id': 4
 						}, {
-							'Status_student.id': 0
+							'Status_student.id': 3
 						}, {
 							$and: [{
 								'Status_student.id': 0
@@ -3471,6 +3478,8 @@ module.exports = {
 									'Center.id': {
 										$ne: null
 									}
+								},{
+									Center: { $ne: null }
 								}
 								]
 							}
@@ -3516,40 +3525,42 @@ module.exports = {
 					}
 					],
 					$or: [{
-						// $and: [{
-							Appointment_day: {
-								$lt: today
-							}
-						// }, {
-						// 	'Status_student.id': {
-						// 		$ne: 3
-						// 	}
-						// }
-						// ]
-					}, {
-						'Status_student.id': 1
-					}, {
-						'Status_student.id': 2
-					}, {
-						'Status_student.id': 4
-					}, {
-						'Status_student.id': 0
-					}, {
-						$and: [{
-							'Status_student.id': 0
-						}, {
-							$or: [{
-								Isupdate: true
-							}, {
-								'Center.id': {
-									$ne: null
+							$and: [{
+								Appointment_day: {
+									$lt: today
 								}
+							}, {
+								'Status_student.id': {
+									$ne: 3
+								}
+							}
+							]
+						}, {
+							'Status_student.id': 1
+						}, {
+							'Status_student.id': 2
+						}, {
+							'Status_student.id': 4
+						}, {
+							'Status_student.id': 3
+						}, {
+							$and: [{
+								'Status_student.id': 0
+							}, {
+								$or: [{
+									Isupdate: true
+								}, {
+									'Center.id': {
+										$ne: null
+									}
+								},{
+									Center: { $ne: null }
+								}
+								]
 							}
 							]
 						}
 						]
-					}
-					]
 
 				}
 			}
