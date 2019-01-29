@@ -4483,18 +4483,19 @@ module.exports = {
 			}
 		})
 	},
-	GetLh: function (req, res) {
+	GetHcd: function (req, res) {
 		var query;
 		var firstDay = getFirstDateOfMonth();
 		var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-
 		if (req.body.Fromday !== null && req.body.Today === null) {
 			firstDay = req.body.Fromday;
 		}
+		
 		if (req.body.Fromday === null && req.body.Today !== null) {
 			today = req.body.Today;
 		}
+
 		if (req.body.Fromday !== null && req.body.Today !== null) {
 			today = req.body.Today;
 			firstDay = req.body.Fromday;
@@ -4502,58 +4503,40 @@ module.exports = {
 
 		firstDay = firstDay + 'T00:00:00.000+0000';
 		today = today + 'T00:00:00.000+0000';
-
 		query = {
 			Appointment_dayiso: {
-				$gte: firstDay,
-				$lte: today
+				$gt: firstDay,
+				$lt: today
 			},
-			Appointment_day: {
-				$ne: null
-			},
-			'Manager.id': req.body.Username
+			'Manager.id': req.body.Username,
+			'Status_student.id': 0
 		}
 
 		student_model.find(query, function (err, data) {
 			if (err) {
-				console.log('GetLh ' + err);
+				console.log('GetHcd ' + err);
 			} else {
 				if (data.length > 0) {
-					var dh = [];
-					var ddk = [];
-					var dcdk = [];
-					data.forEach(element => {
-						if (element.Appointment_day !== null && element.Appointment_time !== null) {
-							// if (element.Appointment_time[0].id !== null) {
-							dh.push(element);
+					// var notapp = [];
+					// data.forEach(element => {
+						// if (element.Appointment_day !== null) {
+							// if (compareday(element.Appointment_day) < compareday2(today)) {
+								// if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+									// notapp.push(element);
+								// }
 							// }
-						}
-						if (element.Status_student[0].id === 3) {
-							ddk.push(element);
-						}
-
-						if (element.Status_student[0].id === 2) {
-							dcdk.push(element);
-						}
-					});
-
-					var lh = [{
-						Fullname: data[0].Manager[0].id,
-						DH: dh,
-						Ddk: ddk,
-						Dcdk: dcdk,
-					}
-					]
-
+						// }
+					// });
+					// var hcd = notapp;
 					response = {
 						'error_code': 0,
-						'lh': lh
+						'hcd': data
 					};
 					res.status(200).json(response);
 				} else {
 					response = {
-						'error_code': 2,
-						'lh': 'not found'
+						'error_code': 0,
+						'hcd': []
 					};
 					res.status(200).json(response);
 				}
