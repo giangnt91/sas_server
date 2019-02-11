@@ -16,7 +16,7 @@ sas.use(express.static('./node_modules/socket.io-client/dist/'));
 sas.use(function (req, res, next) {
 	//allow connect
 	// res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-	var allowedOrigins = ['http://112.78.1.78:199', 'http://localhost:8080', 'http://sascenter.net', 'http://aff.sascenter.net';
+	var allowedOrigins = ['http://112.78.1.78:199', 'http://localhost:8080', 'http://sascenter.net', 'http://aff.sascenter.net'];
 	var origin = req.headers.origin;
 	if (allowedOrigins.indexOf(origin) > -1) {
 		res.setHeader('Access-Control-Allow-Origin', origin);
