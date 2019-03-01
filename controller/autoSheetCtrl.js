@@ -18,41 +18,50 @@ var center_model = require('../model/center');
 
 // compare day
 function compareday(x) {
-	var parts = x.split("/");
-	return parts[1] + '/' + parts[0] + '/' + parts[2];
+	if (x !== undefined) {
+		var parts = x.split("/");
+		return parts[1] + '/' + parts[0] + '/' + parts[2];
+	}
 }
 
 function isoDay(day) {
-	var parts = day.split("/");
-	if (parseInt(parts[0]) < 30) {
-		iday = parseInt(parts[0]) + 1;
-	} else {
-		iday = parts[0];
+	if (day !== undefined) {
+		var parts = day.split("/");
+		if (parseInt(parts[0]) < 30) {
+			iday = parseInt(parts[0]) + 1;
+		} else {
+			iday = parts[0];
+		}
+		return parts[1] + '-' + iday + '-' + parts[2];
 	}
-
-	return parts[1] + '-' + iday + '-' + parts[2];
 }
 
 function checkPhoneNumber(phone) {
-	let phoneChecked;
-	if (phone.charAt(0) === '0') {
-		phoneChecked = phone.substr(1);
-	} else {
-		if (phone.substring(0, 2) === '84') {
-			phoneChecked = phone.substr(2);
+	if (phone !== undefined) {
+		let phoneChecked;
+		if (phone.charAt(0) === '0') {
+			phoneChecked = phone.substr(1);
 		} else {
-			phoneChecked = phone;
+			if (phone.substring(0, 2) === '84') {
+				phoneChecked = phone.substr(2);
+			} else {
+				phoneChecked = phone;
+			}
 		}
+		return phoneChecked;
 	}
-	return phoneChecked;
 }
 
 function getFirstName(name) {
-	return name.substring(0, name.lastIndexOf(" ") + 1);
+	if (name !== undefined) {
+		return name.substring(0, name.lastIndexOf(" ") + 1);
+	}
 }
 
 function getLastName(name) {
-	return name.substring(name.lastIndexOf(" ") + 1, name.length);
+	if (name !== undefined) {
+		return name.substring(name.lastIndexOf(" ") + 1, name.length);
+	}
 }
 
 function getDayReg(day) {
@@ -1043,6 +1052,7 @@ schedule.scheduleJob('*/10 * * * * *', function () {
 	if (a === false) {
 		// getOldSheet('1cLJyvMeVExYspXt9agq9nZDPng4JLlunSGAJUe5jocg');
 		// updateCenter();
+		// insertUser('17DWDoJchNLexg0bjt6gIPGEDXvElBiLvE-eKdQ40dd8');
 		a = true;
 	}
 })
@@ -1621,7 +1631,7 @@ function saveDupData(data) {
 									}
 								})
 							}
-						}else{
+						} else {
 							sheet.addRow({
 								// time: data.ngaydangky,
 								// Name: data.fullname,
@@ -2438,4 +2448,172 @@ function insertOldStudent(stude) {
 			console.log('save student ' + err)
 		}
 	})
+}
+
+var md5 = require('crypto');
+
+function insertUser(idSheet) {
+	var doc = new GoogleSpreadsheet(idSheet);
+	var sheet;
+	async.series([
+		function setAuth(step) {
+			// see notes below for authentication instructions!
+			var creds = require('../2i studio-fd2ce7d288b9.json');
+			doc.useServiceAccountAuth(creds, step);
+		},
+		function getInfoAndWorksheets(step) {
+			doc.getInfo(function (err, info) {
+				if (info !== undefined) {
+					sheet = info.worksheets[0];
+				}
+				step();
+			});
+		},
+		function workingWithRows(step) {
+			// google provides some query options
+			if (sheet !== undefined) {
+				sheet.getRows({
+					offset: 1
+					// orderby: 'col2'
+				}, async function (err, rows) {
+					if (rows !== undefined && rows !== null) {
+						if (rows.length > 0) {
+							//lấy danh sách học viên mới
+							for (let i = 0; i < rows.length; i++) {
+								console.log(i)
+								rows[i].move = "moved";
+								rows[i].save();
+								setTimeout(() => {
+									auth_model.find({ Username: rows[i].username }, function (err, data) {
+										if (err) {
+											response = { 'error_code': 1, 'message': 'error fetching data !' };
+											console.log('username trùng: ' + rows[i].username);
+										} else {
+											if (data.length > 0) {
+												response = { 'error_code': 2, 'message': 'Username already exists, retry with another Username !' }
+												console.log(rows[i].username + ' ' + response);
+											} else {
+												let dayjoin = dateFormat(new Date(), "dd/mm/yyyy");
+												let _Month = dateFormat(new Date(), "mm");
+												var new_status = {
+													id: 1,
+													name: 'Hoạt động'
+												}
+												let student_in_month = {
+													Total: 0,
+													Waiting: 0,
+													Out: 0,
+													In: 0,
+													InByday: 0,
+													Month: _Month
+												}
+
+												// check role
+												if (parseInt(rows[i].role1) === 0) {
+													Role = [
+														{
+															"name": "Makerting",
+															"id": 2
+														},
+														{
+															"name": "Makerting",
+															"id": 0
+														}
+													]
+												} else {
+													if (parseInt(rows[i].role2) === 1) {
+														Role = [
+															{
+																"name": "Telesale",
+																"id": 1
+															},
+															{
+																"name": "Telesale",
+																"id": 11
+															}
+														]
+													} else {
+														Role = [
+															{
+																"name": "Telesale",
+																"id": 1
+															},
+															{
+																"name": "Telesale",
+																"id": 12
+															}
+														]
+													}
+												}
+
+												// check zone
+												if (parseInt(rows[i].zone) === 0) {
+													Zone = [
+														{
+															"Gtype": [
+																{
+																	"name": "Makerting",
+																	"id": 2
+																}
+															],
+															"name": rows[i].zonename.toString(),
+															"id": rows[i].zoneid
+														}
+													]
+												} else {
+													Zone = [
+														{
+															"Gtype": [
+																{
+																	"name": "Telesale",
+																	"id": 1
+																}
+															],
+															"name": rows[i].zonename.toString(),
+															"id": rows[i].zoneid
+														}
+													]
+												}
+
+												let new_auth = new auth_model({
+													Username: rows[i].username,
+													Password: md5.createHash('md5').update(rows[i].username + '12345678').digest("hex"),
+													Fullname: rows[i].fullname,
+													Email: rows[i].email,
+													Phone: '0' + rows[i].phone,
+													Dayreg: dayjoin,
+													Birthday: rows[i].birthday,
+													Student_in_month: student_in_month,
+													Role: Role,
+													Leader: false,
+													SheetID: null,
+													GroupSheet: null,
+													Zone: Zone,
+													Status_user: new_status,
+													TimeForAdmin: null,
+													Access: null,
+													Inspect: false
+												});
+
+												new_auth.save(function (err) {
+													if (err) {
+														console.log(err);
+													}
+												})
+											}
+										}
+									});
+								}, i * 100)
+							}
+						}
+					}
+					step();
+				});
+			}
+		}
+	], function (err) {
+		if (err) {
+			console.log('Error: ' + err);
+		}
+	});
 }
