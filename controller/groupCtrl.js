@@ -59,10 +59,17 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
                 res.status(200).json(response);
             } else {
+                var lead = null;
+                if(req.body.group.Leader !== null){
+                    if(req.body.group.Leader[0] !== null){
+                        lead = req.body.group.Leader;
+                    }
+                }
                 data.Name = req.body.group.Name;
                 data.Gtype = req.body.group.Gtype;
                 data.Sheet = req.body.group.Sheet;
-                data.Leader = req.body.group.Leader;
+                
+                data.Leader = lead;
                 data.Tele = req.body.group.Tele;
                 data.save(function (err) {
                     if (err) {
