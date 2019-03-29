@@ -1,4 +1,5 @@
-var express = require('express'), http = require('http');
+var express = require('express'),
+	http = require('http');
 var sas = express();
 var bodyParser = require('body-parser');
 port = process.env.port || 191;
@@ -8,8 +9,8 @@ var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
 
 sas.use(bodyParser.urlencoded({
-		extended: true
-	}));
+	extended: true
+}));
 sas.use(bodyParser.json());
 sas.use(express.static('./node_modules/socket.io-client/dist/'));
 
@@ -37,7 +38,7 @@ sas.use(function (req, res, next) {
 })
 
 //get model
-var student_model = require('./model/autoSheet');
+var student_model = require('./public/model/autoSheet');
 
 /*
 schedule function
@@ -120,15 +121,14 @@ io.on('connection', function (socket) {
 						socket.broadcast.emit('mkduplicate', list_duplicate);
 						data.forEach(element => {
 							let _dup = [{
-									alert: true,
-									pretime: element.Duplicate[0].pretime,
-									msheetid: element.Duplicate[0].msheetid,
-									prename: element.Duplicate[0].prename,
-									preid: element.Duplicate[0].preid,
-									premid: element.Duplicate[0].premid,
-									premname: element.Duplicate[0].premname
-								}
-							]
+								alert: true,
+								pretime: element.Duplicate[0].pretime,
+								msheetid: element.Duplicate[0].msheetid,
+								prename: element.Duplicate[0].prename,
+								preid: element.Duplicate[0].preid,
+								premid: element.Duplicate[0].premid,
+								premname: element.Duplicate[0].premname
+							}]
 							element.Duplicate = _dup;
 							element.save(function (err) {
 								if (err) {
@@ -145,10 +145,10 @@ io.on('connection', function (socket) {
 });
 
 //-- Controller --//
-var AutoSheetCtrl = require('./controller/autoSheetCtrl');
-var AuthCtrl = require('./controller/authCtrl');
-var StudentCtrl = require('./controller/studentCtrl');
-var GroupCtrl = require('./controller/groupCtrl');
+var AutoSheetCtrl = require('./public/controller/autoSheetCtrl');
+var AuthCtrl = require('./public/controller/authCtrl');
+var StudentCtrl = require('./public/controller/studentCtrl');
+var GroupCtrl = require('./public/controller/groupCtrl');
 
 //-- Api --//
 
