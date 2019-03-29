@@ -4,7 +4,8 @@ var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
 var mongoose = require('mongoose');
 
-var express = require('express'), http = require('http');
+var express = require('express'),
+	http = require('http');
 var sas = express();
 var http = http.Server(sas);
 var io = require('socket.io')(http);
@@ -641,7 +642,7 @@ function CheckStudentIn() {
 							}
 
 							data[i].Student_in_month = [_tmp]
-							data[i].save(function (err) { })
+							data[i].save(function (err) {})
 						}
 					})
 
@@ -686,7 +687,7 @@ function CheckStudentInByday(last_day) {
 							}
 
 							data[i].Student_in_month = [_tmp]
-							data[i].save(function (err) { })
+							data[i].save(function (err) {})
 						}
 					})
 
@@ -818,19 +819,19 @@ function getSheet5(list, user) {
 
 									if (u <= Math.ceil(user)) {
 										setTimeout(function () {
-											rows[i].move = "moved";
-											rows[i].save();
-											get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
-										}, 1000 * i)
-										++u
+												rows[i].move = "moved";
+												rows[i].save();
+												get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, 0);
+											}, 1000 * i)
+											++u
 									} else if ((user * 2) > u && u < user) {
 										index = Math.random() * (user - 0) + 0;
 										setTimeout(function () {
-											rows[i].move = "moved";
-											rows[i].save();
-											get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
-										}, 1000 * i)
-										++u;
+												rows[i].move = "moved";
+												rows[i].save();
+												get_list_tele_for_st(rows[i], _id.toString(), list.sheet, list.mid, list.mname, index);
+											}, 1000 * i)
+											++u;
 									} else {
 										setTimeout(function () {
 											rows[i].move = "moved";
@@ -2020,8 +2021,7 @@ function insertOldStudent(stude) {
 			Name: stude.trungtamname,
 			Id: stude.trungtamid_2,
 			Info: stude.trungtaminfo
-		}
-		]
+		}]
 	}
 
 	var goilai = false;
@@ -2199,8 +2199,7 @@ function insertOldStudent(stude) {
 		timeRecal = [{
 			day: stude.ngaygoilai,
 			time: [giogoilai]
-		}
-		]
+		}]
 	}
 
 	let trungdata = null;
@@ -2484,13 +2483,21 @@ function insertUser(idSheet) {
 								rows[i].move = "moved";
 								rows[i].save();
 								setTimeout(() => {
-									auth_model.find({ Username: rows[i].username }, function (err, data) {
+									auth_model.find({
+										Username: rows[i].username
+									}, function (err, data) {
 										if (err) {
-											response = { 'error_code': 1, 'message': 'error fetching data !' };
+											response = {
+												'error_code': 1,
+												'message': 'error fetching data !'
+											};
 											console.log('username trùng: ' + rows[i].username);
 										} else {
 											if (data.length > 0) {
-												response = { 'error_code': 2, 'message': 'Username already exists, retry with another Username !' }
+												response = {
+													'error_code': 2,
+													'message': 'Username already exists, retry with another Username !'
+												}
 												console.log(rows[i].username + ' ' + response);
 											} else {
 												let dayjoin = dateFormat(new Date(), "dd/mm/yyyy");
@@ -2510,8 +2517,7 @@ function insertUser(idSheet) {
 
 												// check role
 												if (parseInt(rows[i].role1) === 0) {
-													Role = [
-														{
+													Role = [{
 															"name": "Makerting",
 															"id": 2
 														},
@@ -2522,8 +2528,7 @@ function insertUser(idSheet) {
 													]
 												} else {
 													if (parseInt(rows[i].role2) === 1) {
-														Role = [
-															{
+														Role = [{
 																"name": "Telesale",
 																"id": 1
 															},
@@ -2533,8 +2538,7 @@ function insertUser(idSheet) {
 															}
 														]
 													} else {
-														Role = [
-															{
+														Role = [{
 																"name": "Telesale",
 																"id": 1
 															},
@@ -2548,31 +2552,23 @@ function insertUser(idSheet) {
 
 												// check zone
 												if (parseInt(rows[i].zone) === 0) {
-													Zone = [
-														{
-															"Gtype": [
-																{
-																	"name": "Makerting",
-																	"id": 2
-																}
-															],
-															"name": rows[i].zonename.toString(),
-															"id": rows[i].zoneid
-														}
-													]
+													Zone = [{
+														"Gtype": [{
+															"name": "Makerting",
+															"id": 2
+														}],
+														"name": rows[i].zonename.toString(),
+														"id": rows[i].zoneid
+													}]
 												} else {
-													Zone = [
-														{
-															"Gtype": [
-																{
-																	"name": "Telesale",
-																	"id": 1
-																}
-															],
-															"name": rows[i].zonename.toString(),
-															"id": rows[i].zoneid
-														}
-													]
+													Zone = [{
+														"Gtype": [{
+															"name": "Telesale",
+															"id": 1
+														}],
+														"name": rows[i].zonename.toString(),
+														"id": rows[i].zoneid
+													}]
 												}
 
 												let new_auth = new auth_model({
